@@ -86,10 +86,10 @@ int main(int argc,char** argv)
   DetectorConstruction* detConstruction = new DetectorConstruction();
   runManager->SetUserInitialization(detConstruction);
 
-  //G4VModularPhysicsList* physicsList = new FTFP_BERT;
+  G4VModularPhysicsList* physicsList = new FTFP_BERT;
 
-  G4PhysListFactory factory;
-  G4VModularPhysicsList*  physicsList = factory.GetReferencePhysList("FTFP_BERT_LIV");
+  //G4PhysListFactory factory;
+  //G4VModularPhysicsList*  physicsList = factory.GetReferencePhysList("FTFP_BERT_LIV");
 
   //G4VModularPhysicsList*  physicsList = new G4EmLivermorePhysics;
   runManager->SetUserInitialization(physicsList);

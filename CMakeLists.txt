@@ -51,6 +51,7 @@ set(G4Horus_SCRIPTS
   icons.mac
   gui.mac
   run.png
+  doit.mac
   )
 
 foreach(_script ${G4Horus_SCRIPTS})
