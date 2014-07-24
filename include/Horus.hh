@@ -4,6 +4,7 @@
 #include "G4SystemOfUnits.hh"
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
+#include "globals.hh"
 
 #include <string>
 #include <unordered_map>

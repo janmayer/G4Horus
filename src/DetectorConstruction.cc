@@ -25,10 +25,9 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-DetectorConstruction::DetectorConstruction()
- : G4VUserDetectorConstruction(),
-   fCheckOverlaps(true)
+DetectorConstruction::DetectorConstruction() : G4VUserDetectorConstruction()
 {
+  fCheckOverlaps = true;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -41,10 +40,7 @@ DetectorConstruction::~DetectorConstruction()
 
 G4VPhysicalVolume* DetectorConstruction::Construct()
 {
-  // Define materials
   DefineMaterials();
-
-  // Define volumes
   return DefineVolumes();
 }
 
@@ -101,66 +97,14 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 
 void DetectorConstruction::ConstructSDandField()
 {
+  std::vector<std::string> detectors = {"Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"};
 
-  for(int i=0; i<=13; i++){
-    std::stringstream position;
-    position << "Ge" << std::setw(2) << std::setfill('0') << i;
-    G4MultiFunctionalDetector* cryst = new G4MultiFunctionalDetector(position.str());
+  for( auto &det : detectors ) {
+    G4MultiFunctionalDetector* cryst = new G4MultiFunctionalDetector(det);
     G4VPrimitiveScorer* primitiv = new G4PSEnergyDeposit("edep");
     cryst->RegisterPrimitive(primitiv);
-    SetSensitiveDetector("HPGe_" + position.str() + "_Kristall_Logical",cryst);
+    SetSensitiveDetector("HPGe_" + det + "_Kristall_Logical",cryst);
   }
-
-
- /* G4SDManager::GetSDMpointer()->SetVerboseLevel(1);
-  //
-  // Scorers
-  //
-
-
-  // declare Absorber as a MultiFunctionalDetector scorer
-  //
-  //G4MultiFunctionalDetector* absDetector
-  //  = new G4MultiFunctionalDetector("Absorber");
-
-  G4VPrimitiveScorer* primitive;
-  //primitive = new G4PSEnergyDeposit("Edep");
-  //absDetector->RegisterPrimitive(primitive);
-
-  //primitive = new G4PSTrackLength("TrackLength");
-  //G4SDChargedFilter* charged = new G4SDChargedFilter("chargedFilter");
-  //primitive ->SetFilter(charged);
-  //absDetector->RegisterPrimitive(primitive);
-
-  //SetSensitiveDetector("Filter_Logical",absDetector);
-
-  // declare Gap as a MultiFunctionalDetector scorer
-  //
-  G4MultiFunctionalDetector* gapDetector
-    = new G4MultiFunctionalDetector("Gap");
-
-  //G4VPrimitiveScorer* primitive;
-  primitive = new G4PSEnergyDeposit("Edep");
-  gapDetector->RegisterPrimitive(primitive);
-
-  //primitive = new G4PSTrackLength("TrackLength");
-  //primitive ->SetFilter(charged);
-  //gapDetector->RegisterPrimitive(primitive);
-
-  SetSensitiveDetector("HPGe_Ge00_Kristall_Logical",gapDetector);
-
-  //
-  // Magnetic field
-  //
-  // Create global magnetic field messenger.
-  // Uniform magnetic field is then created automatically if
-  // the field value is not zero.
-  //G4ThreeVector fieldValue = G4ThreeVector();
-  //fMagFieldMessenger = new G4GlobalMagFieldMessenger(fieldValue);
-  //fMagFieldMessenger->SetVerboseLevel(1);
-
-  // Register the field messenger for deleting
-  //G4AutoDelete::Register(fMagFieldMessenger);*/
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

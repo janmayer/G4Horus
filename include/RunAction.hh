@@ -1,8 +1,8 @@
-#ifndef RunAction_h
-#define RunAction_h 1
+#ifndef RUNACTION_H
+#define RUNACTION_H
 
-#include "G4UserRunAction.hh"
 #include "globals.hh"
+#include "G4UserRunAction.hh"
 
 class G4Run;
 
@@ -16,5 +16,4 @@ class RunAction : public G4UserRunAction
     virtual void   EndOfRunAction(const G4Run*);
 };
 
-#endif
-
+#endif //RUNACTION_H

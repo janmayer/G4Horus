@@ -1,9 +1,8 @@
 #ifndef DETECTORCONSTRUCTION_HH
 #define DETECTORCONSTRUCTION_HH
 
-#include "G4VUserDetectorConstruction.hh"
 #include "globals.hh"
-
+#include "G4VUserDetectorConstruction.hh"
 
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
@@ -11,7 +10,6 @@ class DetectorConstruction : public G4VUserDetectorConstruction
     DetectorConstruction();
     virtual ~DetectorConstruction();
 
-  public:
     virtual G4VPhysicalVolume* Construct();
     virtual void ConstructSDandField();
 
@@ -21,6 +19,5 @@ class DetectorConstruction : public G4VUserDetectorConstruction
 
     G4bool  fCheckOverlaps;
 };
-
 
 #endif //DETECTORCONSTRUCTION_HH

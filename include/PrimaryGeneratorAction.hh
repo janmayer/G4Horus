@@ -1,8 +1,8 @@
 #ifndef PRIMARYGENERATORACTION_HH
 #define PRIMARYGENERATORACTION_HH
 
-#include "G4VUserPrimaryGeneratorAction.hh"
 #include "globals.hh"
+#include "G4VUserPrimaryGeneratorAction.hh"
 
 class G4ParticleGun;
 class G4Event;
@@ -14,7 +14,6 @@ public:
   virtual ~PrimaryGeneratorAction();
 
   virtual void GeneratePrimaries(G4Event* event);
-
   void SetRandomFlag(G4bool value);
 
 private:
