@@ -103,7 +103,7 @@ void DetectorConstruction::ConstructSDandField()
     G4MultiFunctionalDetector* cryst = new G4MultiFunctionalDetector(det);
     G4VPrimitiveScorer* primitiv = new G4PSEnergyDeposit("edep");
     cryst->RegisterPrimitive(primitiv);
-    SetSensitiveDetector("HPGe_" + det + "_Kristall_Logical",cryst);
+    SetSensitiveDetector("HPGe_" + det + "_crystal_logical",cryst);
   }
 }
 

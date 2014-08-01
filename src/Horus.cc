@@ -48,10 +48,23 @@ void Horus::PlaceHPGe(std::string id, std::string position, G4double distance){
 
 
   // Detectors
-  //auto thedet = new HPGe::Coaxial(position, false, 2.*mm);
-  HPGe::Coaxial::_spec spec;
-  spec.name = position;
-  spec.filter_thickness = 2.*mm;
+  auto spec = new HPGe::Coaxial::_spec;
+  spec->name = position;
+  spec->bgo = false;
+  spec->filter_thickness = 2.*mm;
+
+  spec->crystal.diameter = 74.*mm;
+  spec->crystal.length   = 72.*mm;
+  //spec->crystal.dead_layer = 1.*um;
+  spec->crystal.volume   = 304.*cm3;
+  spec->crystal.hole_diameter = 5.8*mm * 2.;
+  spec->crystal.hole_length   = 52.*mm;
+
+  spec->hull.padding   = 3.*mm;
+  spec->hull.thickness = 1.*mm;
+  spec->hull.length    = 16.*cm;
+
+
   auto thedet = new HPGe::Coaxial(spec);
   G4LogicalVolume* HPGeLV = thedet->GetLogical();
 

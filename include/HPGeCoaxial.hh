@@ -14,6 +14,8 @@ namespace HPGe
 			G4double length;
 			G4double dead_layer;
 			G4double volume;
+			G4double hole_diameter;
+			G4double hole_length;
 		};
 
 		struct _hull
@@ -30,19 +32,20 @@ namespace HPGe
 			struct _hull hull;
 			G4double filter_thickness;
 			G4bool bgo;
+
 		};
 
 	public:
-	  //Coaxial(std::string DetectorName, G4bool BGO_is_Used, G4double Filter_Dicke);
-	  Coaxial(const _spec spec);
-  	~Coaxial();
+		Coaxial(const _spec *spec);
+	  	~Coaxial();
 
-  	G4LogicalVolume* GetLogical() { return HPGeCoaxial_Logical; }
-  	G4double GetLength(){ return gesammt_laenge; }
+  		G4LogicalVolume* GetLogical() { return detector_logical; }
+  		G4double GetLength(){ return full_length; }
 
 	private:
-  	G4LogicalVolume* HPGeCoaxial_Logical;
-  	G4double gesammt_laenge;
+  		G4LogicalVolume* detector_logical;
+  		G4double full_length;
+  		const static G4double MAX_VOLUME_DIFFERENCE;
 	};
 
 } //namespace HPGe
