@@ -1,10 +1,10 @@
 #ifndef HORUS_HH
 #define HORUS_HH
 
+#include "globals.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
-#include "globals.hh"
 
 #include <string>
 #include <unordered_map>

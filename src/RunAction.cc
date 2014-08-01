@@ -19,7 +19,7 @@ RunAction::RunAction() : G4UserRunAction()
 
   analysisManager->SetHistoDirectoryName("histograms");
   analysisManager->SetNtupleDirectoryName("ntuple");
-  analysisManager->SetVerboseLevel(1);
+  analysisManager->SetVerboseLevel(0);
 
   analysisManager->CreateNtuple("Horus", "Edep");
   for( auto &det : detectors ) {

@@ -11,9 +11,9 @@
 #include "G4UIcommand.hh"
 
 #include "G4VModularPhysicsList.hh"
-#include "G4PhysListFactory.hh"
+//#include "G4PhysListFactory.hh"
 #include "FTFP_BERT.hh"
-#include "G4EmLivermorePhysics.hh"
+//#include "G4EmLivermorePhysics.hh"
 
 #include "Randomize.hh"
 
@@ -81,25 +81,15 @@ int main(int argc,char** argv)
   G4RunManager * runManager = new G4RunManager;
 #endif
 
-  // Set mandatory initialization classes
-  //
   DetectorConstruction* detConstruction = new DetectorConstruction();
   runManager->SetUserInitialization(detConstruction);
 
-  G4VModularPhysicsList* physicsList = new FTFP_BERT;
-
-  //G4PhysListFactory factory;
-  //G4VModularPhysicsList*  physicsList = factory.GetReferencePhysList("FTFP_BERT_LIV");
-
-  //G4VModularPhysicsList*  physicsList = new G4EmLivermorePhysics;
+  G4VModularPhysicsList* physicsList = new FTFP_BERT();
   runManager->SetUserInitialization(physicsList);
 
-  ActionInitialization* actionInitialization
-     = new ActionInitialization();
+  ActionInitialization* actionInitialization = new ActionInitialization();
   runManager->SetUserInitialization(actionInitialization);
 
-  // Initialize G4 kernel
-  //
   runManager->Initialize();
 
 #ifdef G4VIS_USE
@@ -112,7 +102,6 @@ int main(int argc,char** argv)
 
   // Get the pointer to the User Interface manager
   G4UImanager* UImanager = G4UImanager::GetUIpointer();
-
   if ( macro.size() ) {
     // batch mode
     G4String command = "/control/execute ";

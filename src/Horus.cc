@@ -1,7 +1,7 @@
 #include "Horus.hh"
 
 //#include "HPGe_Hex.hh"
-#include "HPGe_73954.hh"
+#include "HPGeCoaxial.hh"
 
 #include "G4MultiFunctionalDetector.hh"
 #include "G4VPrimitiveScorer.hh"
@@ -48,7 +48,11 @@ void Horus::PlaceHPGe(std::string id, std::string position, G4double distance){
 
 
   // Detectors
-  auto thedet = new HPGe_73954(position, false, 2.*mm);
+  //auto thedet = new HPGe::Coaxial(position, false, 2.*mm);
+  HPGe::Coaxial::_spec spec;
+  spec.name = position;
+  spec.filter_thickness = 2.*mm;
+  auto thedet = new HPGe::Coaxial(spec);
   G4LogicalVolume* HPGeLV = thedet->GetLogical();
 
   // Place Detector
