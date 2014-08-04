@@ -5,6 +5,7 @@
 #include "G4UserRunAction.hh"
 
 class G4Run;
+extern const std::vector<std::string> detectors;
 
 class RunAction : public G4UserRunAction
 {

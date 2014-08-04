@@ -23,6 +23,8 @@
 
 #include "Horus.hh"
 
+extern const std::vector<std::string> detectors = {"Ge00", "Ge01", "Ge02", "Ge03"/*, "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"*/};
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 DetectorConstruction::DetectorConstruction() : G4VUserDetectorConstruction()
@@ -75,11 +77,11 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 
 
   auto horus = new Horus(worldLV);
-  horus->PlaceHPGe("73950","Ge00",10.*cm);
-  horus->PlaceHPGe("73951","Ge01",10.*cm);
-  horus->PlaceHPGe("73952","Ge02",10.*cm);
-  horus->PlaceHPGe("73953","Ge03",10.*cm);
-  horus->PlaceHPGe("73954","Ge04",10.*cm);
+  horus->PlaceHPGe("73954","Ge00",10.*cm);
+  horus->PlaceHPGe("73959","Ge01",10.*cm);
+  horus->PlaceHPGe("37N31120A","Ge02",10.*cm);
+  horus->PlaceHPGe("25N1546B","Ge03",10.*cm);
+/*  horus->PlaceHPGe("73954","Ge04",10.*cm);
   horus->PlaceHPGe("73955","Ge05",10.*cm);
   horus->PlaceHPGe("73956","Ge06",10.*cm);
   horus->PlaceHPGe("73957","Ge07",10.*cm);
@@ -88,7 +90,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
   horus->PlaceHPGe("73910","Ge10",10.*cm);
   horus->PlaceHPGe("73911","Ge11",10.*cm);
   horus->PlaceHPGe("73912","Ge12",10.*cm);
-  horus->PlaceHPGe("73913","Ge13",10.*cm);
+  horus->PlaceHPGe("73913","Ge13",10.*cm);*/
 
   return worldPV;
 }
@@ -97,8 +99,6 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 
 void DetectorConstruction::ConstructSDandField()
 {
-  std::vector<std::string> detectors = {"Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"};
-
   for( auto &det : detectors ) {
     G4MultiFunctionalDetector* cryst = new G4MultiFunctionalDetector(det);
     G4VPrimitiveScorer* primitiv = new G4PSEnergyDeposit("edep");

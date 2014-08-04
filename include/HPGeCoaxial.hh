@@ -27,16 +27,13 @@ namespace HPGe
 
 		struct _spec
 		{
-			std::string name;
+			std::string id;
 			struct _crystal crystal;
 			struct _hull hull;
-			G4double filter_thickness;
-			G4bool bgo;
-
 		};
 
 	public:
-		Coaxial(const _spec *spec);
+		Coaxial(const _spec &spec, const std::string &name, const G4double &filter_thickness);
 	  	~Coaxial();
 
   		G4LogicalVolume* GetLogical() { return detector_logical; }

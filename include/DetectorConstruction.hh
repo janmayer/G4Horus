@@ -4,6 +4,8 @@
 #include "globals.hh"
 #include "G4VUserDetectorConstruction.hh"
 
+extern const std::vector<std::string> detectors;
+
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
   public:

@@ -5,6 +5,8 @@
 #include "G4UserEventAction.hh"
 #include "G4THitsMap.hh"
 
+extern const std::vector<std::string> detectors;
+
 class EventAction : public G4UserEventAction
 {
 public:

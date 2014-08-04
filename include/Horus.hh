@@ -6,6 +6,8 @@
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
 
+#include "HPGeCoaxial.hh"
+
 #include <string>
 #include <unordered_map>
 
@@ -25,9 +27,11 @@ public:
 
 private:
   G4Transform3D* GetTransform(const coordinate &pos, const G4double &distance);
+  HPGe::Coaxial* GetDetector(const std::string &id, const std::string &position);
 
   G4LogicalVolume* MotherLV;
-  static std::unordered_map<std::string,coordinate> positions;
+  static const std::unordered_map<std::string,HPGe::Coaxial::_spec> specifications;
+  static const std::unordered_map<std::string,coordinate> positions;
 
 };
 

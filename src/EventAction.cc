@@ -61,7 +61,6 @@ void EventAction::BeginOfEventAction(const G4Event*)
 void EventAction::EndOfEventAction(const G4Event* event)
 {
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
-  std::vector<std::string> detectors = {"Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"};
   G4double edep;
 
   for( auto &det : detectors ) {
