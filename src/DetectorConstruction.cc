@@ -23,7 +23,7 @@
 
 #include "Horus.hh"
 
-extern const std::vector<std::string> detectors = {"Ge00", "Ge01", "Ge02", "Ge03"/*, "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"*/};
+extern const std::vector<std::string> detectors = {"Ge00"/*, "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"*/};
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -77,20 +77,20 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 
 
   auto horus = new Horus(worldLV);
-  horus->PlaceHPGe("73954","Ge00",10.*cm);
-  horus->PlaceHPGe("73959","Ge01",10.*cm);
-  horus->PlaceHPGe("37N31120A","Ge02",10.*cm);
-  horus->PlaceHPGe("25N1546B","Ge03",10.*cm);
-/*  horus->PlaceHPGe("73954","Ge04",10.*cm);
-  horus->PlaceHPGe("73955","Ge05",10.*cm);
-  horus->PlaceHPGe("73956","Ge06",10.*cm);
-  horus->PlaceHPGe("73957","Ge07",10.*cm);
-  horus->PlaceHPGe("73958","Ge08",10.*cm);
-  horus->PlaceHPGe("73959","Ge09",10.*cm);
-  horus->PlaceHPGe("73910","Ge10",10.*cm);
-  horus->PlaceHPGe("73911","Ge11",10.*cm);
-  horus->PlaceHPGe("73912","Ge12",10.*cm);
-  horus->PlaceHPGe("73913","Ge13",10.*cm);*/
+  horus->PlaceHPGe("72442", "Ge00", 10.*cm);
+  horus->PlaceHPGe("73959", "Ge01", 10.*cm);
+  horus->PlaceHPGe("72341", "Ge02", 10.*cm);
+  horus->PlaceHPGe("72309", "Ge03", 10.*cm);
+  horus->PlaceHPGe("73954", "Ge04", 10.*cm);
+  horus->PlaceHPGe("72980", "Ge05", 10.*cm);
+  horus->PlaceHPGe("73002", "Ge06", 10.*cm);
+  horus->PlaceHPGe("73209", "Ge07", 10.*cm);
+  horus->PlaceHPGe("73211", "Ge08", 10.*cm);
+  horus->PlaceHPGe("72827", "Ge09", 10.*cm);
+  horus->PlaceHPGe("72812", "Ge10", 10.*cm);
+  horus->PlaceHPGe("72811", "Ge11", 10.*cm);
+  horus->PlaceHPGe("72802", "Ge12", 10.*cm);
+  horus->PlaceHPGe("72397", "Ge13", 10.*cm);
 
   return worldPV;
 }
