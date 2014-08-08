@@ -23,6 +23,7 @@
 
 #include "Horus.hh"
 #include "BGO.hh"
+#include "AstroTargetkammer.hh"
 
 extern const std::vector<std::string> detectors = {/*"Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"*/};
 
@@ -56,14 +57,23 @@ void DetectorConstruction::DefineMaterials()
   nistManager->FindOrBuildMaterial("G4_Cu");
   nistManager->FindOrBuildMaterial("G4_Al");
   nistManager->FindOrBuildMaterial("G4_Ge");
+  nistManager->FindOrBuildMaterial("G4_Ta");
 
   G4Element*  O = nistManager->FindOrBuildElement("O");
   G4Element* Bi = nistManager->FindOrBuildElement("Bi");
   G4Element* Ge = nistManager->FindOrBuildElement("Ge");
+  G4Element*  C = nistManager->FindOrBuildElement("C");
+  G4Element*  H = nistManager->FindOrBuildElement("H");
+
   G4Material* BGO_Material = new G4Material("BGO", 7.13*g/cm3, 3);
   BGO_Material->AddElement(O,12);
   BGO_Material->AddElement(Bi,4);
   BGO_Material->AddElement(Ge,3);
+
+  G4Material* PET = new G4Material("PET", 1.4*g/cm3, 3);
+  PET->AddElement(C,10);
+  PET->AddElement(O,3);
+  PET->AddElement(H,8);
 
 
   new G4Material("Galactic", 1, 1.01*g/mole, universe_mean_density, kStateGas, 2.73*kelvin, 3.e-18*pascal);
@@ -102,6 +112,8 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
   horus->PlaceHPGe("72811", "Ge11", 10.5*cm, 1.*mm);
   horus->PlaceHPGe("72802", "Ge12", 14.*cm, 2.*mm);
   horus->PlaceHPGe("72397", "Ge13", 12.5*cm, 2.*mm);
+
+  new AstroTargetkammer(worldLV);
 
   return worldPV;
 }
