@@ -2,7 +2,6 @@
 #define HPGEHEXAGONAL_HH
 
 #include "HPGe.hh"
-#include "G4LogicalVolume.hh"
 
 namespace HPGe
 {

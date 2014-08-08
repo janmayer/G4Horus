@@ -22,8 +22,9 @@
 #include "G4SystemOfUnits.hh"
 
 #include "Horus.hh"
+#include "BGO.hh"
 
-extern const std::vector<std::string> detectors = {"Ge00"/*, "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"*/};
+extern const std::vector<std::string> detectors = {/*"Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"*/};
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -56,6 +57,15 @@ void DetectorConstruction::DefineMaterials()
   nistManager->FindOrBuildMaterial("G4_Al");
   nistManager->FindOrBuildMaterial("G4_Ge");
 
+  G4Element*  O = nistManager->FindOrBuildElement("O");
+  G4Element* Bi = nistManager->FindOrBuildElement("Bi");
+  G4Element* Ge = nistManager->FindOrBuildElement("Ge");
+  G4Material* BGO_Material = new G4Material("BGO", 7.13*g/cm3, 3);
+  BGO_Material->AddElement(O,12);
+  BGO_Material->AddElement(Bi,4);
+  BGO_Material->AddElement(Ge,3);
+
+
   new G4Material("Galactic", 1, 1.01*g/mole, universe_mean_density, kStateGas, 2.73*kelvin, 3.e-18*pascal);
   new G4Material("Nothing", 1, 0, universe_mean_density, kStateUndefined, 0, 0);
 
@@ -77,20 +87,21 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 
 
   auto horus = new Horus(worldLV);
-  horus->PlaceHPGe("72442", "Ge00", 10.*cm);
-  horus->PlaceHPGe("73959", "Ge01", 10.*cm);
-  horus->PlaceHPGe("72341", "Ge02", 10.*cm);
-  horus->PlaceHPGe("72309", "Ge03", 10.*cm);
-  horus->PlaceHPGe("73954", "Ge04", 10.*cm);
-  horus->PlaceHPGe("72980", "Ge05", 10.*cm);
-  horus->PlaceHPGe("73002", "Ge06", 10.*cm);
-  horus->PlaceHPGe("73209", "Ge07", 10.*cm);
-  horus->PlaceHPGe("73211", "Ge08", 10.*cm);
-  horus->PlaceHPGe("72827", "Ge09", 10.*cm);
-  horus->PlaceHPGe("72812", "Ge10", 10.*cm);
-  horus->PlaceHPGe("72811", "Ge11", 10.*cm);
-  horus->PlaceHPGe("72802", "Ge12", 10.*cm);
-  horus->PlaceHPGe("72397", "Ge13", 10.*cm);
+  // ID, Position, Distance to endcap / filter, BGO
+  horus->PlaceHPGe("72442", "Ge00", 13.*cm, 2.*mm, true);
+  horus->PlaceHPGe("73959", "Ge01", 10.*cm, 2.*mm);
+  horus->PlaceHPGe("72341", "Ge02", 18.5*cm, 2.*mm, true);
+  horus->PlaceHPGe("72309", "Ge03", 13.5*cm, 2.*mm, true);
+  horus->PlaceHPGe("73954", "Ge04", 8.5*cm, 2.*mm);
+  horus->PlaceHPGe("72980", "Ge05", 9.5*cm, 2.*mm);
+  //horus->PlaceHPGe("73002", "Ge06", 10.*cm);
+  horus->PlaceHPGe("73209", "Ge07", 18.*cm, 2.*mm, true);
+  horus->PlaceHPGe("73211", "Ge08", 17.*cm, 2.*mm, true);
+  horus->PlaceHPGe("72827", "Ge09", 16.*cm, 2.*mm, true);
+  horus->PlaceHPGe("72812", "Ge10", 12.3*cm, 2.*mm);
+  horus->PlaceHPGe("72811", "Ge11", 10.5*cm, 1.*mm);
+  horus->PlaceHPGe("72802", "Ge12", 14.*cm, 2.*mm);
+  horus->PlaceHPGe("72397", "Ge13", 12.5*cm, 2.*mm);
 
   return worldPV;
 }

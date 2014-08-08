@@ -1,5 +1,7 @@
 #include "Horus.hh"
 
+#include "BGO.hh"
+
 #include "G4MultiFunctionalDetector.hh"
 #include "G4VPrimitiveScorer.hh"
 #include "G4PSEnergyDeposit.hh"
@@ -173,7 +175,7 @@ Horus::~Horus()
 {}
 
 
-void Horus::PlaceHPGe(std::string id, std::string position, G4double distance){
+void Horus::PlaceHPGe(std::string id, std::string position, G4double distance, G4double filter, G4bool BGO_installed){
 
 	// Find position
   auto _pos = positions.find(position);
@@ -182,7 +184,7 @@ void Horus::PlaceHPGe(std::string id, std::string position, G4double distance){
   }
   const coordinate pos = _pos->second;
 
-  auto thedet = GetDetector(id, position);
+  auto thedet = GetDetector(id, position, filter);
 
   // Place Detector
   new G4PVPlacement(  *GetTransform(pos, distance + thedet->GetLength()/2 ), // position and rotation, distance is to front of detector, but to center is expected
@@ -192,6 +194,19 @@ void Horus::PlaceHPGe(std::string id, std::string position, G4double distance){
                       false, // no boolean operation
                       0, // copy number
                       true); // checking overlaps
+
+
+  if(BGO_installed){
+    auto thebgo = new BGO("meh");
+    new G4PVPlacement(  *GetTransform(pos, distance + thebgo->GetLength()/2 - thebgo->GetOverlapLength() ), // position and rotation, distance is to front of detector, but to center is expected
+                        thebgo->GetLogical(), // its logical volume
+                        id, // its name
+                        MotherLV,  // its mother  volume
+                        false, // no boolean operation
+                        0, // copy number
+                        true); // checking overlaps
+  }
+
 
 }
 
@@ -210,7 +225,7 @@ G4Transform3D* Horus::GetTransform(const coordinate &pos, const G4double &distan
 }
 
 
-HPGe::HPGe* Horus::GetDetector(const std::string &id, const std::string &position)
+HPGe::HPGe* Horus::GetDetector(const std::string &id, const std::string &position, const G4double filter)
 {
   // Find spec
   auto _s = specifications.find(id);
@@ -223,10 +238,10 @@ HPGe::HPGe* Horus::GetDetector(const std::string &id, const std::string &positio
   switch (spec.type)
   {
     case HPGe::tCOAXIAL:
-      thedet = new HPGe::Coaxial(spec, position, 2.*mm);
+      thedet = new HPGe::Coaxial(spec, position, filter);
       break;
     case HPGe::tHEXAGONAL:
-      thedet = new HPGe::Hexagonal(spec, position, 2.*mm);
+      thedet = new HPGe::Hexagonal(spec, position, filter);
       break;
     default:
       G4Exception("Horus::GetDetector", "Unknown detector type", FatalException, ("Detector " + id + " has an unknown type.").c_str() );
