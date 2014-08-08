@@ -213,12 +213,12 @@ void Horus::PlaceHPGe(std::string id, std::string position, G4double distance, G
 
 G4Transform3D* Horus::GetTransform(const coordinate &pos, const G4double &distance)
 {
-	G4ThreeVector* moveto = new G4ThreeVector(); moveto->setRThetaPhi(distance, pos.theta, pos.phi);
+	G4ThreeVector* moveto = new G4ThreeVector(); moveto->setRThetaPhi(distance, -pos.theta, pos.phi);
 
   // TODO: There should be an easier way to do this
-  G4ThreeVector* nx = new G4ThreeVector(); nx->setRThetaPhi(1, pos.theta+90.*deg, pos.phi); nx->unit();
-  G4ThreeVector* ny = new G4ThreeVector(); ny->setRThetaPhi(1, pos.theta+90.*deg, pos.phi+90.*deg); ny->unit();
-  G4ThreeVector* nz = new G4ThreeVector(); nz->setRThetaPhi(1, pos.theta, pos.phi); nz->unit();
+  G4ThreeVector* nx = new G4ThreeVector(); nx->setRThetaPhi(1, -pos.theta+90.*deg, pos.phi); nx->unit();
+  G4ThreeVector* ny = new G4ThreeVector(); ny->setRThetaPhi(1, -pos.theta+90.*deg, pos.phi+90.*deg); ny->unit();
+  G4ThreeVector* nz = new G4ThreeVector(); nz->setRThetaPhi(1, -pos.theta, pos.phi); nz->unit();
   G4RotationMatrix* rm = new G4RotationMatrix(*nx,*ny,*nz);
 
   return new G4Transform3D(*rm,*moveto);
