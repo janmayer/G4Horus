@@ -27,7 +27,7 @@ AstroTargetkammer::AstroTargetkammer(G4LogicalVolume* expHall_log)
   //G4Material* Vacuum = G4Material::GetMaterial("Galactic");
   G4Material* Aluminium = G4Material::GetMaterial("G4_Al");
   //G4Material* Germanium = G4Material::GetMaterial("G4_Ge");
-  G4Material* Blei = G4Material::GetMaterial("G4_Pb");
+  //G4Material* Blei = G4Material::GetMaterial("G4_Pb");
   G4Material* Tantalum = G4Material::GetMaterial("G4_Ta");
   G4Material* PET = G4Material::GetMaterial("PET");
 
@@ -305,7 +305,7 @@ G4Tubs* Target_Pipe_Coating_Sub_Solid = new G4Tubs("Target_Pipe_Coating_Sub_Soli
 							   RBS_Pipe_Coating_rm,
 							   RBS_Pipe_Coating_Vector);
 
-  G4LogicalVolume* Chamber_Coating_Corpus_Logical = new G4LogicalVolume(Chamber_Coating_Corpus_Solid_1,
+  G4LogicalVolume* Chamber_Coating_Corpus_Logical = new G4LogicalVolume(Chamber_Coating_Corpus_Solid_5,
 							      Tantalum,
 							      "Chamber_Coating_Corpus_Logical",
 							      0, 0, 0);
@@ -511,7 +511,7 @@ G4Tubs* Pipe_Bottom_Solid = new G4Tubs("Pipe_Bottom_Solid",
   G4double RBS_Housing_Radius = 16.5*mm;
   G4double RBS_Housing_Thickness = 6.*mm;
   G4double RBS_Housing_Length = 150.*mm;
-  G4double RBS_Housing_Angle = RBS_Pipe_Angle;
+  //G4double RBS_Housing_Angle = RBS_Pipe_Angle;
   G4double RBS_Housing_z = RBS_Housing_Length/2+RBS_Pipe_z+RBS_Pipe_Length/2;
 
   G4Tubs* RBS_Housing_Solid = new G4Tubs("RBS_Housing_Solid",

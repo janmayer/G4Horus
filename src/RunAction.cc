@@ -21,7 +21,7 @@ RunAction::RunAction() : G4UserRunAction()
 
   analysisManager->CreateNtuple("Horus", "Edep");
   for( auto &det : detectors ) {
-    analysisManager->CreateH1( det, "Edep in " + det, 1000, 0., 10.*MeV);
+    analysisManager->CreateH1( det, "Edep in " + det, 10000, 0., 10.*MeV); // 1keV/Bin
     analysisManager->CreateNtupleDColumn(det);
   }
   analysisManager->FinishNtuple();

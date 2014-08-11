@@ -96,7 +96,7 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
   capsule_logical->SetVisAttributes(hull_vis);
   G4RotationMatrix *rm = new G4RotationMatrix;
   rm->rotateX(180.*deg);
-  new G4PVPlacement(rm, G4ThreeVector(0,0,-(full_length/2 - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_length / 2)), capsule_logical, "Kapsel", detector_logical, false, 0);
+  new G4PVPlacement(rm, G4ThreeVector(0,0,-(full_length/2 - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_length/2)), capsule_logical, "Kapsel", detector_logical, false, 0);
 
   // Germanium crystal
   G4Tubs*      crystal_solid_tubs = new G4Tubs("HPGe_" + name + "_crystal_solid_tubs", 0.*cm, crystal_intersection_radius, spec.crystal.length/2., 0.*deg, 360.*deg);
@@ -106,7 +106,7 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
   G4VisAttributes* crystal_vis = new G4VisAttributes(G4Color(0,0.5,1));
   crystal_vis->SetForceSolid(true);
   crystal_logical->SetVisAttributes(crystal_vis);
-  new G4PVPlacement(0, G4ThreeVector(0,0,capsule_inner_length[0]-spec.crystal.length/2-capsule_padding), crystal_logical, "HPGe_" + name + "_crystal", capsule_logical, false, 0);
+  new G4PVPlacement(rm, G4ThreeVector(0,0,-(full_length/2 - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.length/2)), crystal_logical, "HPGe_" + name + "_crystal", detector_logical, false, 0);
 
   G4cout << "Id: " << spec.id << " - crystal volume: " << crystal_solid->GetCubicVolume()/cm3 << "cm3 = " << crystal_solid->GetCubicVolume()*crystal_material->GetDensity()/g << "g" << G4endl;
   G4cout << "Id: " << spec.id << " - expected volume: " << spec.crystal.volume/cm3 << "cm3 = " << spec.crystal.volume*crystal_material->GetDensity()/g << "g" << G4endl;

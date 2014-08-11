@@ -6,8 +6,8 @@
 class AstroTargetkammer
 {
 public:
-	AstroTargetkammer(G4LogicalVolume* expHall_log);
-  	~AstroTargetkammer();
+  AstroTargetkammer(G4LogicalVolume* expHall_log);
+  ~AstroTargetkammer();
 };
 
 #endif //ASTROTARGETKAMMER_HH

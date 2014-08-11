@@ -6,17 +6,13 @@
 #include "G4Box.hh"
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
-#include "G4PVReplica.hh"
 
 #include "G4SDManager.hh"
-#include "G4SDChargedFilter.hh"
 #include "G4MultiFunctionalDetector.hh"
 #include "G4VPrimitiveScorer.hh"
 #include "G4PSEnergyDeposit.hh"
-#include "G4PSTrackLength.hh"
 
 #include "G4VisAttributes.hh"
-#include "G4Colour.hh"
 
 #include "G4PhysicalConstants.hh"
 #include "G4SystemOfUnits.hh"
@@ -25,7 +21,7 @@
 #include "BGO.hh"
 #include "AstroTargetkammer.hh"
 
-extern const std::vector<std::string> detectors = {/*"Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"*/};
+extern const std::vector<std::string> detectors = {"Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", /*"Ge06",*/ "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"};
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -37,8 +33,7 @@ DetectorConstruction::DetectorConstruction() : G4VUserDetectorConstruction()
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 DetectorConstruction::~DetectorConstruction()
-{
-}
+{}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -75,7 +70,6 @@ void DetectorConstruction::DefineMaterials()
   PET->AddElement(O,3);
   PET->AddElement(H,8);
 
-
   new G4Material("Galactic", 1, 1.01*g/mole, universe_mean_density, kStateGas, 2.73*kelvin, 3.e-18*pascal);
   new G4Material("Nothing", 1, 0, universe_mean_density, kStateUndefined, 0, 0);
 
@@ -97,7 +91,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 
 
   auto horus = new Horus(worldLV);
-  // ID, Position, Distance to endcap / filter, BGO
+  // ID, Position, Distance to endcap, Filter Thickness, BGO installed?
   horus->PlaceHPGe("72442", "Ge00", 13.*cm, 2.*mm, true);
   horus->PlaceHPGe("73959", "Ge01", 10.*cm, 2.*mm);
   horus->PlaceHPGe("72341", "Ge02", 18.5*cm, 2.*mm, true);

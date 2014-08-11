@@ -197,7 +197,7 @@ void Horus::PlaceHPGe(std::string id, std::string position, G4double distance, G
 
 
   if(BGO_installed){
-    auto thebgo = new BGO("meh");
+    auto thebgo = new BGO(position);
     new G4PVPlacement(  *GetTransform(pos, distance + thebgo->GetLength()/2 - thebgo->GetOverlapLength() ), // position and rotation, distance is to front of detector, but to center is expected
                         thebgo->GetLogical(), // its logical volume
                         id, // its name
@@ -234,7 +234,7 @@ HPGe::HPGe* Horus::GetDetector(const std::string &id, const std::string &positio
   }
   const HPGe::_spec spec = _s->second;
 
-  HPGe::HPGe* thedet;
+  HPGe::HPGe* thedet = nullptr;
   switch (spec.type)
   {
     case HPGe::tCOAXIAL:

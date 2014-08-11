@@ -1,11 +1,6 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
-#SET (CMAKE_C_COMPILER   "/usr/local/bin/clang")
-#SET (CMAKE_CXX_COMPILER "/usr/local/bin/clang")
-
 add_definitions("-std=c++11 -O3")
-
-add_definitions(-DG4MULTITHREADED)
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
