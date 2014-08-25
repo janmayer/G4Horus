@@ -10,9 +10,10 @@
 #include "G4UImanager.hh"
 #include "G4UIcommand.hh"
 
-#include "G4VModularPhysicsList.hh"
+#include "PhysicsList.hh"
+//#include "G4VModularPhysicsList.hh"
 //#include "G4PhysListFactory.hh"
-#include "FTFP_BERT.hh"
+//#include "FTFP_BERT.hh"
 //#include "G4EmLivermorePhysics.hh"
 
 #include "Randomize.hh"
@@ -84,8 +85,10 @@ int main(int argc,char** argv)
   DetectorConstruction* detConstruction = new DetectorConstruction();
   runManager->SetUserInitialization(detConstruction);
 
-  G4VModularPhysicsList* physicsList = new FTFP_BERT();
-  runManager->SetUserInitialization(physicsList);
+  runManager->SetUserInitialization(new PhysicsList());
+  //G4VUserPhysicsList* physicsList = new FTFP_BERT(0);
+  //runManager->SetUserInitialization(physicsList);
+
 
   ActionInitialization* actionInitialization = new ActionInitialization();
   runManager->SetUserInitialization(actionInitialization);
