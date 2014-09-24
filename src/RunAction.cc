@@ -16,13 +16,13 @@ RunAction::RunAction() : G4UserRunAction()
   G4cout << "Using " << analysisManager->GetType() << G4endl;
 
   analysisManager->SetHistoDirectoryName("histograms");
-  analysisManager->SetNtupleDirectoryName("ntuple");
+  //analysisManager->SetNtupleDirectoryName("ntuple");
   analysisManager->SetVerboseLevel(0);
 
   analysisManager->CreateNtuple("Horus", "Edep");
   for( auto &det : detectors ) {
     analysisManager->CreateH1( det, "Edep in " + det, 10000, 0., 10.*MeV); // 1keV/Bin
-    analysisManager->CreateNtupleDColumn(det);
+    //analysisManager->CreateNtupleDColumn(det);
   }
   analysisManager->FinishNtuple();
 }

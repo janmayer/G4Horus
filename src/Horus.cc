@@ -86,6 +86,11 @@ std::unordered_map<std::string,HPGe::_spec> BuildSpecs(){
   specs["generic_hex"].hull.thickness = 1.*mm;
   specs["generic_hex"].hull.length    = 16.*cm;
 
+  specs["generic_hex"].id = "generic_hex";
+  specs["generic_hex"].crystal.diameter = 42.*mm*2.; // guessed to match weight
+  specs["generic_hex"].crystal.length   = 74.5*mm;//76.5*mm; // from datasheet
+  specs["generic_hex"].crystal.volume   = 1578.*g/(5.323*g/cm3); // from datasheet
+
   specs["72309"] = specs["generic_hex"];
   specs["72309"].id = "72309";
   specs["72309"].crystal.diameter = 42.*mm*2.; // guessed to match weight

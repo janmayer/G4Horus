@@ -22,6 +22,7 @@
 #include "AstroTargetkammer.hh"
 
 extern const std::vector<std::string> detectors = {"Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", /*"Ge06",*/ "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"};
+//extern const std::vector<std::string> detectors = {};
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -59,6 +60,8 @@ void DetectorConstruction::DefineMaterials()
   G4Element* Ge = nistManager->FindOrBuildElement("Ge");
   G4Element*  C = nistManager->FindOrBuildElement("C");
   G4Element*  H = nistManager->FindOrBuildElement("H");
+  G4Element* Cu = nistManager->FindOrBuildElement("Cu");
+  G4Element* Zn = nistManager->FindOrBuildElement("Zn");
 
   G4Material* BGO_Material = new G4Material("BGO", 7.13*g/cm3, 3);
   BGO_Material->AddElement(O,12);
@@ -69,6 +72,11 @@ void DetectorConstruction::DefineMaterials()
   PET->AddElement(C,10);
   PET->AddElement(O,3);
   PET->AddElement(H,8);
+
+  G4Material* Brass= new G4Material("Brass", 8.5*g/cm3, 2);
+  Brass->AddElement(Cu, 70*perCent);
+  Brass->AddElement(Zn, 30*perCent);
+
 
   new G4Material("Galactic", 1, 1.01*g/mole, universe_mean_density, kStateGas, 2.73*kelvin, 3.e-18*pascal);
   new G4Material("Nothing", 1, 0, universe_mean_density, kStateUndefined, 0, 0);
@@ -82,33 +90,33 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 {
   // World
   G4double worldSizeXYZ = 1.*m/2;
-  G4Material* worldMaterial = G4Material::GetMaterial("Nothing");
+  G4Material* worldMaterial = G4Material::GetMaterial("Galactic");
 
   G4VSolid*           worldS  = new G4Box("World", worldSizeXYZ, worldSizeXYZ, worldSizeXYZ);
   G4LogicalVolume*    worldLV = new G4LogicalVolume(worldS, worldMaterial, "World");
                       worldLV->SetVisAttributes (G4VisAttributes::Invisible);
-  G4VPhysicalVolume*  worldPV = new G4PVPlacement(0, G4ThreeVector(), worldLV, "World", 0, false, 0, fCheckOverlaps);
-
-
-  auto horus = new Horus(worldLV);
-  // ID, Position, Distance to endcap, Filter Thickness, BGO installed?
-  horus->PlaceHPGe("72442", "Ge00", 13.*cm, 2.*mm, true);
-  horus->PlaceHPGe("73959", "Ge01", 10.*cm, 2.*mm);
-  horus->PlaceHPGe("72341", "Ge02", 18.5*cm, 2.*mm, true);
-  horus->PlaceHPGe("72309", "Ge03", 13.5*cm, 2.*mm, true);
-  horus->PlaceHPGe("73954", "Ge04", 8.5*cm, 2.*mm);
-  horus->PlaceHPGe("72980", "Ge05", 9.5*cm, 2.*mm);
-  //horus->PlaceHPGe("73002", "Ge06", 10.*cm);
-  horus->PlaceHPGe("73209", "Ge07", 18.*cm, 2.*mm, true);
-  horus->PlaceHPGe("73211", "Ge08", 17.*cm, 2.*mm, true);
-  horus->PlaceHPGe("72827", "Ge09", 16.*cm, 2.*mm, true);
-  horus->PlaceHPGe("72812", "Ge10", 12.3*cm, 2.*mm);
-  horus->PlaceHPGe("72811", "Ge11", 10.5*cm, 1.*mm);
-  horus->PlaceHPGe("72802", "Ge12", 14.*cm, 2.*mm);
-  horus->PlaceHPGe("72397", "Ge13", 12.5*cm, 2.*mm);
 
   new AstroTargetkammer(worldLV);
 
+  auto horus = new Horus(worldLV);
+  // ID, Position, Distance to endcap, Filter Thickness, BGO installed?
+  horus->PlaceHPGe("generic_hex", "Ge00", 13.*cm, 2.*mm, true);
+  horus->PlaceHPGe("generic_hex", "Ge01", 10.5*cm, 2.*mm);
+  horus->PlaceHPGe("73954", "Ge02", 28.5*cm, 2.*mm, true);
+  horus->PlaceHPGe("generic_hex", "Ge03", 13.5*cm, 2.*mm, true);
+  horus->PlaceHPGe("73209", "Ge04", 8.5*cm, 2.*mm);
+  horus->PlaceHPGe("72827", "Ge05", 9.5*cm, 2.*mm);
+  //horus->PlaceHPGe("generic_hex", "Ge06", 10.*cm);
+  horus->PlaceHPGe("72811", "Ge07", 18.*cm, 2.*mm, true);
+  horus->PlaceHPGe("73002", "Ge08", 17.*cm, 2.*mm, true);
+  horus->PlaceHPGe("generic_hex", "Ge09", 16.*cm, 2.*mm, true);
+  horus->PlaceHPGe("generic_hex", "Ge10", 12.3*cm, 2.*mm);
+  horus->PlaceHPGe("72397", "Ge11", 10.5*cm, 1.*mm);
+  horus->PlaceHPGe("72442", "Ge12", 14.*cm, 2.*mm);
+  horus->PlaceHPGe("72341", "Ge13", 12.5*cm, 2.*mm);
+
+
+  G4VPhysicalVolume*  worldPV = new G4PVPlacement(0, G4ThreeVector(), worldLV, "World", 0, false, 0, fCheckOverlaps);
   return worldPV;
 }
 

@@ -27,14 +27,14 @@ BGO::BGO(G4String name){
   overlap_length = (nose_length + cone_length)/2.;
 
 
-  G4double nose_front_inner_diameter = 3.*cm;
+  G4double nose_front_inner_diameter = 3.2*cm;
   G4double nose_front_outer_diameter = 5.*cm;
 
   G4double cone_back_inner_diameter  = 10.*cm;
-  G4double cone_back_outer_diameter  = 16.*cm;
+  G4double cone_back_outer_diameter  = 13.5*cm;
 
-  G4double nose_back_inner_diameter  = nose_front_inner_diameter + (cone_back_inner_diameter - nose_front_inner_diameter) * nose_length/(nose_length + cone_length);
-  G4double nose_back_outer_diameter  = nose_front_outer_diameter + (cone_back_outer_diameter - nose_front_outer_diameter) * nose_length/(nose_length + cone_length);
+  G4double nose_back_inner_diameter  = 4.5*cm;
+  G4double nose_back_outer_diameter  = 9.2*cm;
 
   G4double cone_front_inner_diameter = nose_back_inner_diameter;
   G4double cone_front_outer_diameter = nose_back_outer_diameter;
@@ -56,7 +56,7 @@ BGO::BGO(G4String name){
   // Lead nose
   G4Cons* nose_s = new G4Cons("BGO_" + name + "_nose_solid", nose_front_inner_diameter/2., nose_front_outer_diameter/2., nose_back_inner_diameter/2., nose_back_outer_diameter/2., nose_length/2, 0.*deg, 360.*deg);
   G4Material* nose_mat = G4Material::GetMaterial("G4_Pb");
-  G4VisAttributes* nose_vis = new G4VisAttributes(G4Color(0.3,0.3,0.3,0.9));
+  G4VisAttributes* nose_vis = new G4VisAttributes(G4Color(0.3,0.3,0.3));
   nose_vis->SetForceSolid(true);
 
   G4LogicalVolume* nose_lv = new G4LogicalVolume(nose_s, nose_mat, "BGO_" + name + "_nose_lv", 0, 0, 0);
@@ -69,7 +69,7 @@ BGO::BGO(G4String name){
   G4Cons* bgo_cons_s  = new G4Cons("BGO_" + name + "_bgo_cons_solid", cone_front_inner_diameter/2., cone_front_outer_diameter/2., cone_back_inner_diameter/2., cone_back_outer_diameter/2., cone_length/2., 0.*deg, 360.*deg);
   G4UnionSolid* bgo_s = new G4UnionSolid("BGO_" + name + "_bgo_solid",  bgo_zyl_s, bgo_cons_s, 0, G4ThreeVector(0.,0.,-(zyl_length+cone_length)/2.));
   G4Material* bgo_mat = G4Material::GetMaterial("BGO");
-  G4VisAttributes* bgo_vis = new G4VisAttributes(G4Color(0.8,0.,0.1,0.5));
+  G4VisAttributes* bgo_vis = new G4VisAttributes(G4Color(0.8,0.,0.1));
   bgo_vis->SetForceSolid(true);
 
   G4LogicalVolume* bgo_lv = new G4LogicalVolume(bgo_s, bgo_mat, "BGO_" + name + "_bgo_lv", 0, 0, 0);
