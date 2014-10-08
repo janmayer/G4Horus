@@ -25,7 +25,7 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
   G4Material* crystal_material = G4Material::GetMaterial("G4_Ge");
   G4Material* vacuum_material  = G4Material::GetMaterial("Galactic");
 
-  G4double hull_innerer_radius = spec.hull.diameter/2. - spec.hull.thickness;
+  G4double hull_inner_radius = spec.hull.diameter/2. - spec.hull.thickness;
   G4double filter_radius = spec.hull.diameter/2.;
 
   full_length = filter_thickness + spec.hull.thickness + spec.hull.padding + spec.hull.length;
@@ -46,7 +46,7 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
   }
 
   // hull front (endcap)
-  G4Tubs* hull_front_solid = new G4Tubs("HPGe_" + name + "_hull_front_solid", 0, hull_innerer_radius, spec.hull.thickness/2., 0.*deg, 360.*deg);
+  G4Tubs* hull_front_solid = new G4Tubs("HPGe_" + name + "_hull_front_solid", 0, hull_inner_radius, spec.hull.thickness/2., 0.*deg, 360.*deg);
   G4LogicalVolume* hull_front_logical = new G4LogicalVolume(hull_front_solid, hull_material, "HPGe_" + name + "_hull_front_logical", 0, 0, 0);
   G4VisAttributes* hull_front_vis = new G4VisAttributes(G4Color(0.2,0.3,0.2,0.3));
   hull_front_vis->SetForceSolid(true);
@@ -54,7 +54,7 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
   new G4PVPlacement(0, G4ThreeVector(0, 0, -(full_length/2 - filter_thickness - spec.hull.thickness/2)), hull_front_logical, "HPGe_" + name + "_hull_front", detector_logical, false, 0);
 
   // hull
-  G4Tubs* hull_solid = new G4Tubs("HPGe_" + name + "_hull_solid", hull_innerer_radius, spec.hull.diameter/2., spec.hull.length/2., 0.*deg, 360.*deg);
+  G4Tubs* hull_solid = new G4Tubs("HPGe_" + name + "_hull_solid", hull_inner_radius, spec.hull.diameter/2., spec.hull.length/2., 0.*deg, 360.*deg);
   G4LogicalVolume* hull_logical = new G4LogicalVolume(hull_solid, hull_material, "HPGe_" + name + "_hull_logical", 0, 0, 0);
   G4VisAttributes* hull_vis = new G4VisAttributes(G4Color(0.2,0.3,0.2,0.3));
   hull_vis->SetForceSolid(true);
@@ -66,27 +66,20 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
   G4int nSides=6;
   G4int nZPlanes=2;
 
-  G4double qf = sin(60.*deg); // what & why !?
-  G4double cut_factor = 1;    // tansition hex <-> tube: 1 = grinding starting at full length
-
-  G4double capsule_thickness = 0.5*mm;
-  G4double capsule_padding   = 0.1*mm;
-
- // G4double capsule_length    = 97.*mm; // orginal values, out of thin air !?
- // G4double capsule_outer_radius[2] = { 33.*mm*qf, 42.*mm*qf }; // orginal values, out of thin air !?
+  G4double capsule_thickness = 0.7*mm; // Diss. Dirk Werner Weißhaar, Page 10
+  G4double capsule_padding   = 0.7*mm; // Diss. Dirk Werner Weißhaar, Page 10
 
   G4double crystal_length[2]       = { + spec.crystal.length/2, - spec.crystal.length/2 };
   G4double capsule_inner_length[2] = { + (spec.crystal.length/2 + capsule_padding), - (spec.crystal.length/2 + capsule_padding) };
   G4double capsule_full_length[2]  = { + (spec.crystal.length/2 + capsule_padding + capsule_thickness), - (spec.crystal.length/2 + capsule_padding + capsule_thickness) };
   G4double capsule_length = capsule_full_length[0]*2.;
 
-
   G4double null_radius[2] = {0.*mm, 0.*mm};
-  G4double crystal_radius[2] = { spec.crystal.diameter/2*qf*qf, spec.crystal.diameter/2*qf };
-  G4double capsule_inner_radius[2] = {crystal_radius[0] + capsule_padding*qf, crystal_radius[1] + capsule_padding*qf };
-  G4double capsule_outer_radius[2] = {capsule_inner_radius[0] + capsule_thickness*qf, capsule_inner_radius[1] + capsule_thickness*qf };
+  G4double crystal_radius[2] = { 59.*mm/2., 70.*mm/2. }; // Diss. Dirk Werner Weißhaar, Page 9
+  G4double capsule_inner_radius[2] = { crystal_radius[0] + capsule_padding, crystal_radius[1] + capsule_padding };
+  G4double capsule_outer_radius[2] = { capsule_inner_radius[0] + capsule_thickness, capsule_inner_radius[1] + capsule_thickness };
 
-  G4double crystal_intersection_radius = crystal_radius[0] + (crystal_radius[1]-crystal_radius[0]) * cut_factor;
+  G4double crystal_intersection_radius = crystal_radius[1];
 
   // Capsule (additional hull around the crystal) is build by subtracting a smaller (~> hull thickness) solid from the full solid
   G4Polyhedra* capsule_full_solid   = new G4Polyhedra("HPGe_" + name + "_capsule_full_solid",  0.*deg, 360.*deg, nSides, nZPlanes, capsule_full_length,  null_radius, capsule_outer_radius);
@@ -98,31 +91,35 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
   rm->rotateX(180.*deg);
   new G4PVPlacement(rm, G4ThreeVector(0,0,-(full_length/2 - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_length/2)), capsule_logical, "Kapsel", detector_logical, false, 0);
 
-  // Germaium Dead layer
-  G4double dead_layer = 2.*mm;
-  G4double dead_layer_arr[2]       = { + dead_layer/2, - dead_layer/2 };
-  G4double dead_layer_radius[2] = { spec.crystal.diameter/2*qf*qf, spec.crystal.diameter/2*qf*qf};
+  // Germanium Dead layer
+  G4double dead_layer_arr[2]    = { + spec.crystal.dead_layer/2, - spec.crystal.dead_layer/2 };
+  G4double dead_layer_radius[2] = { crystal_radius[0], crystal_radius[0] };
   G4Polyhedra*      crystal_dead_layer_solid   = new G4Polyhedra("HPGe_" + name + "_crystal_dead_layer_solid", 0.*deg, 360.*deg, nSides, nZPlanes, dead_layer_arr, null_radius, dead_layer_radius);
   G4LogicalVolume*  crystal_dead_layer_logical = new G4LogicalVolume(crystal_dead_layer_solid, crystal_material, "HPGe_" + name + "_crystal_dead_layer_logical", 0, 0, 0);
   G4VisAttributes*  crystal_dead_layer_vis     = new G4VisAttributes(G4Color(1,0.5,1));
                     crystal_dead_layer_vis->SetForceSolid(true);
                     crystal_dead_layer_logical->SetVisAttributes(crystal_dead_layer_vis);
-  new G4PVPlacement(0,G4ThreeVector(0, 0, -(full_length/2 - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - dead_layer/2)), crystal_dead_layer_logical, "HPGe_" + name + "_crystal_dead_layer", detector_logical, false, 0);
+  new G4PVPlacement(0,G4ThreeVector(0, 0, -(full_length/2 - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer/2)), crystal_dead_layer_logical, "HPGe_" + name + "_crystal_dead_layer", detector_logical, false, 0);
 
   // Germanium crystal
   G4Tubs*      crystal_solid_tubs = new G4Tubs("HPGe_" + name + "_crystal_solid_tubs", 0.*cm, crystal_intersection_radius, spec.crystal.length/2., 0.*deg, 360.*deg);
   G4Polyhedra* crystal_solid_poly = new G4Polyhedra("HPGe_" + name + "_crystal_solid_poly", 0.*deg, 360.*deg, nSides, nZPlanes, crystal_length, null_radius, crystal_radius);
-  G4VSolid*    crystal_solid = new G4IntersectionSolid("HPGe_" + name + "_crystal_solid", crystal_solid_tubs, crystal_solid_poly, 0, G4ThreeVector(0,0,0));
+  G4VSolid*    crystal_solid_wo_hole = new G4IntersectionSolid("HPGe_" + name + "_crystal_solid", crystal_solid_tubs, crystal_solid_poly, 0, G4ThreeVector(0,0,0));
+
+  G4Tubs*   crystal_hole_solid = new G4Tubs("HPGe_" + name + "_crystal_hole_solid", 0.*cm, spec.crystal.hole_diameter/2., spec.crystal.hole_length/2., 0.*deg, 360.*deg);
+  G4VSolid* crystal_solid = new G4SubtractionSolid("HPGe_" + name + "_crystal_solid_with_hole", crystal_solid_wo_hole, crystal_hole_solid, 0, G4ThreeVector(0,0,-(spec.crystal.length/2.-spec.crystal.hole_length/2.)));
+
+
   G4LogicalVolume* crystal_logical = new G4LogicalVolume(crystal_solid, crystal_material, "HPGe_" + name + "_crystal_logical", 0, 0, 0);
-  G4VisAttributes* crystal_vis = new G4VisAttributes(G4Color(0,0.5,1));
+  G4VisAttributes* crystal_vis = new G4VisAttributes(G4Color(0,0.5,1,0.5));
   crystal_vis->SetForceSolid(true);
   crystal_logical->SetVisAttributes(crystal_vis);
-  new G4PVPlacement(rm, G4ThreeVector(0,0,-(full_length/2 - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - dead_layer - spec.crystal.length/2)), crystal_logical, "HPGe_" + name + "_crystal", detector_logical, false, 0);
+  new G4PVPlacement(rm, G4ThreeVector(0,0,-(full_length/2 - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer - spec.crystal.length/2)), crystal_logical, "HPGe_" + name + "_crystal", detector_logical, false, 0);
 
-  G4cout << "Id: " << spec.id << " - crystal volume: " << crystal_solid->GetCubicVolume()/cm3 << "cm3 = " << crystal_solid->GetCubicVolume()*crystal_material->GetDensity()/g << "g" << G4endl;
+  G4cout << "Id: " << spec.id << " - crystal volume: " << (crystal_solid->GetCubicVolume()/cm3 + crystal_dead_layer_solid->GetCubicVolume()/cm3) << "cm3 = " << crystal_solid->GetCubicVolume()*crystal_material->GetDensity()/g << "g" << G4endl;
   G4cout << "Id: " << spec.id << " - expected volume: " << spec.crystal.volume/cm3 << "cm3 = " << spec.crystal.volume*crystal_material->GetDensity()/g << "g" << G4endl;
 
-  if( fabs(crystal_solid->GetCubicVolume()/spec.crystal.volume - 1) > MAX_VOLUME_DIFFERENCE ){
+  if( fabs((crystal_solid->GetCubicVolume()/cm3 + crystal_dead_layer_solid->GetCubicVolume()/cm3)/spec.crystal.volume - 1) > MAX_VOLUME_DIFFERENCE ){
     G4Exception("HPGe::Hexagonal::Hexagonal()", "Horus", JustWarning, ("Volume of detector " + spec.id + " does not match!").c_str() );
   }
 

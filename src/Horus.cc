@@ -30,12 +30,13 @@ std::unordered_map<std::string,HPGe::_spec> BuildSpecs(){
 
   specs["73954"].id = "73954";
   specs["73954"].type = HPGe::tCOAXIAL;
-  specs["73954"].crystal.diameter = 74.*mm;
-  specs["73954"].crystal.length   = 72.*mm;
-  specs["73954"].crystal.volume   = 304.*cm3;
+  specs["73954"].crystal.diameter      = 74.*mm;
+  specs["73954"].crystal.length        = (72.-2.)*mm;
+  specs["73954"].crystal.dead_layer    = 2.*mm;
+  specs["73954"].crystal.volume        = 304.*cm3;
   specs["73954"].crystal.hole_diameter = 5.8*mm * 2.;  // guess
   specs["73954"].crystal.hole_length   = 52.*mm; //guess
-  specs["73954"].hull.diameter   = 80.*mm;
+  specs["73954"].hull.diameter  = 80.*mm;
   specs["73954"].hull.padding   = 3.*mm;
   specs["73954"].hull.thickness = 1.*mm;
   specs["73954"].hull.length    = 16.*cm;
@@ -43,9 +44,10 @@ std::unordered_map<std::string,HPGe::_spec> BuildSpecs(){
 
   specs["73959"].id = "73959";
   specs["73959"].type = HPGe::tCOAXIAL;
-  specs["73959"].crystal.diameter = 74.*mm;
-  specs["73959"].crystal.length   = 72.*mm;
-  specs["73959"].crystal.volume   = 306.*cm3;
+  specs["73959"].crystal.diameter      = 74.*mm;
+  specs["73959"].crystal.length        = (72.-2.)*mm;
+  specs["73959"].crystal.dead_layer    = 2.*mm;
+  specs["73959"].crystal.volume        = 306.*cm3;
   specs["73959"].crystal.hole_diameter = 5.*mm * 2.; //guess
   specs["73959"].crystal.hole_length   = 46.6*mm; //guess
   specs["73959"].hull.diameter  = 80.*mm;
@@ -56,9 +58,10 @@ std::unordered_map<std::string,HPGe::_spec> BuildSpecs(){
 
   specs["37N31120A"].id = "37N31120A";
   specs["37N31120A"].type = HPGe::tCOAXIAL;
-  specs["37N31120A"].crystal.diameter = 75.*mm;
-  specs["37N31120A"].crystal.length   = 92.*mm;
-  specs["37N31120A"].crystal.volume   = 400.*cm3;
+  specs["37N31120A"].crystal.diameter      = 75.*mm;
+  specs["37N31120A"].crystal.length        = 92.*mm-1.*um;
+  specs["37N31120A"].crystal.dead_layer    = 1.*um;
+  specs["37N31120A"].crystal.volume        = 400.*cm3;
   specs["37N31120A"].crystal.hole_diameter = 5.8*mm * 2.; //guess
   specs["37N31120A"].crystal.hole_length   = 60.*mm; //guess
   specs["37N31120A"].hull.diameter  = 85.*mm;
@@ -69,9 +72,10 @@ std::unordered_map<std::string,HPGe::_spec> BuildSpecs(){
 
   specs["25N1546B"].id = "25N1546B";
   specs["25N1546B"].type = HPGe::tCOAXIAL;
-  specs["25N1546B"].crystal.diameter = 55.9*mm;
-  specs["25N1546B"].crystal.length   = 55.4*mm;
-  specs["25N1546B"].crystal.volume   = 135.*cm3; //guess
+  specs["25N1546B"].crystal.diameter      = 55.9*mm;
+  specs["25N1546B"].crystal.length        = 55.4*mm - 1.*um;
+  specs["25N1546B"].crystal.dead_layer    = 1.*um;
+  specs["25N1546B"].crystal.volume        = 135.*cm3; //guess
   specs["25N1546B"].crystal.hole_diameter = 3.*mm * 2.; //guess
   specs["25N1546B"].crystal.hole_length   = 25.*mm; //guess
   specs["25N1546B"].hull.diameter  = 65.*mm;
@@ -80,88 +84,92 @@ std::unordered_map<std::string,HPGe::_spec> BuildSpecs(){
   specs["25N1546B"].hull.length    = 16.*cm;
 
 
+  specs["generic_hex"].id = "generic_hex";
   specs["generic_hex"].type = HPGe::tHEXAGONAL;
+  // Diameter(s) are fixed in HPGeHexagonal
+  specs["generic_hex"].crystal.length     = 76.*mm;//78.*mm;
+  specs["generic_hex"].crystal.dead_layer = 2.*mm;
+  specs["generic_hex"].crystal.volume   = 1578.*g/(5.323*g/cm3); // from datasheet
+  specs["generic_hex"].crystal.hole_diameter = 10.*mm;
+  specs["generic_hex"].crystal.hole_length   = specs["generic_hex"].crystal.length-15.*mm;
   specs["generic_hex"].hull.diameter  = 85.*mm;
   specs["generic_hex"].hull.padding   = 3.*mm;
   specs["generic_hex"].hull.thickness = 1.*mm;
   specs["generic_hex"].hull.length    = 16.*cm;
 
-  specs["generic_hex"].id = "generic_hex";
-  specs["generic_hex"].crystal.diameter = 42.*mm*2.; // guessed to match weight
-  specs["generic_hex"].crystal.length   = 74.5*mm;//76.5*mm; // from datasheet
-  specs["generic_hex"].crystal.volume   = 1578.*g/(5.323*g/cm3); // from datasheet
+
 
   specs["72309"] = specs["generic_hex"];
   specs["72309"].id = "72309";
-  specs["72309"].crystal.diameter = 42.*mm*2.; // guessed to match weight
   specs["72309"].crystal.length   = 76.5*mm; // from datasheet
   specs["72309"].crystal.volume   = 1578.*g/(5.323*g/cm3); // from datasheet
+  specs["72309"].crystal.hole_length   = specs["72309"].crystal.length-15.*mm;
 
   specs["72341"] = specs["generic_hex"];
   specs["72341"].id = "72341";
-  specs["72341"].crystal.diameter = 42.*mm*2.; // guessed to match weight
   specs["72341"].crystal.length   = 78.*mm; // from datasheet
   specs["72341"].crystal.volume   = 1600.*g/(5.323*g/cm3); // from datasheet
+  specs["72341"].crystal.hole_length   = specs["72341"].crystal.length-15.*mm;
 
   specs["72397"] = specs["generic_hex"];
   specs["72397"].id = "72397";
-  specs["72397"].crystal.diameter = 42.*mm*2.; // guessed to match weight
   specs["72397"].crystal.length   = 78.1*mm; // from datasheet
   specs["72397"].crystal.volume   = 1621.*g/(5.323*g/cm3); // from datasheet
+  specs["72397"].crystal.hole_length   = specs["72397"].crystal.length-15.*mm;
 
   specs["72442"] = specs["generic_hex"];
   specs["72442"].id = "72442";
-  specs["72442"].crystal.diameter = 42.1*mm*2.; // guessed to match weight
   specs["72442"].crystal.length   = 78.*mm; // from datasheet
   specs["72442"].crystal.volume   = 1628.*g/(5.323*g/cm3); // from datasheet
+  specs["72442"].crystal.hole_length   = specs["72442"].crystal.length-15.*mm;
 
   specs["72802"] = specs["generic_hex"];
   specs["72802"].id = "72802";
-  specs["72802"].crystal.diameter = 41.8*mm*2.; // guessed to match weight
   specs["72802"].crystal.length   = 77.9*mm; // from datasheet
   specs["72802"].crystal.volume   = 1585.*g/(5.323*g/cm3); // from datasheet
+  specs["72802"].crystal.hole_length   = specs["72802"].crystal.length-15.*mm;
 
   specs["72811"] = specs["generic_hex"];
   specs["72811"].id = "72811";
-  specs["72811"].crystal.diameter = 42.*mm*2.; // guessed to match weight
   specs["72811"].crystal.length   = 78.*mm; // from datasheet
   specs["72811"].crystal.volume   = 1590.*g/(5.323*g/cm3); // from datasheet
+  specs["72811"].crystal.hole_length   = specs["72811"].crystal.length-15.*mm;
 
   specs["72812"] = specs["generic_hex"];
   specs["72812"].id = "72812";
-  specs["72812"].crystal.diameter = 41.8*mm*2.; // guessed to match weight
   specs["72812"].crystal.length   = 78.*mm; // from datasheet
   specs["72812"].crystal.volume   = 1587.*g/(5.323*g/cm3); // from datasheet
+  specs["72812"].crystal.hole_length   = specs["72812"].crystal.length-15.*mm;
 
   specs["72827"] = specs["generic_hex"];
   specs["72827"].id = "72827";
-  specs["72827"].crystal.diameter = 42.*mm*2.; // guessed to match weight
   specs["72827"].crystal.length   = 78.*mm; // from datasheet
   specs["72827"].crystal.volume   = 1596.7*g/(5.323*g/cm3); // from datasheet
+  specs["72827"].crystal.hole_length   = specs["72827"].crystal.length-15.*mm;
 
   specs["72980"] = specs["generic_hex"];
   specs["72980"].id = "72980";
-  specs["72980"].crystal.diameter = 41.*mm*2.; // guessed to match weight
   specs["72980"].crystal.length   = 77.9*mm; // from datasheet
   specs["72980"].crystal.volume   = 1521.*g/(5.323*g/cm3); // from datasheet
+  specs["72980"].crystal.hole_length   = specs["72980"].crystal.length-15.*mm;
 
   specs["73002"] = specs["generic_hex"];
   specs["73002"].id = "73002";
-  specs["73002"].crystal.diameter = 40.8*mm*2.; // guessed to match weight
   specs["73002"].crystal.length   = 78.2*mm; // from datasheet
   specs["73002"].crystal.volume   = 1531.*g/(5.323*g/cm3); // from datasheet
+  specs["73002"].crystal.hole_length   = specs["73002"].crystal.length-15.*mm;
 
   specs["73209"] = specs["generic_hex"];
   specs["73209"].id = "73209";
-  specs["73209"].crystal.diameter = 42.*mm*2.; // guessed to match weight
-  specs["73209"].crystal.length   = 77.*mm; // from datasheet
+  specs["73209"].crystal.length   = (77.-3.)*mm; // from datasheet
   specs["73209"].crystal.volume   = 1594.*g/(5.323*g/cm3); // from datasheet
+  specs["73209"].crystal.hole_length   = specs["73209"].crystal.length-15.*mm;
 
   specs["73211"] = specs["generic_hex"];
   specs["73211"].id = "73211";
-  specs["73211"].crystal.diameter = 41.8*mm*2.; // guessed to match weight
   specs["73211"].crystal.length   = 77.9*mm; // from datasheet
   specs["73211"].crystal.volume   = 1584.7*g/(5.323*g/cm3); // from datasheet
+  specs["73211"].crystal.hole_length   = specs["73211"].crystal.length-15.*mm;
 
   return specs;
 }

@@ -15,6 +15,7 @@ namespace HPGe
       G4double volume;
       G4double hole_diameter;
       G4double hole_length;
+      G4double dead_layer;
     };
 
     struct _hull

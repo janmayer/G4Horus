@@ -24,3 +24,9 @@ build/
 *.i*86
 *.x86_64
 *.hex
+
+# IDEs
+.idea/
+
+# Data Files
+*.dat

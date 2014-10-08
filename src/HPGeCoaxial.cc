@@ -23,7 +23,7 @@ HPGe::Coaxial::Coaxial(const _spec &spec, const std::string &name, const G4doubl
   G4Material* crystal_material = G4Material::GetMaterial("G4_Ge");
   G4Material* vacuum_material  = G4Material::GetMaterial("Galactic");
 
-  G4double hull_innerer_radius = spec.hull.diameter/2. - spec.hull.thickness;
+  G4double hull_inner_radius = spec.hull.diameter/2. - spec.hull.thickness;
   G4double filter_radius = spec.hull.diameter/2.;
 
   full_length = filter_thickness + spec.hull.thickness + spec.hull.length;
@@ -44,7 +44,7 @@ HPGe::Coaxial::Coaxial(const _spec &spec, const std::string &name, const G4doubl
   }
 
   // hull front (endcap)
-  G4Tubs* hull_front_solid = new G4Tubs("HPGe_" + name + "_hull_front_solid", 0, hull_innerer_radius, spec.hull.thickness/2., 0.*deg, 360.*deg);
+  G4Tubs* hull_front_solid = new G4Tubs("HPGe_" + name + "_hull_front_solid", 0, hull_inner_radius, spec.hull.thickness/2., 0.*deg, 360.*deg);
   G4LogicalVolume* hull_front_logical = new G4LogicalVolume(hull_front_solid, hull_material, "HPGe_" + name + "_hull_front_logical", 0, 0, 0);
   G4VisAttributes* hull_front_vis = new G4VisAttributes(G4Color(0.2,0.3,0.2,0.3));
   hull_front_vis->SetForceSolid(true);
@@ -52,7 +52,7 @@ HPGe::Coaxial::Coaxial(const _spec &spec, const std::string &name, const G4doubl
   new G4PVPlacement(0, G4ThreeVector(0, 0, -(full_length/2 - filter_thickness - spec.hull.thickness/2)), hull_front_logical, "HPGe_" + name + "_hull_front", detector_logical, false, 0);
 
   // hull
-  G4Tubs* hull_solid = new G4Tubs("HPGe_" + name + "_hull_solid", hull_innerer_radius, spec.hull.diameter/2., spec.hull.length/2., 0.*deg, 360.*deg);
+  G4Tubs* hull_solid = new G4Tubs("HPGe_" + name + "_hull_solid", hull_inner_radius, spec.hull.diameter/2., spec.hull.length/2., 0.*deg, 360.*deg);
   G4LogicalVolume* hull_logical = new G4LogicalVolume(hull_solid, hull_material, "HPGe_" + name + "_hull_logical", 0, 0, 0);
   G4VisAttributes* hull_vis = new G4VisAttributes(G4Color(0.2,0.3,0.2,0.3));
   hull_vis->SetForceSolid(true);
@@ -60,13 +60,12 @@ HPGe::Coaxial::Coaxial(const _spec &spec, const std::string &name, const G4doubl
   new G4PVPlacement(0, G4ThreeVector(0, 0, -(full_length/2 - filter_thickness - spec.hull.length/2)), hull_logical, "HPGe_" + name + "_hull", detector_logical, false, 0);
 
   // Germanium Dead layer
-  G4double dead_layer = 1.*mm;
-  G4Tubs*           crystal_dead_layer_solid   = new G4Tubs("HPGe_" + name + "_crystal_dead_layer_solid", 0.*cm, spec.crystal.diameter/2., dead_layer/2, 0.*deg, 360.*deg);
+  G4Tubs*           crystal_dead_layer_solid   = new G4Tubs("HPGe_" + name + "_crystal_dead_layer_solid", 0.*cm, spec.crystal.diameter/2., spec.crystal.dead_layer/2, 0.*deg, 360.*deg);
   G4LogicalVolume*  crystal_dead_layer_logical = new G4LogicalVolume(crystal_dead_layer_solid, crystal_material, "HPGe_" + name + "_crystal_dead_layer_logical", 0, 0, 0);
   G4VisAttributes*  crystal_dead_layer_vis     = new G4VisAttributes(G4Color(1,0.5,1));
                     crystal_dead_layer_vis->SetForceSolid(true);
                     crystal_dead_layer_logical->SetVisAttributes(crystal_dead_layer_vis);
-  new G4PVPlacement(0,G4ThreeVector(0, 0, -(full_length/2 - filter_thickness - spec.hull.thickness - spec.hull.padding - dead_layer/2)), crystal_dead_layer_logical, "HPGe_" + name + "_crystal_dead_layer", detector_logical, false, 0);
+  new G4PVPlacement(0,G4ThreeVector(0, 0, -(full_length/2 - filter_thickness - spec.hull.thickness - spec.hull.padding - spec.crystal.dead_layer/2)), crystal_dead_layer_logical, "HPGe_" + name + "_crystal_dead_layer", detector_logical, false, 0);
 
   // Germanium crystal and hole
   G4Tubs* coax_hole_solid = new G4Tubs("HPGe_" + name + "_crystal_hole_solid", 0.*cm, spec.crystal.hole_diameter/2., spec.crystal.hole_length/2., 0.*deg, 360.*deg);
@@ -76,14 +75,12 @@ HPGe::Coaxial::Coaxial(const _spec &spec, const std::string &name, const G4doubl
   G4VisAttributes* crystal_vis = new G4VisAttributes(G4Color(0,0.5,1));
   crystal_vis->SetForceSolid(true);
   crystal_logical->SetVisAttributes(crystal_vis);
-  new G4PVPlacement(0,G4ThreeVector(0, 0, -(full_length/2 - filter_thickness - spec.hull.thickness - spec.hull.padding - dead_layer - spec.crystal.length/2)), crystal_logical, "HPGe_" + name + "_crystal", detector_logical, false, 0);
+  new G4PVPlacement(0,G4ThreeVector(0, 0, -(full_length/2 - filter_thickness - spec.hull.thickness - spec.hull.padding - spec.crystal.dead_layer - spec.crystal.length/2)), crystal_logical, "HPGe_" + name + "_crystal", detector_logical, false, 0);
 
-  G4cout << "Id: " << spec.id << " - hole " << coax_hole_solid->GetCubicVolume()/cm3 << "cm3" << G4endl;
-  G4cout << "Id: " << spec.id << " - without hole " << crystal_solid->GetCubicVolume()/cm3 << "cm3" << G4endl;
-  G4cout << "Id: " << spec.id << " - crystal volume: " << crystal_solid_with_hole->GetCubicVolume()/cm3 << "cm3" << G4endl;
+  G4cout << "Id: " << spec.id << " - crystal volume: " << crystal_solid_with_hole->GetCubicVolume()/cm3 + crystal_dead_layer_solid->GetCubicVolume()/cm3 << "cm3" << G4endl;
   G4cout << "Id: " << spec.id << " - expected volume: " << spec.crystal.volume/cm3 << "cm3" << G4endl;
 
-  if( fabs(crystal_solid_with_hole->GetCubicVolume()/spec.crystal.volume -1) > MAX_VOLUME_DIFFERENCE ){
+  if( fabs((crystal_solid_with_hole->GetCubicVolume()/cm3 + crystal_dead_layer_solid->GetCubicVolume()/cm3)/spec.crystal.volume -1) > MAX_VOLUME_DIFFERENCE ){
     G4Exception("HPGe::Coaxial::Coaxial()", "Horus", JustWarning, ("Volume of detector " + spec.id + " does not match!").c_str() );
   }
 
