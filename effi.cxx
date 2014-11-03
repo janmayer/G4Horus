@@ -1,63 +1,86 @@
-inline bool file_exists (const char* name) {
-    if (FILE *file = fopen(name, "r")) {
-        fclose(file);
-        return true;
-    } else {
-        return false;
-    }
+/*
+* Get Efficiency for FEP, SEP and DEP from root files created by Geant4
+* Filenames are supposed to be formatted like <energy>.root (e.g. 100.root)
+* Note: In a root macro, the function with the same name as the file will be executed
+* usage: $ root -l -b -q 'effi.cxx("/scratch/jmayer/G4")'
+* --> for ROOT Version 6 or higher <--
+*/
+
+inline int FileSize (const char* name) {
+	int size = 0;
+	if (FILE *file = fopen(name,"r")) {
+		fseek(file,0,SEEK_END);
+		size = ftell(file);
+		fclose(file);
+	}
+	return size;
 }
 
-inline int file_size (const char* name) {
-    FILE *p_file = NULL;
-    p_file = fopen(name,"rb");
-    fseek(p_file,0,SEEK_END);
-    int size = ftell(p_file);
-    fclose(p_file);
-    return size;
-}
 
-double peak_volume(TH1D *th, int pos){
+inline double PeakVolume(const TH1D* th, const int& pos){
 	int width = 2;
 	return 2.*th->Integral(pos-width,pos+width)-1.*th->Integral(pos-2*width,pos+2*width);
-	//return th->Integral(pos-2,pos+2);
 }
 
-double efficiency(TH1D *th, int pos, int off){
+
+inline double Efficiency(const TH1D* th, const int& pos, const int& off){
 	if (off > pos) {
 		return 0;
 	} else {
-		return peak_volume(th,pos-off)/(th->GetEntries()*1.);
+		return PeakVolume(th,pos-off)/(th->GetEntries()*1.);
 	}
-	/*} else {
-		return th->Integral(pos+1,pos)/(th->GetEntries()*1.);
-	}*/
-
 }
 
-void get_effi(int energie){
-	std::vector<string> detectors = {"Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"};
-	//std::vector<std::string> detectors = {"Ge01", "Ge02", "Ge04", "Ge05", "Ge07", "Ge08", "Ge11", "Ge12", "Ge13"};
-	//std::vector<std::string> detectors = {"Ge02", "Ge03"};
 
-	// Using c_str() gives cling error -> dirty c
-	// TFile *f = TFile::Open( ("/scratch/jmayer/G4/" + std::to_string(energie) + ".root").data() );
-	char cstr[80];
-   	sprintf(cstr, "/scratch/jmayer/G4/%d.root", energie);
-   	if( file_exists(cstr) && file_size(cstr) > 20000 ){
+void EfficencyForEnergyFromFile(const int& energie, const TString& file){
+	TFile *f = TFile::Open(file);
+	f->cd("histograms");
+	TDirectory *histdir = gDirectory;
 
-		TFile *f = TFile::Open(cstr);
-		TH1D *h = new TH1D();
+	TH1D *h = new TH1D();
 
-		for ( auto &det : detectors ) {
-			TH1D *h = (TH1D*)f->Get( ("histograms/"+det).c_str() );
-			cout << det << "\t" << energie << "\t" << efficiency(h, energie, 0) << "\t" << efficiency(h, energie, 511) << "\t" << efficiency(h, energie, 2*511) << endl;
+	TKey *key;
+	TIter nextkey(histdir->GetListOfKeys());
+	while ( (key = (TKey*)nextkey()) ) {
+		if (gROOT->GetClass( key->GetClassName() )->InheritsFrom( TH1D::Class() )){
+			h = (TH1D*)(key->ReadObj());
+			cout << key->GetName() << "\t" << energie << "\t" << Efficiency(h, energie, 0) << "\t" << Efficiency(h, energie, 511) << "\t" << Efficiency(h, energie, 2*511) << endl;
 		}
 	}
 }
 
-void effi(){
-	int estep = 100;
-	for (int i=1;i<101;i++){
-		get_effi(estep*i);
+
+std::map<int, TString> EfficiencyFilesIn(const TString& dirname)
+{
+	const TString ext = ".root";
+	std::map<int, TString> m;
+
+	TSystemDirectory dir(dirname, dirname);
+	TList *files = dir.GetListOfFiles();
+	if (files) {
+		TSystemFile *file;
+		TString fname;
+		TIter next(files);
+		int i = 0;
+		while ((file=(TSystemFile*)next())) {
+			fname = file->GetName();
+			// Check if file is not a directory, is a root file, is not a partial (_t) root file, and is of resonable size (== finished)
+			if ( !file->IsDirectory() && fname.EndsWith(ext) && !fname.SubString("_t") && FileSize(dirname+"/"+fname) > 20000 ) {
+				// Get energy from filename
+				if (sscanf(fname, "%d.root", &i) == 1){
+					m.insert({i, dirname+"/"+fname});
+				}
+			}
+		}
+	}
+	return m;
+}
+
+
+void effi(const TString& directory){
+	auto files = EfficiencyFilesIn(directory);
+	for ( auto &file : files ) {
+		cout << "# Data for E = " << file.first << " keV from file " << file.second << ":" << endl;
+		EfficencyForEnergyFromFile(file.first, file.second);
 	}
 }
