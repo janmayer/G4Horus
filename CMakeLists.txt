@@ -39,20 +39,21 @@ target_link_libraries(G4Horus ${Geant4_LIBRARIES})
 # build B4c. This is so that we can run the executable directly because it
 # relies on these scripts being in the current working directory.
 #
-set(G4Horus_SCRIPTS
-  init.mac
-  init_vis.mac
-  vis.mac
-  icons.mac
-  gui.mac
-  run.png
-  doit.mac
-  )
+file(GLOB G4Horus_SCRIPTS ${PROJECT_SOURCE_DIR}/scripts/*.mac)
+#  init.mac
+#  init_vis.mac
+#  vis.mac
+#  icons.mac
+#  gui.mac
+#  run.png
+#  doit*.mac
+#  )
 
-foreach(_script ${G4Horus_SCRIPTS})
+foreach(_file ${G4Horus_SCRIPTS}) 
+  get_filename_component(_script ${_file} NAME)
   configure_file(
-    ${PROJECT_SOURCE_DIR}/scripts/${_script}
+    ${_file}
     ${PROJECT_BINARY_DIR}/${_script}
     COPYONLY
-    )
+  )
 endforeach()

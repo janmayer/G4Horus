@@ -33,12 +33,13 @@ HPGe::Coaxial::Coaxial(const _spec &spec, const std::string &name, const G4doubl
   detector_logical = new G4LogicalVolume(detector_solid, vacuum_material, "HPGe_" + name + "_Logical");
   detector_logical->SetVisAttributes(G4VisAttributes::Invisible);
 
+  G4VisAttributes* filter_vis = new G4VisAttributes(G4Color(1.,0.5,0));
+  filter_vis->SetForceSolid(true);
   // copper filter
   if(filter_thickness > 0.*mm){
     G4Tubs* filter_solid = new G4Tubs("HPGe_" + name + "_filter_solid", 0, filter_radius, filter_thickness/2., 0.*deg, 360.*deg);
     G4LogicalVolume* filter_logical = new G4LogicalVolume(filter_solid, filter_material, "HPGe_" + name + "_filter_logical");
-    G4VisAttributes* filter_vis = new G4VisAttributes(G4Color(1.,0.5,0));
-    filter_vis->SetForceSolid(true);
+
     filter_logical->SetVisAttributes(filter_vis);
     new G4PVPlacement(0, G4ThreeVector(0,0, -(full_length/2 - filter_thickness/2.)), filter_logical, "HPGe_" + name + "_filter", detector_logical, false, 0);
   }
@@ -83,6 +84,12 @@ HPGe::Coaxial::Coaxial(const _spec &spec, const std::string &name, const G4doubl
   if( fabs((crystal_solid_with_hole->GetCubicVolume()/cm3 + crystal_dead_layer_solid->GetCubicVolume()/cm3)/spec.crystal.volume -1) > MAX_VOLUME_DIFFERENCE ){
     G4Exception("HPGe::Coaxial::Coaxial()", "Horus", JustWarning, ("Volume of detector " + spec.id + " does not match!").c_str() );
   }
+
+  // cryo finger?
+  G4Tubs*   cryo_solid = new G4Tubs("HPGe_" + name + "_cryo_solid", 0.*cm, spec.crystal.hole_diameter/2. - 0.5*mm, spec.crystal.hole_length/2, 0.*deg, 360.*deg);
+  G4LogicalVolume* cryo_logical = new G4LogicalVolume(cryo_solid, hull_material, "HPGe_" + name + "_cryo_logical", 0, 0, 0);
+  cryo_logical->SetVisAttributes(filter_vis);
+  new G4PVPlacement(0, G4ThreeVector(0,0,-(full_length/2. - filter_thickness - spec.hull.thickness - spec.hull.padding - spec.crystal.dead_layer - (spec.crystal.length-spec.crystal.hole_length) - spec.crystal.hole_length/2 )), cryo_logical, "HPGe_" + name + "_cryo", detector_logical, false, 0, true);
 
 }
 

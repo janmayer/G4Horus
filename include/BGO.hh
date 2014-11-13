@@ -7,7 +7,9 @@
 class BGO
 {
 public:
-  BGO(G4String name);
+  enum _type {tNULL, tSMALLNOSE, tLARGENOSE};
+
+  BGO(const _type type, const G4String name);
   ~BGO();
 
   G4LogicalVolume* GetLogical() { return mother_lv; }

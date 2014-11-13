@@ -17,7 +17,7 @@
 #include <string>
 
 
-BGO::BGO(G4String name){
+BGO::BGO(const _type type, const G4String name){
 
   G4double nose_length = 4.2*cm;
   G4double cone_length = 4.4*cm;
@@ -27,8 +27,22 @@ BGO::BGO(G4String name){
   overlap_length = (nose_length + cone_length)/2.;
 
 
-  G4double nose_front_inner_diameter = 3.2*cm;
-  G4double nose_front_outer_diameter = 5.*cm;
+  G4double nose_front_inner_diameter = 0;
+  G4double nose_front_outer_diameter = 0;
+  switch (type)
+  {
+    case tSMALLNOSE:
+      nose_front_inner_diameter = 2*cm;
+      nose_front_outer_diameter = 5.5*cm;
+      break;
+    case tLARGENOSE:
+      nose_front_inner_diameter = 3.2*cm;
+      nose_front_outer_diameter = 5.*cm;
+      break;
+    default:
+      G4Exception("BGO::BGO()", "Unknown nose type", FatalException, ("BGO " + name + " has an unknown type.").c_str() );
+      break;
+  }
 
   G4double cone_back_inner_diameter  = 10.*cm;
   G4double cone_back_outer_diameter  = 13.5*cm;
@@ -71,6 +85,7 @@ BGO::BGO(G4String name){
   G4Material* bgo_mat = G4Material::GetMaterial("BGO");
   G4VisAttributes* bgo_vis = new G4VisAttributes(G4Color(0.8,0.,0.1));
   bgo_vis->SetForceSolid(true);
+
 
   G4LogicalVolume* bgo_lv = new G4LogicalVolume(bgo_s, bgo_mat, "BGO_" + name + "_bgo_lv", 0, 0, 0);
   bgo_lv->SetVisAttributes(bgo_vis);

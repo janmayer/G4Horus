@@ -25,9 +25,6 @@ AstroTargetkammer::AstroTargetkammer(G4LogicalVolume* mother_l)
 
 G4bool check_overlaps = true;
 
-//G4Material* Vacuum = G4Material::GetMaterial("Galactic");
-//G4Material* Germanium = G4Material::GetMaterial("G4_Ge");
-
 
 G4Material* pet = G4Material::GetMaterial("PET");
 G4VisAttributes* pet_va = new G4VisAttributes( G4Color(1,1,1, 1) );
@@ -63,6 +60,9 @@ G4RotationMatrix* rm90z = new G4RotationMatrix();
 G4RotationMatrix* rmrbs = new G4RotationMatrix();
   				  rmrbs->rotateY(-90.*deg);
   				  rmrbs->rotateX(132.*deg);
+G4RotationMatrix* rm90y180z = new G4RotationMatrix();
+				  rm90y180z->rotateY(-90.*deg);
+				  rm90y180z->rotateZ(180.*deg);
 
 
 // Aluminum main corpus and tantalum coating
@@ -109,8 +109,8 @@ G4LogicalVolume*    chamber_corpus_l  = new G4LogicalVolume(chamber_corpus_s,  a
 G4LogicalVolume*    chamber_coating_l = new G4LogicalVolume(chamber_coating_s, tantalum, "chamber_coating_l");
 					chamber_coating_l->SetVisAttributes(tantalum_va);
 
-new G4PVPlacement(rm90y, G4ThreeVector(), chamber_corpus_l,  "chamber_corpus",  mother_l, false, 0, check_overlaps);
-new G4PVPlacement(rm90y, G4ThreeVector(), chamber_coating_l, "chamber_coating", mother_l, false, 0, check_overlaps);
+new G4PVPlacement(rm90y180z, G4ThreeVector(), chamber_corpus_l,  "chamber_corpus",  mother_l, false, 0, check_overlaps);
+new G4PVPlacement(rm90y180z, G4ThreeVector(), chamber_coating_l, "chamber_coating", mother_l, false, 0, check_overlaps);
 
 
 // Cooling finger
@@ -121,11 +121,11 @@ G4double cooling_finger_hole_radius =  5.*mm;
 
 G4Tubs*  cooling_finger_full_s = new G4Tubs("cooling_finger_full_s", cooling_finger_radius[0], cooling_finger_radius[1], cooling_finger_length, 0.*deg, 360.*deg);
 G4Tubs*  cooling_finger_sub_s  = new G4Tubs("cooling_finger_sub_s", 0, cooling_finger_hole_radius, cooling_finger_radius[1]*1.2, 0.*deg, 360.*deg);
-G4SubtractionSolid* cooling_finger_s = new G4SubtractionSolid("cooling_finger_s", cooling_finger_full_s, cooling_finger_sub_s, rm90x, G4ThreeVector(0, 0, cooling_finger_length - cooling_finger_offset) );
+G4SubtractionSolid* cooling_finger_s = new G4SubtractionSolid("cooling_finger_s", cooling_finger_full_s, cooling_finger_sub_s, rm90x, G4ThreeVector(0, 0, -(cooling_finger_length - cooling_finger_offset)) );
 G4LogicalVolume*  cooling_finger_l = new G4LogicalVolume(cooling_finger_s, copper, "cooling_finger_l");
 				  cooling_finger_l->SetVisAttributes(copper_va);
 
-new G4PVPlacement(rm90x, G4ThreeVector(0, -(cooling_finger_length - cooling_finger_offset), 0), cooling_finger_l, "cooling_finger", mother_l, false, 0, check_overlaps);
+new G4PVPlacement(rm90x, G4ThreeVector(0, (cooling_finger_length - cooling_finger_offset), 0), cooling_finger_l, "cooling_finger", mother_l, false, 0, check_overlaps);
 
 
 // Beampipe front
@@ -170,7 +170,8 @@ new G4PVPlacement(0, G4ThreeVector(0,0, -(entry_shield_distance + entry_shield_l
 
 // beam exit shield
 // FIXME: Is a cone, not a tubs
-G4double exit_shield_radius[3] = {37.*mm/2., 57*mm/2., 64.*mm/2.};
+//G4double exit_shield_radius[3] = {37.*mm/2., 57*mm/2., 64.*mm/2.};
+G4double exit_shield_radius[3] = {37.*mm/2.*.9, 57*mm/2.*.9, 64.*mm/2.*.9};
 G4double exit_shield_length    = {97.*mm/2.};
 G4double exit_shield_distance  = chamber_corpus_radius[1] + 2.*mm;
 
@@ -186,7 +187,16 @@ new G4PVPlacement(0, G4ThreeVector(0,0, +(exit_shield_distance + exit_shield_len
 new G4PVPlacement(0, G4ThreeVector(0,0, +(exit_shield_distance + exit_shield_length) ), exit_shield_brass_tubs_l, "exit_shield_brass_tubs", mother_l, false, 0, check_overlaps);
 
 
+//Target Pipe
+G4double target_pipe_radius[2] = {7.*mm, 10.*mm};
+G4double target_pipe_length = 100.*mm;
 
+G4Tubs*          target_pipe_s = new G4Tubs("target_pipe_s", target_pipe_radius[0], target_pipe_radius[1], target_pipe_length/2, 0.*deg, 360.*deg);
+G4LogicalVolume* target_pipe_l = new G4LogicalVolume(target_pipe_s, aluminum, "target_pipe_l" );
+				 target_pipe_l->SetVisAttributes(aluminum_va);
+
+new G4PVPlacement(rm90x, G4ThreeVector(0.*cm, -(target_pipe_length/2 + chamber_corpus_radius[1]), 0.*cm), target_pipe_l, "target_pipe", mother_l, false, 0, check_overlaps);
+new G4PVPlacement(rm90x, G4ThreeVector(0.*cm, +(target_pipe_length/2 + chamber_corpus_radius[1]), 0.*cm), target_pipe_l, "target_pipe", mother_l, false, 0, check_overlaps);
 
 
 
@@ -246,10 +256,6 @@ G4RotationMatrix* Pipe_Bottom_rm = new G4RotationMatrix();
 							   Pipe_Bottom_rm,
 							   G4ThreeVector(0.,Pipe_Bottom_z,0.));
 
-G4double Target_Pipe_Radius = 7.*mm;
-G4double Target_Pipe_Thickness = 3.*mm;
-G4double Target_Pipe_Length = 100.*mm;
-G4double Target_Pipe_z = (Target_Pipe_Length/2+chamber_corpus_radius-1.*mm);
 
 
 

@@ -21,8 +21,55 @@
 #include "BGO.hh"
 #include "AstroTargetkammer.hh"
 
-extern const std::vector<std::string> detectors = {"Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", /*"Ge06",*/ "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"};
-//extern const std::vector<std::string> detectors = {};
+//extern const std::vector<std::string> detectors = {"Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", /*"Ge06",*/ "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"};
+extern const std::vector<std::string> detectors = {"Ge03"};
+
+G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
+{
+  // World
+  G4double worldSizeXYZ = 1.*m/2;
+  G4Material* worldMaterial = G4Material::GetMaterial("Galactic");
+
+  G4VSolid*           worldS  = new G4Box("World", worldSizeXYZ, worldSizeXYZ, worldSizeXYZ);
+  G4LogicalVolume*    worldLV = new G4LogicalVolume(worldS, worldMaterial, "World");
+                      worldLV->SetVisAttributes (G4VisAttributes::Invisible);
+
+  new AstroTargetkammer(worldLV);
+
+
+  auto horus = new Horus(worldLV);
+  // ID, Position, Distance to endcap, Filter Thickness, BGO ?
+  horus->PlaceHPGe("elek", "Ge00", 13.*cm, 2.*mm, new BGO(BGO::tLARGENOSE, "BGO00"));
+  horus->PlaceHPGe("609502", "Ge01", 10.5*cm, 2.*mm);
+  horus->PlaceHPGe("73954", "Ge02", 29.5*cm, 2.*mm, new BGO(BGO::tLARGENOSE, "BGO02"));
+  horus->PlaceHPGe("7xxxx", "Ge03", 13.5*cm, 2.*mm, new BGO(BGO::tLARGENOSE, "BGO03"));
+  horus->PlaceHPGe("73209", "Ge04", 8.5*cm, 2.*mm);
+  horus->PlaceHPGe("72827", "Ge05", 9.5*cm, 2.*mm);
+  //horus->PlaceHPGe("generic_hex", "Ge06", 10.*cm, 0);
+  horus->PlaceHPGe("72811", "Ge07", 18.*cm, 2.*mm , new BGO(BGO::tSMALLNOSE, "BGO07"));
+  horus->PlaceHPGe("73002", "Ge08", 17.*cm, 2.*mm , new BGO(BGO::tLARGENOSE, "BGO08"));
+  horus->PlaceHPGe("generic_hex", "Ge09", 16.*cm, 2.*mm, new BGO(BGO::tSMALLNOSE, "BGO09"));
+  horus->PlaceHPGe("generic_hex", "Ge10", 12.3*cm, 2.*mm);
+  horus->PlaceHPGe("72397", "Ge11", 10.5*cm, 1.*mm);
+  horus->PlaceHPGe("72442", "Ge12", 14.*cm, 2.*mm);
+  horus->PlaceHPGe("72341", "Ge13", 12.5*cm, 2.*mm);
+
+/*  auto thedet = new HPGe::Hexagonal(Horus::specifications.at("72442"), "blub", 0);
+  G4RotationMatrix* rm = new G4RotationMatrix();
+  rm->rotateZ(30.*deg);
+
+  new G4PVPlacement(  rm, G4ThreeVector(0,0,80.*mm), // position and rotation, distance is to front of detector, but to center is expected
+                      thedet->GetLogical(), // its logical volume
+                      "id", // its name
+                      worldLV,  // its mother  volume
+                      false, // no boolean operation
+                      0, // copy number
+                      true); // checking overlaps
+*/
+
+  G4VPhysicalVolume*  worldPV = new G4PVPlacement(0, G4ThreeVector(), worldLV, "World", 0, false, 0, fCheckOverlaps);
+  return worldPV;
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -82,42 +129,6 @@ void DetectorConstruction::DefineMaterials()
   new G4Material("Nothing", 1, 0, universe_mean_density, kStateUndefined, 0, 0);
 
   //G4cout << *(G4Material::GetMaterialTable()) << G4endl; // Print materials
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
-{
-  // World
-  G4double worldSizeXYZ = 1.*m/2;
-  G4Material* worldMaterial = G4Material::GetMaterial("Galactic");
-
-  G4VSolid*           worldS  = new G4Box("World", worldSizeXYZ, worldSizeXYZ, worldSizeXYZ);
-  G4LogicalVolume*    worldLV = new G4LogicalVolume(worldS, worldMaterial, "World");
-                      worldLV->SetVisAttributes (G4VisAttributes::Invisible);
-
-  new AstroTargetkammer(worldLV);
-
-  auto horus = new Horus(worldLV);
-  // ID, Position, Distance to endcap, Filter Thickness, BGO installed?
-  horus->PlaceHPGe("generic_hex", "Ge00", 13.*cm, 2.*mm, true);
-  horus->PlaceHPGe("generic_hex", "Ge01", 10.5*cm, 2.*mm);
-  horus->PlaceHPGe("73954", "Ge02", 28.5*cm, 2.*mm, true);
-  horus->PlaceHPGe("generic_hex", "Ge03", 13.5*cm, 2.*mm, true);
-  horus->PlaceHPGe("73209", "Ge04", 8.5*cm, 2.*mm);
-  horus->PlaceHPGe("72827", "Ge05", 9.5*cm, 2.*mm);
-  //horus->PlaceHPGe("generic_hex", "Ge06", 10.*cm);
-  horus->PlaceHPGe("72811", "Ge07", 18.*cm, 2.*mm, true);
-  horus->PlaceHPGe("73002", "Ge08", 17.*cm, 2.*mm, true);
-  horus->PlaceHPGe("generic_hex", "Ge09", 16.*cm, 2.*mm, true);
-  horus->PlaceHPGe("generic_hex", "Ge10", 12.3*cm, 2.*mm);
-  horus->PlaceHPGe("72397", "Ge11", 10.5*cm, 1.*mm);
-  horus->PlaceHPGe("72442", "Ge12", 14.*cm, 2.*mm);
-  horus->PlaceHPGe("72341", "Ge13", 12.5*cm, 2.*mm);
-
-
-  G4VPhysicalVolume*  worldPV = new G4PVPlacement(0, G4ThreeVector(), worldLV, "World", 0, false, 0, fCheckOverlaps);
-  return worldPV;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -43,7 +43,7 @@ void EfficencyForEnergyFromFile(const int& energie, const TString& file){
 	TIter nextkey(histdir->GetListOfKeys());
 	while ( (key = (TKey*)nextkey()) ) {
 		if (gROOT->GetClass( key->GetClassName() )->InheritsFrom( TH1D::Class() )){
-			h = (TH1D*)(key->ReadObj());
+			h = dynamic_cast<TH1D*>(key->ReadObj());
 			cout << key->GetName() << "\t" << energie << "\t" << Efficiency(h, energie, 0) << "\t" << Efficiency(h, energie, 511) << "\t" << Efficiency(h, energie, 2*511) << endl;
 		}
 	}
@@ -65,10 +65,10 @@ std::map<int, TString> EfficiencyFilesIn(const TString& dirname)
 		while ((file=(TSystemFile*)next())) {
 			fname = file->GetName();
 			// Check if file is not a directory, is a root file, is not a partial (_t) root file, and is of resonable size (== finished)
-			if ( !file->IsDirectory() && fname.EndsWith(ext) && !fname.SubString("_t") && FileSize(dirname+"/"+fname) > 20000 ) {
+			if ( !file->IsDirectory() && fname.EndsWith(ext) && !fname.SubString("_t") && FileSize(dirname+fname) > 20000 ) {
 				// Get energy from filename
 				if (sscanf(fname, "%d.root", &i) == 1){
-					m.insert({i, dirname+"/"+fname});
+					m.insert({i, dirname+fname});
 				}
 			}
 		}

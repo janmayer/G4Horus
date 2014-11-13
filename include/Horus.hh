@@ -6,9 +6,11 @@
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
 
+
 #include "HPGe.hh"
 #include "HPGeCoaxial.hh"
 #include "HPGeHexagonal.hh"
+#include "BGO.hh"
 
 #include <string>
 #include <unordered_map>
@@ -25,13 +27,14 @@ class Horus
 public:
   Horus(G4LogicalVolume* theMother);
   ~Horus();
-  void PlaceHPGe(std::string id, std::string position, G4double distance, G4double filter=0.*cm, G4bool BGO_installed=false);
+  void PlaceHPGe(const std::string& id, const std::string& position, const G4double& distance, const G4double& filter);
+  void PlaceHPGe(const std::string& id, const std::string& position, const G4double& distance, const G4double& filter, BGO* const thebgo);
 
   static const std::unordered_map<std::string,HPGe::_spec> specifications;
   static const std::unordered_map<std::string,coordinate> positions;
 
-
 private:
+  const coordinate CoordinateForPosition(const std::string& position);
   G4Transform3D* GetTransform(const coordinate &pos, const G4double &distance);
   HPGe::HPGe* GetDetector(const std::string &id, const std::string &position, const G4double filter);
 
