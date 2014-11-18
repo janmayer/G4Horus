@@ -19,10 +19,15 @@
 
 #include "Horus.hh"
 #include "BGO.hh"
+#include "PIPS.hh"
+
 #include "AstroTargetkammer.hh"
+#include "SONIC.hh"
 
 //extern const std::vector<std::string> detectors = {"Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", /*"Ge06",*/ "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13"};
-extern const std::vector<std::string> detectors = {"Ge03"};
+//extern const std::vector<std::string> detectors = {"Ge03", "BGO03", "Ge04"};
+extern const std::vector<std::string> detectors = {"Ge05"};
+//extern const std::vector<std::string> detectors = {};
 
 G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 {
@@ -35,6 +40,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
                       worldLV->SetVisAttributes (G4VisAttributes::Invisible);
 
   new AstroTargetkammer(worldLV);
+//  new SONIC(worldLV);
 
 
   auto horus = new Horus(worldLV);
@@ -54,17 +60,19 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
   horus->PlaceHPGe("72442", "Ge12", 14.*cm, 2.*mm);
   horus->PlaceHPGe("72341", "Ge13", 12.5*cm, 2.*mm);
 
-/*  auto thedet = new HPGe::Hexagonal(Horus::specifications.at("72442"), "blub", 0);
+/*  auto thedet = new HPGe::Hexagonal(Horus::specifications.at("72442"), "blub", 0.1*mm);
   G4RotationMatrix* rm = new G4RotationMatrix();
-  rm->rotateZ(30.*deg);
+//  rm->rotateZ(30.*deg);
 
-  new G4PVPlacement(  rm, G4ThreeVector(0,0,80.*mm), // position and rotation, distance is to front of detector, but to center is expected
+  auto thedet = new PIPS("Si00");
+  new G4PVPlacement(  0, G4ThreeVector(0,0,0), // position and rotation, distance is to front of detector, but to center is expected
                       thedet->GetLogical(), // its logical volume
                       "id", // its name
                       worldLV,  // its mother  volume
                       false, // no boolean operation
                       0, // copy number
                       true); // checking overlaps
+
 */
 
   G4VPhysicalVolume*  worldPV = new G4PVPlacement(0, G4ThreeVector(), worldLV, "World", 0, false, 0, fCheckOverlaps);
@@ -101,6 +109,7 @@ void DetectorConstruction::DefineMaterials()
   nistManager->FindOrBuildMaterial("G4_Al");
   nistManager->FindOrBuildMaterial("G4_Ge");
   nistManager->FindOrBuildMaterial("G4_Ta");
+  nistManager->FindOrBuildMaterial("G4_Si");
 
   G4Element*  O = nistManager->FindOrBuildElement("O");
   G4Element* Bi = nistManager->FindOrBuildElement("Bi");
@@ -139,7 +148,15 @@ void DetectorConstruction::ConstructSDandField()
     G4MultiFunctionalDetector* cryst = new G4MultiFunctionalDetector(det);
     G4VPrimitiveScorer* primitiv = new G4PSEnergyDeposit("edep");
     cryst->RegisterPrimitive(primitiv);
-    SetSensitiveDetector("HPGe_" + det + "_crystal_logical",cryst);
+    if (det.rfind("Ge", 0) == 0){
+      SetSensitiveDetector("HPGe_" + det + "_crystal_logical",cryst);
+      continue;
+    }
+    if (det.rfind("BGO", 0) == 0){
+      SetSensitiveDetector("BGO_" + det + "_bgo_lv",cryst);
+      continue;
+    }
+    G4Exception("DetectorConstruction::ConstructSDandField", "Unknown detector type", FatalException, det.c_str() );
   }
 }
 

@@ -29,13 +29,13 @@ public:
   ~Horus();
   void PlaceHPGe(const std::string& id, const std::string& position, const G4double& distance, const G4double& filter);
   void PlaceHPGe(const std::string& id, const std::string& position, const G4double& distance, const G4double& filter, BGO* const thebgo);
+  G4Transform3D* GetTransform(const coordinate &pos, const G4double &distance);
 
   static const std::unordered_map<std::string,HPGe::_spec> specifications;
   static const std::unordered_map<std::string,coordinate> positions;
 
 private:
   const coordinate CoordinateForPosition(const std::string& position);
-  G4Transform3D* GetTransform(const coordinate &pos, const G4double &distance);
   HPGe::HPGe* GetDetector(const std::string &id, const std::string &position, const G4double filter);
 
   G4LogicalVolume* MotherLV;
