@@ -1,0 +1,3 @@
+#16O			17000000		5100keV		aus 5300mv
+#E Gamma	I_abs	ΔI_abs	Counts FEP	ΔCounts FEP	eff FEP	Δeff FEP	E SEP	Counts SEP	ΔCounts SEP	eff SEP	Δeff SEP	E DEP	Counts DEP	ΔCounts DEP	eff DEP	Δeff DEP
+6128	1.00%	0.00%	5659	83	0.0333%	0.0005%	5617	1301	49	0.008%	0.0005%	5106	144	28	0.001%	0.000%

@@ -1,0 +1,3 @@
+#12C			1.20E+09		5300keV
+#E Gamma	I_abs	ΔI_abs	Counts FEP	ΔCounts FEP	eff FEP	Δeff FEP	E SEP	Counts SEP	ΔCounts SEP	eff SEP	Δeff SEP	E DEP	Counts DEP	ΔCounts DEP	eff DEP	Δeff DEP
+4438	100.00%	0.00%	576404	785	0.0480%	0.0001%	3927	276159	692	0.023%	0.000%	3416	148886	476	0.012%	0.000%
