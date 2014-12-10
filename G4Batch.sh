@@ -9,7 +9,7 @@ source /opt/geant4/4.10.00.p02/share/Geant4-10.0.2/geant4make/geant4make.sh
 rm -rf build
 mkdir build
 cd build
-cmake -DGeant4_DIR=/opt/geant4/4.10.00.p02/lib64 ..
+cmake -DGeant4_DIR=/opt/geant4/4.10.00.p02/lib64 -DWITH_NTUPLE=ON -DWITH_GEANT4_UIVIS=OFF ..
 make -j 4
 
 nice -n 19 ./G4Horus -t 30 -m doit.mac

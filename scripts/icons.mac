@@ -9,7 +9,7 @@
 
 # Cursors style icons
 /gui/addIcon "Move" move
-#/gui/addIcon "Pick" pick
+/gui/addIcon "Pick" pick
 /gui/addIcon "Zoom out" zoom_out
 /gui/addIcon "Zoom in" zoom_in
 /gui/addIcon "Rotate" rotate
@@ -25,4 +25,4 @@
 /gui/addIcon "Orthographic" ortho
 
 # User defined icon :
-/gui/addIcon "Run beam on" user_icon "/run/beamOn 1" run.png
+#/gui/addIcon "Run beam on" user_icon "/run/beamOn 1" run.png

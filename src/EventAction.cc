@@ -68,10 +68,13 @@ void EventAction::EndOfEventAction(const G4Event* event)
     edep = GetSum( GetHitsCollection(fHPGeedep, event) );
     int id = std::addressof(det)-std::addressof(detectors[0]);
     analysisManager->FillH1( id, edep );
-    //analysisManager->FillNtupleDColumn( id, edep );
+#if(NTUPLE_ENABLED)
+    analysisManager->FillNtupleDColumn( id, edep );
+#endif
   }
-
-  //analysisManager->AddNtupleRow();
+#if(NTUPLE_ENABLED)
+  analysisManager->AddNtupleRow();
+#endif
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

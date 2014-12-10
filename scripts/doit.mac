@@ -1,4 +1,5 @@
 /run/printProgress 100000
+/gun/particle gamma
 /analysis/setFileName /scratch/jmayer/G4/100
 /gun/energy 100 keV
 /run/beamOn 10000000

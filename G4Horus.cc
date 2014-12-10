@@ -119,8 +119,9 @@ int main(int argc,char** argv)
 #else
     UImanager->ApplyCommand("/control/execute init.mac");
 #endif
-    if (ui->IsGUI())
+    if (ui->IsGUI()){
       UImanager->ApplyCommand("/control/execute gui.mac");
+    }
     ui->SessionStart();
     delete ui;
 #endif
