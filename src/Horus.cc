@@ -113,101 +113,107 @@ std::unordered_map<std::string,HPGe::_spec> BuildSpecs(){
   specs["25N1546B"].hull.length    = 16.*cm;
 
 
-  specs["generic_hex"].id = "generic_hex";
-  specs["generic_hex"].type = HPGe::tHEXAGONAL;
-  // Diameter(s) are fixed in HPGeHexagonal
-  specs["generic_hex"].crystal.length     = 76.*mm;//78.*mm;
-  specs["generic_hex"].crystal.dead_layer = 2.*mm;
-  specs["generic_hex"].crystal.volume   = 1578.*g/(5.323*g/cm3); // from datasheet
-  specs["generic_hex"].crystal.hole_diameter = 10.*mm;
-  specs["generic_hex"].crystal.hole_length   = specs["generic_hex"].crystal.length-15.*mm;
-  specs["generic_hex"].hull.diameter  = 85.*mm;
-  specs["generic_hex"].hull.padding   = 3.*mm;
-  specs["generic_hex"].hull.thickness = 2.*mm;
-  specs["generic_hex"].hull.length    = 16.*cm;
+  specs["miniball_capsule"].id = "miniball_capsule";
+  specs["miniball_capsule"].type = HPGe::tHEXAGONAL;
+  specs["miniball_capsule"].crystal.diameter   = 59.*mm;
+  //specs["miniball_capsule"].crystal.diameter   = 55.*mm;
+  specs["miniball_capsule"].crystal.length     = 78.*mm;
+  //specs["miniball_capsule"].crystal.length     = 65.*mm;
+  specs["miniball_capsule"].crystal.dead_layer = 0.5*um;
+  //specs["miniball_capsule"].crystal.dead_layer = 2.mm;
+  specs["miniball_capsule"].crystal.volume   = 0.*g/(5.323*g/cm3);
+  specs["miniball_capsule"].crystal.hole_diameter = 10.*mm;
+  specs["miniball_capsule"].crystal.hole_length   = specs["miniball_capsule"].crystal.length-15.*mm;
+  specs["miniball_capsule"].hull.diameter  = 85.*mm;
+  specs["miniball_capsule"].hull.padding   = 3.*mm;
+  specs["miniball_capsule"].hull.thickness = 1.*mm;
+  specs["miniball_capsule"].hull.length    = 12.*cm;
 
 
+  specs["adjusted_capsule"].id = "adjusted_capsule";
+  specs["adjusted_capsule"].type = HPGe::tHEXAGONAL;
+  specs["adjusted_capsule"].crystal.diameter   = 55.*mm;
+  specs["adjusted_capsule"].crystal.length     = 65.*mm;
+  specs["adjusted_capsule"].crystal.dead_layer = 0.5*um;
+  //specs["adjusted_capsule"].crystal.dead_layer = 2.mm;
+  specs["adjusted_capsule"].crystal.volume   = 0.*g/(5.323*g/cm3);
+  specs["adjusted_capsule"].crystal.hole_diameter = 10.*mm;
+  specs["adjusted_capsule"].crystal.hole_length   = specs["adjusted_capsule"].crystal.length-15.*mm;
+  specs["adjusted_capsule"].hull.diameter  = 85.*mm;
+  specs["adjusted_capsule"].hull.padding   = 3.*mm;
+  specs["adjusted_capsule"].hull.thickness = 1.*mm;
+  specs["adjusted_capsule"].hull.length    = 12.*cm;
 
-  specs["72309"] = specs["generic_hex"];
+
+  specs["72309"] = specs["miniball_capsule"];
   specs["72309"].id = "72309";
-  specs["72309"].crystal.length   = (76.5-2)*mm; // from datasheet
+  specs["72309"].crystal.length   = 76.5*mm; // from datasheet
   specs["72309"].crystal.volume   = 1578.*g/(5.323*g/cm3); // from datasheet
   specs["72309"].crystal.hole_length   = specs["72309"].crystal.length-15.*mm;
 
-
-  specs["7xxxx"] = specs["generic_hex"];
-  specs["7xxxx"].id = "7xxxx";
-  specs["7xxxx"].crystal.length   = 55.*mm;// was(76-1)*mm;
-  specs["7xxxx"].crystal.dead_layer = 1.*mm;
-  specs["7xxxx"].crystal.volume   = 0*cm3;
-  specs["7xxxx"].crystal.hole_length   = specs["7xxxx"].crystal.length-15.*mm;
-
-
-  specs["72341"] = specs["generic_hex"];
+  specs["72341"] = specs["miniball_capsule"];
   specs["72341"].id = "72341";
-  specs["72341"].crystal.length   = (78.-2)*mm; // from datasheet
+  specs["72341"].crystal.length   = 78.*mm; // from datasheet
   specs["72341"].crystal.volume   = 1600.*g/(5.323*g/cm3); // from datasheet
   specs["72341"].crystal.hole_length   = specs["72341"].crystal.length-15.*mm;
 
-  specs["72397"] = specs["generic_hex"];
+  specs["72397"] = specs["miniball_capsule"];
   specs["72397"].id = "72397";
-  specs["72397"].crystal.length   = (78.1-2)*mm; // from datasheet
+  specs["72397"].crystal.length   = 78.1*mm; // from datasheet
   specs["72397"].crystal.volume   = 1621.*g/(5.323*g/cm3); // from datasheet
   specs["72397"].crystal.hole_length   = specs["72397"].crystal.length-15.*mm;
 
-  specs["72442"] = specs["generic_hex"];
+  specs["72442"] = specs["miniball_capsule"];
   specs["72442"].id = "72442";
-  specs["72442"].crystal.length   = (78.-2)*mm; // from datasheet
+  specs["72442"].crystal.length   = 78.*mm; // from datasheet
   specs["72442"].crystal.volume   = 1628.*g/(5.323*g/cm3); // from datasheet
   specs["72442"].crystal.hole_length   = specs["72442"].crystal.length-15.*mm;
 
-  specs["72802"] = specs["generic_hex"];
+  specs["72802"] = specs["miniball_capsule"];
   specs["72802"].id = "72802";
-  specs["72802"].crystal.length   = (77.9-2)*mm; // from datasheet
+  specs["72802"].crystal.length   = 77.9*mm; // from datasheet
   specs["72802"].crystal.volume   = 1585.*g/(5.323*g/cm3); // from datasheet
   specs["72802"].crystal.hole_length   = specs["72802"].crystal.length-15.*mm;
 
-  specs["72811"] = specs["generic_hex"];
+  specs["72811"] = specs["miniball_capsule"];
   specs["72811"].id = "72811";
-  //specs["72811"].crystal.length   = (78.-2)*mm; // from datasheet
-  specs["72811"].crystal.length   = (76.-2)*mm;
+  specs["72811"].crystal.length   = 78.*mm; // from datasheet
   specs["72811"].crystal.volume   = 1590.*g/(5.323*g/cm3); // from datasheet
   specs["72811"].crystal.hole_length   = specs["72811"].crystal.length-15.*mm;
 
-  specs["72812"] = specs["generic_hex"];
+  specs["72812"] = specs["miniball_capsule"];
   specs["72812"].id = "72812";
-  specs["72812"].crystal.length   = (78.-2)*mm; // from datasheet
+  specs["72812"].crystal.length   = 78.*mm; // from datasheet
   specs["72812"].crystal.volume   = 1587.*g/(5.323*g/cm3); // from datasheet
   specs["72812"].crystal.hole_length   = specs["72812"].crystal.length-15.*mm;
 
-  specs["72827"] = specs["generic_hex"];
+  specs["72827"] = specs["miniball_capsule"];
   specs["72827"].id = "72827";
-  specs["72827"].crystal.length   = (78.-2)*mm; // from datasheet
+  specs["72827"].crystal.length   = 78.*mm; // from datasheet
   specs["72827"].crystal.volume   = 1596.7*g/(5.323*g/cm3); // from datasheet
   specs["72827"].crystal.hole_length   = specs["72827"].crystal.length-15.*mm;
 
-  specs["72980"] = specs["generic_hex"];
-  specs["72980"].id = "72980";
-  specs["72980"].crystal.length   = (77.9-2)*mm; // from datasheet
-  specs["72980"].crystal.volume   = 1521.*g/(5.323*g/cm3); // from datasheet
-  specs["72980"].crystal.hole_length   = specs["72980"].crystal.length-15.*mm;
+  specs["72890"] = specs["miniball_capsule"];
+  specs["72890"].id = "72890";
+  specs["72890"].crystal.length   = 77.9*mm; // from datasheet
+  specs["72890"].crystal.volume   = 1521.*g/(5.323*g/cm3); // from datasheet
+  specs["72890"].crystal.hole_length   = specs["72890"].crystal.length-15.*mm;
 
-  specs["73002"] = specs["generic_hex"];
+  specs["73002"] = specs["miniball_capsule"];
   specs["73002"].id = "73002";
-  specs["73002"].crystal.length   = (78.2-2)*mm; // from datasheet
+  specs["73002"].crystal.length   = 78.2*mm; // from datasheet
   specs["73002"].crystal.volume   = 1531.*g/(5.323*g/cm3); // from datasheet
   specs["73002"].crystal.hole_length   = specs["73002"].crystal.length-15.*mm;
 
-  specs["73209"] = specs["generic_hex"];
+  specs["73209"] = specs["miniball_capsule"];
   specs["73209"].id = "73209";
+  specs["73209"].crystal.length   = 77.*mm; // from datasheet
   specs["73209"].crystal.volume   = 1594.*g/(5.323*g/cm3); // from datasheet
-  specs["73209"].crystal.length   = (77.-1.)*mm; // from datasheet
-  specs["73209"].crystal.dead_layer = 2.*mm;
   specs["73209"].crystal.hole_length   = specs["73209"].crystal.length-15.*mm;
 
-  specs["73211"] = specs["generic_hex"];
+  specs["73211"] = specs["miniball_capsule"];
   specs["73211"].id = "73211";
-  specs["73211"].crystal.length   = (77.9-2)*mm; // from datasheet
+  specs["73211"].crystal.length   = 77.9*mm; // from datasheet
   specs["73211"].crystal.volume   = 1584.7*g/(5.323*g/cm3); // from datasheet
   specs["73211"].crystal.hole_length   = specs["73211"].crystal.length-15.*mm;
 
@@ -271,26 +277,14 @@ G4Transform3D* Horus::GetTransform(const coordinate &pos, const G4double &distan
 {
 	G4ThreeVector* moveto = new G4ThreeVector(); moveto->setRThetaPhi(distance, pos.theta, pos.phi);
 
-  // TODO: There should be an easier way to do this
-  G4ThreeVector* nx = new G4ThreeVector(); nx->setRThetaPhi(1, pos.theta+90.*deg, pos.phi);
-  G4ThreeVector* ny = new G4ThreeVector(); ny->setRThetaPhi(1, pos.theta+90.*deg, pos.phi+90.*deg);
-  G4ThreeVector* nz = new G4ThreeVector(); nz->setRThetaPhi(1, pos.theta, pos.phi);
+  G4ThreeVector* rotation_axis = new G4ThreeVector(0,0,-1);
+                 *rotation_axis = rotation_axis->cross(*moveto);
+                 *rotation_axis = rotation_axis->unit();
 
-  /*G4ThreeVector* nx = new G4ThreeVector(); nx->setRThetaPhi(1, -pos.theta+pi/2., pos.phi);
-  G4ThreeVector* ny = new G4ThreeVector(); ny->setRThetaPhi(1, -pos.theta+pi/2., pos.phi+pi/2.);
-  G4ThreeVector* nz = new G4ThreeVector(); nz->setRThetaPhi(1, -pos.theta, pos.phi+pi/2.);*/
-  G4RotationMatrix* rm = new G4RotationMatrix(*nx,*ny,*nz);
+  G4double rotation_angle = acos( G4ThreeVector(0,0,-1).dot(*moveto)/moveto->mag() ) + pi;
 
-  /*G4double ang;
-  G4ThreeVector vc;
-  rm->getAngleAxis(ang, vc);
-
-  G4cout << "RM for t=" << pos.theta/deg << ", pi=" << pos.phi/deg << G4endl;
-  G4cout << "ang: " << ang/deg << " vc: " << vc << G4endl;
-  G4cout << rm->xx() << " " << rm->xy() << " " << rm->xz() << G4endl;
-  G4cout << rm->yx() << " " << rm->yy() << " " << rm->yz() << G4endl;
-  G4cout << rm->zx() << " " << rm->zy() << " " << rm->zz() << G4endl;
-  G4cout << "px " << rm->phiX()/deg << ", py " << rm->phiY()/deg << ", pz " << rm->phiZ()/deg << G4endl;*/
+  G4RotationMatrix* rm = new G4RotationMatrix();
+  rm->rotate(rotation_angle,rotation_axis);
 
   return new G4Transform3D(*rm,*moveto);
 }
