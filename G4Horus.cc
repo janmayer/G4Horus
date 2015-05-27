@@ -1,7 +1,7 @@
 #include "DetectorConstruction.hh"
 #include "ActionInitialization.hh"
 
-#ifdef G4MULTITHREADED
+#if defined(G4MULTITHREADED) && defined(G4MULTITHREADED_USE)
 #include "G4MTRunManager.hh"
 #else
 #include "G4RunManager.hh"
@@ -50,13 +50,13 @@ int main(int argc,char** argv)
 
   G4String macro;
   G4String session;
-#ifdef G4MULTITHREADED
+#if defined(G4MULTITHREADED) && defined(G4MULTITHREADED_USE)
   G4int nThreads = 0;
 #endif
   for ( G4int i=1; i<argc; i=i+2 ) {
     if      ( G4String(argv[i]) == "-m" ) macro = argv[i+1];
     else if ( G4String(argv[i]) == "-u" ) session = argv[i+1];
-#ifdef G4MULTITHREADED
+#if defined(G4MULTITHREADED) && defined(G4MULTITHREADED_USE)
     else if ( G4String(argv[i]) == "-t" ) {
       nThreads = G4UIcommand::ConvertToInt(argv[i+1]);
     }
@@ -73,7 +73,7 @@ int main(int argc,char** argv)
 
   // Construct the MT run manager
   //
-#ifdef G4MULTITHREADED
+#if defined(G4MULTITHREADED) && defined(G4MULTITHREADED_USE)
   G4MTRunManager * runManager = new G4MTRunManager;
   if ( nThreads > 0 ) {
     runManager->SetNumberOfThreads(nThreads);

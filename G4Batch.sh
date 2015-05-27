@@ -1,15 +1,19 @@
 #!/bin/sh
 
-source /opt/geant4/4.10.00.p02/bin/geant4.sh
-source /opt/geant4/4.10.00.p02/share/Geant4-10.0.2/geant4make/geant4make.sh
+## Geant 4 Version
+# If a specific Geant4 version should be used, adapt and uncomment these lines.
+# source /opt/geant4/4.10.00.p02/bin/geant4.sh
+# source /opt/geant4/4.10.00.p02/share/Geant4-10.0.2/geant4make/geant4make.sh
+echo "Using Geant4 Version `geant4-config --version` in `dirname $(dirname $(geant4-config --prefix))`"
 
-#export CC=/usr/local/bin/clang
-#export CXX=/usr/local/bin/clang++
-
+## Build Project
+# Remove previous build directory if it exists and recreate it
 rm -rf build
-mkdir build
+mkdir -p build
 cd build
-cmake -DGeant4_DIR=/opt/geant4/4.10.00.p02/lib64 -DWITH_NTUPLE=ON -DWITH_GEANT4_UIVIS=OFF ..
+
+cmake -DWITH_NTUPLE=OFF -DWITH_GEANT4_UIVIS=OFF -DWITH_MT=ON ..
 make -j 4
 
+# Run executable in batch mode, niced and multithreaded
 nice -n 19 ./G4Horus -t 30 -m doit.mac
