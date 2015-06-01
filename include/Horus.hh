@@ -6,17 +6,13 @@
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
 
-
-#include "HPGe.hh"
-#include "HPGeCoaxial.hh"
-#include "HPGeHexagonal.hh"
 #include "BGO.hh"
+#include "DetectorLibrary.hh"
 
 #include <string>
 #include <unordered_map>
 
-struct coordinate
-{
+struct coordinate {
   double theta;
   double phi;
 };
@@ -25,21 +21,18 @@ class Horus
 {
 
 public:
-  Horus(G4LogicalVolume* theMother);
+  Horus(G4LogicalVolume *theMother);
   ~Horus();
-  void PlaceHPGe(const std::string& id, const std::string& position, const G4double& distance, const G4double& filter);
-  void PlaceHPGe(const std::string& id, const std::string& position, const G4double& distance, const G4double& filter, BGO* const thebgo);
-  G4Transform3D* GetTransform(const coordinate &pos, const G4double &distance);
+  void PlaceHPGe(const std::string &id, const std::string &position, const G4double &distance, const G4double &filter);
+  void PlaceHPGe(const std::string &id, const std::string &position, const G4double &distance, const G4double &filter, BGO *const thebgo);
+  G4Transform3D *GetTransform(const coordinate &pos, const G4double &distance);
 
-  static const std::unordered_map<std::string,HPGe::_spec> specifications;
-  static const std::unordered_map<std::string,coordinate> positions;
+  static const std::unordered_map<std::string, coordinate> positions;
 
 private:
-  const coordinate CoordinateForPosition(const std::string& position);
-  HPGe::HPGe* GetDetector(const std::string &id, const std::string &position, const G4double filter);
-
-  G4LogicalVolume* MotherLV;
-
+  const coordinate CoordinateForPosition(const std::string &position);
+  G4LogicalVolume *MotherLV;
+  DetectorLibrary *detector_library;
 };
 
 #endif //HORUS_HH
