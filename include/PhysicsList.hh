@@ -3,10 +3,12 @@
 
 #include "G4VModularPhysicsList.hh"
 
-class PhysicsList: public G4VModularPhysicsList{
+class PhysicsList : public G4VModularPhysicsList
+{
 public:
   PhysicsList();
   ~PhysicsList();
+
 protected:
   void SetCuts();
 };

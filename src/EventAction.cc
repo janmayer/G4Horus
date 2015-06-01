@@ -1,29 +1,21 @@
 #include "EventAction.hh"
-#include <g4root.hh>
 
-#include "G4RunManager.hh"
 #include "G4Event.hh"
 #include "G4SDManager.hh"
-#include "G4HCofThisEvent.hh"
-#include "G4UnitsTable.hh"
+#include <numeric>
 
-#include "Randomize.hh"
-#include <iomanip>
+#include "g4root.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 EventAction::EventAction() : G4UserEventAction()
 {}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 EventAction::~EventAction()
 {}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4THitsMap<G4double>*
-EventAction::GetHitsCollection(G4int hcID, const G4Event* event) const
+G4THitsMap<G4double>* EventAction::GetHitsCollection(const G4int hcID, const G4Event* event) const
 {
   G4THitsMap<G4double>* hitsCollection
     = static_cast<G4THitsMap<G4double>*>(
@@ -32,41 +24,35 @@ EventAction::GetHitsCollection(G4int hcID, const G4Event* event) const
   if ( ! hitsCollection ) {
     G4ExceptionDescription msg;
     msg << "Cannot access hitsCollection ID " << hcID;
-    G4Exception("EventAction::GetHitsCollection()",
-      "MyCode0003", FatalException, msg);
+    G4Exception("EventAction::GetHitsCollection()", "MyCode0003", FatalException, msg);
   }
 
   return hitsCollection;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-inline G4double EventAction::GetSum(G4THitsMap<G4double>* hitsMap) const
+inline G4double EventAction::GetSum(const G4THitsMap<G4double>* hitsMap) const
 {
-  G4double sumValue = 0;
-  std::map<G4int, G4double*>::iterator it;
-  for ( it = hitsMap->GetMap()->begin(); it != hitsMap->GetMap()->end(); it++) {
-    sumValue += *(it->second);
-  }
-  return sumValue;
+  return std::accumulate(hitsMap->GetMap()->begin(), hitsMap->GetMap()->end(), (G4double)0.0,
+  [](const G4double previous, const std::pair<G4int, G4double*> &p) {
+    return previous + *(p.second);
+  });
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void EventAction::BeginOfEventAction(const G4Event*)
 {}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void EventAction::EndOfEventAction(const G4Event* event)
 {
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
   G4double edep;
 
-  for( auto &det : detectors ) {
+  for ( auto &det : detectors ) {
     auto fHPGeedep = G4SDManager::GetSDMpointer()->GetCollectionID( det + "/edep" );
     edep = GetSum( GetHitsCollection(fHPGeedep, event) );
-    int id = std::addressof(det)-std::addressof(detectors[0]);
+    int id = std::addressof(det) - std::addressof(detectors[0]);
     analysisManager->FillH1( id, edep );
 #if(NTUPLE_ENABLED)
     analysisManager->FillNtupleDColumn( id, edep );
@@ -76,5 +62,3 @@ void EventAction::EndOfEventAction(const G4Event* event)
   analysisManager->AddNtupleRow();
 #endif
 }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

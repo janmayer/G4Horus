@@ -1,7 +1,6 @@
 #ifndef EVENTACTION_HH
 #define EVENTACTION_HH
 
-#include "globals.hh"
 #include "G4UserEventAction.hh"
 #include "G4THitsMap.hh"
 
@@ -17,8 +16,8 @@ public:
   virtual void    EndOfEventAction(const G4Event* event);
 
 private:
-  G4THitsMap<G4double>* GetHitsCollection(G4int hcID, const G4Event* event) const;
-  inline G4double GetSum(G4THitsMap<G4double>* hitsMap) const;
+  G4THitsMap<G4double>* GetHitsCollection(const G4int hcID, const G4Event* event) const;
+  inline G4double GetSum(const G4THitsMap<G4double>* hitsMap) const;
 };
 
 #endif //EVENTACTION_HH
