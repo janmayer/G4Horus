@@ -1,5 +1,8 @@
 #!/bin/sh
 
+export LIBGL_ALWAYS_INDIRECT=y
+
+
 ## Geant 4 Version
 # If a specific Geant4 version should be used, adapt and uncomment these lines.
 # source /opt/geant4/4.10.00.p02/bin/geant4.sh
