@@ -1,0 +1,302 @@
+/run/printProgress 100000
+/gun/particle gamma
+/analysis/setFileName 25
+/gun/energy 25 keV
+/run/beamOn 10000000
+/analysis/setFileName 50
+/gun/energy 50 keV
+/run/beamOn 10000000
+/analysis/setFileName 75
+/gun/energy 75 keV
+/run/beamOn 10000000
+/analysis/setFileName 100
+/gun/energy 100 keV
+/run/beamOn 10000000
+/analysis/setFileName 125
+/gun/energy 125 keV
+/run/beamOn 10000000
+/analysis/setFileName 150
+/gun/energy 150 keV
+/run/beamOn 10000000
+/analysis/setFileName 175
+/gun/energy 175 keV
+/run/beamOn 10000000
+/analysis/setFileName 200
+/gun/energy 200 keV
+/run/beamOn 10000000
+/analysis/setFileName 225
+/gun/energy 225 keV
+/run/beamOn 10000000
+/analysis/setFileName 250
+/gun/energy 250 keV
+/run/beamOn 10000000
+/analysis/setFileName 275
+/gun/energy 275 keV
+/run/beamOn 10000000
+/analysis/setFileName 300
+/gun/energy 300 keV
+/run/beamOn 10000000
+/analysis/setFileName 325
+/gun/energy 325 keV
+/run/beamOn 10000000
+/analysis/setFileName 350
+/gun/energy 350 keV
+/run/beamOn 10000000
+/analysis/setFileName 375
+/gun/energy 375 keV
+/run/beamOn 10000000
+/analysis/setFileName 400
+/gun/energy 400 keV
+/run/beamOn 10000000
+/analysis/setFileName 425
+/gun/energy 425 keV
+/run/beamOn 10000000
+/analysis/setFileName 450
+/gun/energy 450 keV
+/run/beamOn 10000000
+/analysis/setFileName 475
+/gun/energy 475 keV
+/run/beamOn 10000000
+/analysis/setFileName 500
+/gun/energy 500 keV
+/run/beamOn 10000000
+/analysis/setFileName 525
+/gun/energy 525 keV
+/run/beamOn 10000000
+/analysis/setFileName 550
+/gun/energy 550 keV
+/run/beamOn 10000000
+/analysis/setFileName 575
+/gun/energy 575 keV
+/run/beamOn 10000000
+/analysis/setFileName 600
+/gun/energy 600 keV
+/run/beamOn 10000000
+/analysis/setFileName 625
+/gun/energy 625 keV
+/run/beamOn 10000000
+/analysis/setFileName 650
+/gun/energy 650 keV
+/run/beamOn 10000000
+/analysis/setFileName 675
+/gun/energy 675 keV
+/run/beamOn 10000000
+/analysis/setFileName 700
+/gun/energy 700 keV
+/run/beamOn 10000000
+/analysis/setFileName 725
+/gun/energy 725 keV
+/run/beamOn 10000000
+/analysis/setFileName 750
+/gun/energy 750 keV
+/run/beamOn 10000000
+/analysis/setFileName 775
+/gun/energy 775 keV
+/run/beamOn 10000000
+/analysis/setFileName 800
+/gun/energy 800 keV
+/run/beamOn 10000000
+/analysis/setFileName 825
+/gun/energy 825 keV
+/run/beamOn 10000000
+/analysis/setFileName 850
+/gun/energy 850 keV
+/run/beamOn 10000000
+/analysis/setFileName 875
+/gun/energy 875 keV
+/run/beamOn 10000000
+/analysis/setFileName 900
+/gun/energy 900 keV
+/run/beamOn 10000000
+/analysis/setFileName 925
+/gun/energy 925 keV
+/run/beamOn 10000000
+/analysis/setFileName 950
+/gun/energy 950 keV
+/run/beamOn 10000000
+/analysis/setFileName 975
+/gun/energy 975 keV
+/run/beamOn 10000000
+/analysis/setFileName 1000
+/gun/energy 1000 keV
+/run/beamOn 10000000
+/analysis/setFileName 1025
+/gun/energy 1025 keV
+/run/beamOn 10000000
+/analysis/setFileName 1050
+/gun/energy 1050 keV
+/run/beamOn 10000000
+/analysis/setFileName 1075
+/gun/energy 1075 keV
+/run/beamOn 10000000
+/analysis/setFileName 1100
+/gun/energy 1100 keV
+/run/beamOn 10000000
+/analysis/setFileName 1125
+/gun/energy 1125 keV
+/run/beamOn 10000000
+/analysis/setFileName 1150
+/gun/energy 1150 keV
+/run/beamOn 10000000
+/analysis/setFileName 1175
+/gun/energy 1175 keV
+/run/beamOn 10000000
+/analysis/setFileName 1200
+/gun/energy 1200 keV
+/run/beamOn 10000000
+/analysis/setFileName 1225
+/gun/energy 1225 keV
+/run/beamOn 10000000
+/analysis/setFileName 1250
+/gun/energy 1250 keV
+/run/beamOn 10000000
+/analysis/setFileName 1275
+/gun/energy 1275 keV
+/run/beamOn 10000000
+/analysis/setFileName 1300
+/gun/energy 1300 keV
+/run/beamOn 10000000
+/analysis/setFileName 1325
+/gun/energy 1325 keV
+/run/beamOn 10000000
+/analysis/setFileName 1350
+/gun/energy 1350 keV
+/run/beamOn 10000000
+/analysis/setFileName 1375
+/gun/energy 1375 keV
+/run/beamOn 10000000
+/analysis/setFileName 1400
+/gun/energy 1400 keV
+/run/beamOn 10000000
+/analysis/setFileName 1425
+/gun/energy 1425 keV
+/run/beamOn 10000000
+/analysis/setFileName 1450
+/gun/energy 1450 keV
+/run/beamOn 10000000
+/analysis/setFileName 1475
+/gun/energy 1475 keV
+/run/beamOn 10000000
+/analysis/setFileName 1500
+/gun/energy 1500 keV
+/run/beamOn 10000000
+/analysis/setFileName 1525
+/gun/energy 1525 keV
+/run/beamOn 10000000
+/analysis/setFileName 1550
+/gun/energy 1550 keV
+/run/beamOn 10000000
+/analysis/setFileName 1575
+/gun/energy 1575 keV
+/run/beamOn 10000000
+/analysis/setFileName 1600
+/gun/energy 1600 keV
+/run/beamOn 10000000
+/analysis/setFileName 1625
+/gun/energy 1625 keV
+/run/beamOn 10000000
+/analysis/setFileName 1650
+/gun/energy 1650 keV
+/run/beamOn 10000000
+/analysis/setFileName 1675
+/gun/energy 1675 keV
+/run/beamOn 10000000
+/analysis/setFileName 1700
+/gun/energy 1700 keV
+/run/beamOn 10000000
+/analysis/setFileName 1725
+/gun/energy 1725 keV
+/run/beamOn 10000000
+/analysis/setFileName 1750
+/gun/energy 1750 keV
+/run/beamOn 10000000
+/analysis/setFileName 1775
+/gun/energy 1775 keV
+/run/beamOn 10000000
+/analysis/setFileName 1800
+/gun/energy 1800 keV
+/run/beamOn 10000000
+/analysis/setFileName 1825
+/gun/energy 1825 keV
+/run/beamOn 10000000
+/analysis/setFileName 1850
+/gun/energy 1850 keV
+/run/beamOn 10000000
+/analysis/setFileName 1875
+/gun/energy 1875 keV
+/run/beamOn 10000000
+/analysis/setFileName 1900
+/gun/energy 1900 keV
+/run/beamOn 10000000
+/analysis/setFileName 1925
+/gun/energy 1925 keV
+/run/beamOn 10000000
+/analysis/setFileName 1950
+/gun/energy 1950 keV
+/run/beamOn 10000000
+/analysis/setFileName 1975
+/gun/energy 1975 keV
+/run/beamOn 10000000
+/analysis/setFileName 2000
+/gun/energy 2000 keV
+/run/beamOn 10000000
+/analysis/setFileName 2025
+/gun/energy 2025 keV
+/run/beamOn 10000000
+/analysis/setFileName 2050
+/gun/energy 2050 keV
+/run/beamOn 10000000
+/analysis/setFileName 2075
+/gun/energy 2075 keV
+/run/beamOn 10000000
+/analysis/setFileName 2100
+/gun/energy 2100 keV
+/run/beamOn 10000000
+/analysis/setFileName 2125
+/gun/energy 2125 keV
+/run/beamOn 10000000
+/analysis/setFileName 2150
+/gun/energy 2150 keV
+/run/beamOn 10000000
+/analysis/setFileName 2175
+/gun/energy 2175 keV
+/run/beamOn 10000000
+/analysis/setFileName 2200
+/gun/energy 2200 keV
+/run/beamOn 10000000
+/analysis/setFileName 2225
+/gun/energy 2225 keV
+/run/beamOn 10000000
+/analysis/setFileName 2250
+/gun/energy 2250 keV
+/run/beamOn 10000000
+/analysis/setFileName 2275
+/gun/energy 2275 keV
+/run/beamOn 10000000
+/analysis/setFileName 2300
+/gun/energy 2300 keV
+/run/beamOn 10000000
+/analysis/setFileName 2325
+/gun/energy 2325 keV
+/run/beamOn 10000000
+/analysis/setFileName 2350
+/gun/energy 2350 keV
+/run/beamOn 10000000
+/analysis/setFileName 2375
+/gun/energy 2375 keV
+/run/beamOn 10000000
+/analysis/setFileName 2400
+/gun/energy 2400 keV
+/run/beamOn 10000000
+/analysis/setFileName 2425
+/gun/energy 2425 keV
+/run/beamOn 10000000
+/analysis/setFileName 2450
+/gun/energy 2450 keV
+/run/beamOn 10000000
+/analysis/setFileName 2475
+/gun/energy 2475 keV
+/run/beamOn 10000000
+/analysis/setFileName 2500
+/gun/energy 2500 keV
+/run/beamOn 10000000

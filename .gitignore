@@ -1,6 +1,9 @@
 # Build Folder
 build/
 
+# Output Directory
+out/
+
 # Object files
 *.o
 *.ko

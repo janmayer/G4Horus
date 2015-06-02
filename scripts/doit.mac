@@ -1,302 +1,302 @@
 /run/printProgress 100000
 /gun/particle gamma
-/analysis/setFileName /scratch/jmayer/G4/100
+/analysis/setFileName 100
 /gun/energy 100 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/200
+/analysis/setFileName 200
 /gun/energy 200 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/300
+/analysis/setFileName 300
 /gun/energy 300 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/400
+/analysis/setFileName 400
 /gun/energy 400 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/500
+/analysis/setFileName 500
 /gun/energy 500 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/600
+/analysis/setFileName 600
 /gun/energy 600 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/700
+/analysis/setFileName 700
 /gun/energy 700 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/800
+/analysis/setFileName 800
 /gun/energy 800 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/900
+/analysis/setFileName 900
 /gun/energy 900 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/1000
+/analysis/setFileName 1000
 /gun/energy 1000 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/1100
+/analysis/setFileName 1100
 /gun/energy 1100 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/1200
+/analysis/setFileName 1200
 /gun/energy 1200 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/1300
+/analysis/setFileName 1300
 /gun/energy 1300 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/1400
+/analysis/setFileName 1400
 /gun/energy 1400 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/1500
+/analysis/setFileName 1500
 /gun/energy 1500 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/1600
+/analysis/setFileName 1600
 /gun/energy 1600 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/1700
+/analysis/setFileName 1700
 /gun/energy 1700 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/1800
+/analysis/setFileName 1800
 /gun/energy 1800 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/1900
+/analysis/setFileName 1900
 /gun/energy 1900 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/2000
+/analysis/setFileName 2000
 /gun/energy 2000 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/2100
+/analysis/setFileName 2100
 /gun/energy 2100 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/2200
+/analysis/setFileName 2200
 /gun/energy 2200 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/2300
+/analysis/setFileName 2300
 /gun/energy 2300 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/2400
+/analysis/setFileName 2400
 /gun/energy 2400 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/2500
+/analysis/setFileName 2500
 /gun/energy 2500 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/2600
+/analysis/setFileName 2600
 /gun/energy 2600 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/2700
+/analysis/setFileName 2700
 /gun/energy 2700 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/2800
+/analysis/setFileName 2800
 /gun/energy 2800 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/2900
+/analysis/setFileName 2900
 /gun/energy 2900 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/3000
+/analysis/setFileName 3000
 /gun/energy 3000 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/3100
+/analysis/setFileName 3100
 /gun/energy 3100 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/3200
+/analysis/setFileName 3200
 /gun/energy 3200 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/3300
+/analysis/setFileName 3300
 /gun/energy 3300 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/3400
+/analysis/setFileName 3400
 /gun/energy 3400 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/3500
+/analysis/setFileName 3500
 /gun/energy 3500 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/3600
+/analysis/setFileName 3600
 /gun/energy 3600 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/3700
+/analysis/setFileName 3700
 /gun/energy 3700 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/3800
+/analysis/setFileName 3800
 /gun/energy 3800 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/3900
+/analysis/setFileName 3900
 /gun/energy 3900 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/4000
+/analysis/setFileName 4000
 /gun/energy 4000 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/4100
+/analysis/setFileName 4100
 /gun/energy 4100 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/4200
+/analysis/setFileName 4200
 /gun/energy 4200 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/4300
+/analysis/setFileName 4300
 /gun/energy 4300 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/4400
+/analysis/setFileName 4400
 /gun/energy 4400 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/4500
+/analysis/setFileName 4500
 /gun/energy 4500 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/4600
+/analysis/setFileName 4600
 /gun/energy 4600 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/4700
+/analysis/setFileName 4700
 /gun/energy 4700 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/4800
+/analysis/setFileName 4800
 /gun/energy 4800 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/4900
+/analysis/setFileName 4900
 /gun/energy 4900 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/5000
+/analysis/setFileName 5000
 /gun/energy 5000 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/5100
+/analysis/setFileName 5100
 /gun/energy 5100 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/5200
+/analysis/setFileName 5200
 /gun/energy 5200 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/5300
+/analysis/setFileName 5300
 /gun/energy 5300 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/5400
+/analysis/setFileName 5400
 /gun/energy 5400 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/5500
+/analysis/setFileName 5500
 /gun/energy 5500 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/5600
+/analysis/setFileName 5600
 /gun/energy 5600 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/5700
+/analysis/setFileName 5700
 /gun/energy 5700 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/5800
+/analysis/setFileName 5800
 /gun/energy 5800 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/5900
+/analysis/setFileName 5900
 /gun/energy 5900 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/6000
+/analysis/setFileName 6000
 /gun/energy 6000 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/6100
+/analysis/setFileName 6100
 /gun/energy 6100 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/6200
+/analysis/setFileName 6200
 /gun/energy 6200 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/6300
+/analysis/setFileName 6300
 /gun/energy 6300 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/6400
+/analysis/setFileName 6400
 /gun/energy 6400 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/6500
+/analysis/setFileName 6500
 /gun/energy 6500 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/6600
+/analysis/setFileName 6600
 /gun/energy 6600 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/6700
+/analysis/setFileName 6700
 /gun/energy 6700 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/6800
+/analysis/setFileName 6800
 /gun/energy 6800 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/6900
+/analysis/setFileName 6900
 /gun/energy 6900 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/7000
+/analysis/setFileName 7000
 /gun/energy 7000 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/7100
+/analysis/setFileName 7100
 /gun/energy 7100 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/7200
+/analysis/setFileName 7200
 /gun/energy 7200 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/7300
+/analysis/setFileName 7300
 /gun/energy 7300 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/7400
+/analysis/setFileName 7400
 /gun/energy 7400 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/7500
+/analysis/setFileName 7500
 /gun/energy 7500 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/7600
+/analysis/setFileName 7600
 /gun/energy 7600 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/7700
+/analysis/setFileName 7700
 /gun/energy 7700 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/7800
+/analysis/setFileName 7800
 /gun/energy 7800 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/7900
+/analysis/setFileName 7900
 /gun/energy 7900 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/8000
+/analysis/setFileName 8000
 /gun/energy 8000 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/8100
+/analysis/setFileName 8100
 /gun/energy 8100 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/8200
+/analysis/setFileName 8200
 /gun/energy 8200 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/8300
+/analysis/setFileName 8300
 /gun/energy 8300 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/8400
+/analysis/setFileName 8400
 /gun/energy 8400 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/8500
+/analysis/setFileName 8500
 /gun/energy 8500 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/8600
+/analysis/setFileName 8600
 /gun/energy 8600 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/8700
+/analysis/setFileName 8700
 /gun/energy 8700 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/8800
+/analysis/setFileName 8800
 /gun/energy 8800 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/8900
+/analysis/setFileName 8900
 /gun/energy 8900 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/9000
+/analysis/setFileName 9000
 /gun/energy 9000 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/9100
+/analysis/setFileName 9100
 /gun/energy 9100 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/9200
+/analysis/setFileName 9200
 /gun/energy 9200 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/9300
+/analysis/setFileName 9300
 /gun/energy 9300 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/9400
+/analysis/setFileName 9400
 /gun/energy 9400 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/9500
+/analysis/setFileName 9500
 /gun/energy 9500 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/9600
+/analysis/setFileName 9600
 /gun/energy 9600 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/9700
+/analysis/setFileName 9700
 /gun/energy 9700 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/9800
+/analysis/setFileName 9800
 /gun/energy 9800 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/9900
+/analysis/setFileName 9900
 /gun/energy 9900 keV
 /run/beamOn 10000000
-/analysis/setFileName /scratch/jmayer/G4/10000
+/analysis/setFileName 10000
 /gun/energy 10000 keV
 /run/beamOn 10000000

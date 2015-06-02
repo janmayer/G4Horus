@@ -6,6 +6,7 @@
 # source /opt/geant4/4.10.00.p02/share/Geant4-10.0.2/geant4make/geant4make.sh
 echo "Using Geant4 Version `geant4-config --version` in `dirname $(dirname $(geant4-config --prefix))`"
 
+
 ## Build Project
 # Remove previous build directory if it exists and recreate it
 rm -rf build
@@ -13,7 +14,15 @@ mkdir -p build
 cd build
 
 cmake -DWITH_NTUPLE=OFF -DWITH_GEANT4_UIVIS=OFF -DWITH_MT=ON ..
-make -j 4
+make -j19
 
+
+## Create output dir and run full simulation
+cd ..
+mkdir -p out
+cd out
+TS=$(date +%Y-%m-%dT%H-%M-%S)
+mkdir ${TS}
+cd ${TS}
 # Run executable in batch mode, niced and multithreaded
-nice -n 19 ./G4Horus -t 30 -m doit.mac
+nice -n 19 ../../build/G4Horus -t 30 -m ../../scripts/doit_upto2500keV_step25keV.mac
