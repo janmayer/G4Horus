@@ -11,10 +11,9 @@ public:
   DetectorLibrary();
   ~DetectorLibrary();
 
-  HPGe::HPGe *GetDetector(const std::string &id, const std::string &position, const G4double filter);
+  HPGe::HPGe* GetDetector(const std::string &id, const std::string &position, const G4double filter);
 
   static const std::map<std::string, HPGe::_spec> specifications;
-
 };
 
 #endif //DETECTORLIBRARY_HH

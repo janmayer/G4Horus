@@ -2,54 +2,58 @@
 #define HPGE_HH
 
 #include "G4LogicalVolume.hh"
-#include "G4SystemOfUnits.hh"
 
-namespace HPGe
+namespace HPGe {
+
+enum _type {tNULL, tCOAXIAL, tHEXAGONAL};
+
+struct _crystal {
+  G4double diameter;
+  G4double length;
+  G4double volume;
+  G4double hole_diameter;
+  G4double hole_length;
+  G4double dead_layer;
+};
+
+struct _hull {
+  G4double diameter;
+  G4double thickness;
+  G4double padding;
+  G4double length;
+};
+
+struct _spec {
+  std::string id;
+  _type type;
+  struct _crystal crystal;
+  struct _hull hull;
+};
+
+class HPGe
 {
-    enum _type {tNULL, tCOAXIAL, tHEXAGONAL};
+public:
+  HPGe()
+  {};
 
-    struct _crystal
-    {
-      G4double diameter;
-      G4double length;
-      G4double volume;
-      G4double hole_diameter;
-      G4double hole_length;
-      G4double dead_layer;
-    };
+  ~HPGe()
+  {};
 
-    struct _hull
-    {
-      G4double diameter;
-      G4double thickness;
-      G4double padding;
-      G4double length;
-    };
+  G4LogicalVolume* GetLogical()
+  {
+    return detector_logical;
+  }
 
-    struct _spec
-    {
-      std::string id;
-      _type type;
-      struct _crystal crystal;
-      struct _hull hull;
-    };
+  G4double GetLength()
+  {
+    return full_length;
+  }
 
-  class HPGe {
-  public:
-    HPGe()
-    {};
-
-    ~HPGe()
-    {};
-
-    G4LogicalVolume* GetLogical() { return detector_logical; }
-    G4double GetLength(){ return full_length; }
-
-  protected:
-    G4LogicalVolume* detector_logical;
-    G4double full_length;
-    const G4double MAX_VOLUME_DIFFERENCE = 0.01; // relative
-  };
+protected:
+  G4LogicalVolume* detector_logical;
+  G4double full_length;
+  const G4double MAX_VOLUME_DIFFERENCE = 0.01; // relative
+};
 
 } //namespace HPGe
 

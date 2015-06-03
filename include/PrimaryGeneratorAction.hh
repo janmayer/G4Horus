@@ -1,8 +1,8 @@
 #ifndef PRIMARYGENERATORACTION_HH
 #define PRIMARYGENERATORACTION_HH
 
-#include "globals.hh"
 #include "G4VUserPrimaryGeneratorAction.hh"
+#include "G4Types.hh"
 
 class G4ParticleGun;
 class G4Event;

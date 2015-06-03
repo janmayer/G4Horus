@@ -3,16 +3,15 @@
 #include "HPGe.hh"
 #include "HPGeCoaxial.hh"
 #include "HPGeHexagonal.hh"
-#include "BGO.hh"
 
 #include "G4PhysicalConstants.hh"
 #include "G4MultiFunctionalDetector.hh"
 #include "G4VPrimitiveScorer.hh"
 #include "G4PSEnergyDeposit.hh"
 #include "G4SDManager.hh"
+#include "G4SystemOfUnits.hh"
 
-
-const std::unordered_map<std::string, coordinate> Horus::positions = {
+const std::map<std::string, coordinate> Horus::positions = {
   { "Ge00", { 90.*deg,  0      } },
   { "Ge01", { 90.*deg, 55.*deg } },
   { "Ge02", { 90.*deg, 125.*deg } },

@@ -1,5 +1,7 @@
 #include "DetectorLibrary.hh"
 
+#include "G4SystemOfUnits.hh"
+
 std::map<std::string, HPGe::_spec> BuildSpecs()
 {
   std::map<std::string, HPGe::_spec> specs;

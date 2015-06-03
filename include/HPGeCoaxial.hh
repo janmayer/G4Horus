@@ -3,13 +3,14 @@
 
 #include "HPGe.hh"
 
-namespace HPGe
+namespace HPGe {
+
+class Coaxial : public HPGe
 {
-	class Coaxial : public HPGe {
-	public:
-		Coaxial(const _spec &spec, const std::string &name, const G4double &filter_thickness);
-	  	~Coaxial();
-	};
+public:
+  Coaxial(const _spec &spec, const std::string &name, const G4double &filter_thickness);
+  ~Coaxial();
+};
 
 } //namespace HPGe
 

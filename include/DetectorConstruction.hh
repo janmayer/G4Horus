@@ -1,25 +1,24 @@
 #ifndef DETECTORCONSTRUCTION_HH
 #define DETECTORCONSTRUCTION_HH
 
-#include "globals.hh"
 #include "G4VUserDetectorConstruction.hh"
 
 extern const std::vector<std::string> detectors;
 
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
-  public:
-    DetectorConstruction();
-    virtual ~DetectorConstruction();
+public:
+  DetectorConstruction();
+  virtual ~DetectorConstruction();
 
-    virtual G4VPhysicalVolume* Construct();
-    virtual void ConstructSDandField();
+  virtual G4VPhysicalVolume* Construct();
+  virtual void ConstructSDandField();
 
-  private:
-    void DefineMaterials();
-    G4VPhysicalVolume* DefineVolumes();
+private:
+  void DefineMaterials();
+  G4VPhysicalVolume* DefineVolumes();
 
-    G4bool  fCheckOverlaps;
+  G4bool  fCheckOverlaps;
 };
 
 #endif //DETECTORCONSTRUCTION_HH
