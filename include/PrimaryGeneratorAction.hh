@@ -17,7 +17,7 @@ public:
   void SetRandomFlag(G4bool value);
 
 private:
-  G4ParticleGun*  fParticleGun;
+  G4ParticleGun* gun;
 };
 
 #endif //PRIMARYGENERATORACTION_HH

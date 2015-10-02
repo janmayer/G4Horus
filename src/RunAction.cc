@@ -2,64 +2,57 @@
 
 #include "g4root.hh"
 #include "G4Run.hh"
-#include "G4RunManager.hh"
-#include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
 
-#include <sstream>
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+extern const std::vector<std::string> detectors;
+
 
 RunAction::RunAction() : G4UserRunAction()
 {
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
-  G4cout << "Using " << analysisManager->GetType() << G4endl;
+  G4AnalysisManager* analysis_manager = G4AnalysisManager::Instance();
+  analysis_manager->SetVerboseLevel(0);
+
+  G4cout << "Using " << analysis_manager->GetType() << G4endl;
 #if(NTUPLE_ENABLED)
   G4cout << "... with ntuple" << G4endl;
 #endif
 
-  analysisManager->SetHistoDirectoryName("histograms");
+  analysis_manager->SetHistoDirectoryName("histograms");
 #if(NTUPLE_ENABLED)
-  analysisManager->SetNtupleDirectoryName("ntuple");
+  analysis_manager->SetNtupleDirectoryName("ntuple");
+  analysis_manager->CreateNtuple("Horus", "Edep");
 #endif
-  analysisManager->SetVerboseLevel(0);
 
+  for (auto &det : detectors) {
+    analysis_manager->CreateH1(det, "Edep in " + det, 10000, 0., 10.*MeV); // Always use 1keV/bin!
 #if(NTUPLE_ENABLED)
-  analysisManager->CreateNtuple("Horus", "Edep");
-#endif
-  for( auto &det : detectors ) {
-    analysisManager->CreateH1( det, "Edep in " + det, 10000, 0., 10.*MeV); // 1keV/Bin
-#if(NTUPLE_ENABLED)
-    analysisManager->CreateNtupleDColumn(det);
+    analysis_manager->CreateNtupleDColumn(det);
 #endif
   }
+
 #if(NTUPLE_ENABLED)
-  analysisManager->FinishNtuple();
+  analysis_manager->FinishNtuple();
 #endif
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 RunAction::~RunAction()
 {
   delete G4AnalysisManager::Instance();
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void RunAction::BeginOfRunAction(const G4Run*)
 {
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
-  analysisManager->OpenFile();
+  G4AnalysisManager* analysis_manager = G4AnalysisManager::Instance();
+  analysis_manager->OpenFile();
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void RunAction::EndOfRunAction(const G4Run*)
 {
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
-  analysisManager->Write();
-  analysisManager->CloseFile();
+  G4AnalysisManager* analysis_manager = G4AnalysisManager::Instance();
+  analysis_manager->Write();
+  analysis_manager->CloseFile();
 }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
