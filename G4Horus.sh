@@ -11,11 +11,11 @@ echo "Using Geant4 Version `geant4-config --version` in `dirname $(dirname $(gea
 
 ## Build Project
 # Remove previous build directory if it exists and recreate it
-#rm -rf build
+rm -rf build
 mkdir -p build
 cd build
 
-cmake -DWITH_NTUPLE=OFF -DWITH_GEANT4_UIVIS=ON -DWITH_MT=OFF ..
+cmake -DWITH_NTUPLE=OFF ..
 make
 
 # Run executable

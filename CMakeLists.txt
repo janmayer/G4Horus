@@ -10,21 +10,12 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
         message(FATAL_ERROR "${PROJECT_NAME} requires g++ 4.7 or greater.\nPlease enable a non-ancient devtoolset.")
     endif()
 endif()
-add_definitions("-std=c++11 -O3")
+add_definitions("-std=c++11 -O3 -Wall -Wextra")
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
-# You can set WITH_GEANT4_UIVIS to OFF via the command line or ccmake/cmake-gui
-# to build a batch mode only executable
 #
-option(WITH_GEANT4_UIVIS "Build with Geant4 UI and Vis drivers" ON)
-if(WITH_GEANT4_UIVIS)
-  find_package(Geant4 REQUIRED ui_all vis_all)
-else()
-  set(G4UI_NONE true)
-  set(G4VIS_NONE true)
-  find_package(Geant4 REQUIRED)
-endif()
+find_package(Geant4 REQUIRED ui_all vis_all)
 
 #----------------------------------------------------------------------------
 # Activate writing event data to root ntpules in addidtion to histograms
@@ -33,14 +24,6 @@ endif()
 option(WITH_NTUPLE "Build with root ntuple / listmode enabled" OFF)
 if(WITH_NTUPLE)
   add_definitions("-DNTUPLE_ENABLED=true")
-endif()
-
-#----------------------------------------------------------------------------
-# Activate multithreaded mode
-# Note: Geant4 has to be build with multithreaded enabled
-option(WITH_MT "Build with multithreaded enabled for batch mode" OFF)
-if(WITH_MT)
-  add_definitions("-DG4MULTITHREADED_USE=true")
 endif()
 
 #----------------------------------------------------------------------------

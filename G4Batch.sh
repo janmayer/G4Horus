@@ -13,8 +13,8 @@ rm -rf build
 mkdir -p build
 cd build
 
-cmake -DWITH_NTUPLE=OFF -DWITH_GEANT4_UIVIS=OFF -DWITH_MT=ON ..
-make -j19
+cmake -DWITH_NTUPLE=OFF ..
+make -j 10
 
 
 ## Create output dir and run full simulation
@@ -25,4 +25,4 @@ TS=$(date +%Y-%m-%dT%H-%M-%S)
 mkdir ${TS}
 cd ${TS}
 # Run executable in batch mode, niced and multithreaded
-nice -n 19 ../../build/G4Horus -t 30 -m ../../scripts/doit_upto2500keV_step25keV.mac
+nice -n 19 ../../build/G4Horus -t 20 -m ../../scripts/test.mac

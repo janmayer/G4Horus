@@ -1,143 +1,88 @@
 #include "DetectorConstruction.hh"
 #include "ActionInitialization.hh"
+#include "PhysicsList.hh"
 
-#if defined(G4MULTITHREADED) && defined(G4MULTITHREADED_USE)
 #include "G4MTRunManager.hh"
-#else
-#include "G4RunManager.hh"
-#endif
-
 #include "G4UImanager.hh"
 #include "G4UIcommand.hh"
-
-#include "PhysicsList.hh"
-//#include "G4VModularPhysicsList.hh"
-//#include "G4PhysListFactory.hh"
-//#include "FTFP_BERT.hh"
-//#include "G4EmLivermorePhysics.hh"
-
+#include "G4UIExecutive.hh"
+#include "G4VisExecutive.hh"
 #include "Randomize.hh"
 
-#ifdef G4VIS_USE
-#include "G4VisExecutive.hh"
-#endif
+#include <string>
+#include <algorithm>
 
-#ifdef G4UI_USE
-#include "G4UIExecutive.hh"
-#endif
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-namespace {
-  void PrintUsage() {
-    G4cerr << " Usage: " << G4endl;
-    G4cerr << " example [-m macro ] [-u UIsession] [-t nThreads]" << G4endl;
-    G4cerr << "   note: -t option is available only for multi-threaded mode."
-           << G4endl;
+inline std::string GetCmdOption(char** begin, char** end, const std::string &option, const std::string &def = "")
+{
+  char** itr = std::find(begin, end, option);
+  if (itr != end && ++itr != end) {
+    return std::string(*itr);
   }
+  return def;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-int main(int argc,char** argv)
+inline bool CmdOptionExists(char** begin, char** end, const std::string &option)
 {
-  // Evaluate arguments
-  //
-  if ( argc > 7 ) {
-    PrintUsage();
-    return 1;
+  return std::find(begin, end, option) != end;
+}
+
+
+int main(int argc, char* argv[])
+{
+  if (CmdOptionExists(argv, argv + argc, "-h") || CmdOptionExists(argv, argv + argc, "--help")) {
+    G4cout << "G4Horus - Gamma-ray detection efficiency simulation." << G4endl;
+    G4cout << "Usage: G4Horus ([-m macro] [-t threads] | [-h])" << G4endl;
+    G4cout << "    -m macro    Process macro file in batch mode" << G4endl;
+    G4cout << "    -t threads  Number of threads for event processing" << G4endl;
+    G4cout << "    -h          Print this message" << G4endl;
+    return 0;
   }
 
-  G4String macro;
-  G4String session;
-#if defined(G4MULTITHREADED) && defined(G4MULTITHREADED_USE)
-  G4int nThreads = 0;
-#endif
-  for ( G4int i=1; i<argc; i=i+2 ) {
-    if      ( G4String(argv[i]) == "-m" ) macro = argv[i+1];
-    else if ( G4String(argv[i]) == "-u" ) session = argv[i+1];
-#if defined(G4MULTITHREADED) && defined(G4MULTITHREADED_USE)
-    else if ( G4String(argv[i]) == "-t" ) {
-      nThreads = G4UIcommand::ConvertToInt(argv[i+1]);
-    }
-#endif
-    else {
-      PrintUsage();
+
+  G4int threads = 1;
+  if (CmdOptionExists(argv, argv + argc, "-t")) {
+    try {
+      threads = std::stoi(GetCmdOption(argv, argv + argc, "-t", "0"));
+    } catch (...) {
+      G4cerr << "Invalid number of threads." << G4endl;
       return 1;
     }
+    if (threads < 1) {
+      threads = 1;
+    }
   }
 
-  // Choose the Random engine
-  //
+
   G4Random::setTheEngine(new CLHEP::RanecuEngine);
 
-  // Construct the MT run manager
-  //
-#if defined(G4MULTITHREADED) && defined(G4MULTITHREADED_USE)
-  G4MTRunManager * runManager = new G4MTRunManager;
-  if ( nThreads > 0 ) {
-    runManager->SetNumberOfThreads(nThreads);
-  }
-#else
-  G4RunManager * runManager = new G4RunManager;
-#endif
-
-  DetectorConstruction* detConstruction = new DetectorConstruction();
-  runManager->SetUserInitialization(detConstruction);
-
-  runManager->SetUserInitialization(new PhysicsList());
-  //G4VUserPhysicsList* physicsList = new FTFP_BERT(0);
-  //runManager->SetUserInitialization(physicsList);
+  G4MTRunManager* run_manager = new G4MTRunManager;
+  run_manager->SetUserInitialization(new DetectorConstruction());
+  run_manager->SetUserInitialization(new PhysicsList());
+  run_manager->SetUserInitialization(new ActionInitialization());
+  run_manager->SetNumberOfThreads(threads);
+  run_manager->Initialize();
 
 
-  ActionInitialization* actionInitialization = new ActionInitialization();
-  runManager->SetUserInitialization(actionInitialization);
+  G4UImanager* ui_manager = G4UImanager::GetUIpointer();
+  if (CmdOptionExists(argv, argv + argc, "-m")) {
+    G4String macro = GetCmdOption(argv, argv + argc, "-m");
+    ui_manager->ApplyCommand("/control/execute " + macro);
+  } else {
+    // Note: Order matters, segmentation fault otherwise!
+    G4VisManager* vis_manager = new G4VisExecutive;
+    vis_manager->Initialize();
 
-  runManager->Initialize();
-
-#ifdef G4VIS_USE
-  // Initialize visualization
-  G4VisManager* visManager = new G4VisExecutive;
-  // G4VisExecutive can take a verbosity argument - see /vis/verbose guidance.
-  // G4VisManager* visManager = new G4VisExecutive("Quiet");
-  visManager->Initialize();
-#endif
-
-  // Get the pointer to the User Interface manager
-  G4UImanager* UImanager = G4UImanager::GetUIpointer();
-  if ( macro.size() ) {
-    // batch mode
-    G4String command = "/control/execute ";
-    UImanager->ApplyCommand(command+macro);
-  }
-  else  {
-    // interactive mode : define UI session
-#ifdef G4UI_USE
-    G4UIExecutive* ui = new G4UIExecutive(argc, argv, session);
-#ifdef G4VIS_USE
-    UImanager->ApplyCommand("/control/execute init_vis.mac");
-#else
-    UImanager->ApplyCommand("/control/execute init.mac");
-#endif
-    if (ui->IsGUI()){
-      UImanager->ApplyCommand("/control/execute gui.mac");
-    }
+    G4UIExecutive* ui = new G4UIExecutive(argc, argv, G4String());
+    ui_manager->ApplyCommand("/control/execute vis.mac");
+    ui_manager->ApplyCommand("/control/execute gui.mac");
     ui->SessionStart();
     delete ui;
-#endif
+
+    delete vis_manager;
   }
 
-  // Job termination
-  // Free the store: user actions, physics_list and detector_description are
-  // owned and deleted by the run manager, so they should not be deleted
-  // in the main() program !
-
-#ifdef G4VIS_USE
-  delete visManager;
-#endif
-  delete runManager;
-
+  delete run_manager;
   return 0;
 }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo.....
