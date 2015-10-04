@@ -2,7 +2,7 @@
 
 A implementation of the HORUS spectrometer geometry and detectors in Geant4.
 
-![G4Horus Default Geometry](doc/g4horus-default.png)
+![G4Horus Default Geometry](doc/g4horus.png)
 
 ## Quickstart
 1) On poseidon or gaia, create a new folder and do
