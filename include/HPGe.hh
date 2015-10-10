@@ -28,6 +28,7 @@ struct _spec {
   _type type;
   struct _crystal crystal;
   struct _hull hull;
+  bool check_overlaps;
 };
 
 class HPGe

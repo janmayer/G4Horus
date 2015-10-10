@@ -54,20 +54,20 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
     G4Tubs* filter_solid = new G4Tubs("HPGe_" + name + "_filter_solid", 0, spec.hull.diameter/2., filter_thickness/2., 0.*deg, 360.*deg);
     G4LogicalVolume* filter_logical = new G4LogicalVolume(filter_solid, filter_material, "HPGe_" + name + "_filter_logical");
     filter_logical->SetVisAttributes(filter_vis);
-    new G4PVPlacement(0, G4ThreeVector(0,0, -(full_length/2. - filter_thickness/2.)), filter_logical, "HPGe_" + name + "_filter", detector_logical, false, 0, true);
+    new G4PVPlacement(0, G4ThreeVector(0,0, -(full_length/2. - filter_thickness/2.)), filter_logical, "HPGe_" + name + "_filter", detector_logical, false, 0, spec.check_overlaps);
   }
 
   // hull front (endcap)
   G4Tubs* hull_front_solid = new G4Tubs("HPGe_" + name + "_hull_front_solid", 0, spec.hull.diameter/2.-spec.hull.thickness, spec.hull.thickness/2., 0.*deg, 360.*deg);
   G4LogicalVolume* hull_front_logical = new G4LogicalVolume(hull_front_solid, hull_material, "HPGe_" + name + "_hull_front_logical", 0, 0, 0);
   hull_front_logical->SetVisAttributes(hull_vis);
-  new G4PVPlacement(0, G4ThreeVector(0, 0, -(full_length/2. - filter_thickness - spec.hull.thickness/2.)), hull_front_logical, "HPGe_" + name + "_hull_front", detector_logical, false, 0, true);
+  new G4PVPlacement(0, G4ThreeVector(0, 0, -(full_length/2. - filter_thickness - spec.hull.thickness/2.)), hull_front_logical, "HPGe_" + name + "_hull_front", detector_logical, false, 0, spec.check_overlaps);
 
   // hull
   G4Tubs* hull_solid = new G4Tubs("HPGe_" + name + "_hull_solid", spec.hull.diameter/2.-spec.hull.thickness, spec.hull.diameter/2., spec.hull.length/2., 0.*deg, 360.*deg);
   G4LogicalVolume* hull_logical = new G4LogicalVolume(hull_solid, hull_material, "HPGe_" + name + "_hull_logical", 0, 0, 0);
   hull_logical->SetVisAttributes(hull_vis);
-  new G4PVPlacement(0, G4ThreeVector(0, 0, -(full_length/2. - filter_thickness - spec.hull.length/2.)), hull_logical, "HPGe_" + name + "_hull", detector_logical, false, 0, true);
+  new G4PVPlacement(0, G4ThreeVector(0, 0, -(full_length/2. - filter_thickness - spec.hull.length/2.)), hull_logical, "HPGe_" + name + "_hull", detector_logical, false, 0, spec.check_overlaps);
 
   // Capsule (additional hull around the crystal) is build by subtracting a smaller (~> hull thickness) solid from the full solid
   G4VSolid* capsule_full_solid  = HexShape("HPGe_" + name + "_capsule_full",  capsule_base_radius, capsule_length/2.);
@@ -75,7 +75,7 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
   G4VSolid* capsule_solid = new G4SubtractionSolid("HPGe_" + name + "_capsule_solid", capsule_full_solid, capsule_inner_solid, 0, G4ThreeVector());
   G4LogicalVolume* capsule_logical = new G4LogicalVolume(capsule_solid, hull_material, "HPGe_" + name + "_capsule_logical", 0, 0, 0);
   capsule_logical->SetVisAttributes(hull_vis);
-  new G4PVPlacement(rm, G4ThreeVector(0, 0, -(full_length/2. - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_length/2.)), capsule_logical, "HPGe_" + name + "_capsule", detector_logical, false, 0, true);
+  new G4PVPlacement(rm, G4ThreeVector(0, 0, -(full_length/2. - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_length/2.)), capsule_logical, "HPGe_" + name + "_capsule", detector_logical, false, 0, spec.check_overlaps);
 
   // Germanium Dead layer
   G4double gdl_l[2]  = {spec.crystal.dead_layer/2.,-spec.crystal.dead_layer/2.};
@@ -84,7 +84,7 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
   G4Polyhedra* crystal_dead_layer_solid = new G4Polyhedra(name + "_poly_S", 0.*deg, 360.*deg, 6, 2, gdl_l, gdl_r1, gdl_r2);
   G4LogicalVolume*  crystal_dead_layer_logical = new G4LogicalVolume(crystal_dead_layer_solid, crystal_material, "HPGe_" + name + "_crystal_dead_layer_logical", 0, 0, 0);
                     crystal_dead_layer_logical->SetVisAttributes(crystal_dead_layer_vis);
-  new G4PVPlacement(rm, G4ThreeVector(0, 0, -(full_length/2. - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer/2.)), crystal_dead_layer_logical, "HPGe_" + name + "_crystal_dead_layer", detector_logical, false, 0, true);
+  new G4PVPlacement(rm, G4ThreeVector(0, 0, -(full_length/2. - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer/2.)), crystal_dead_layer_logical, "HPGe_" + name + "_crystal_dead_layer", detector_logical, false, 0, spec.check_overlaps);
 
   // Germanium crystal
   G4VSolid* crystal_solid_wo_hole = HexShape("HPGe_" + name + "_crystal", spec.crystal.diameter/2., spec.crystal.length/2.);
@@ -92,7 +92,7 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
   G4VSolid* crystal_solid = new G4SubtractionSolid("HPGe_" + name + "_crystal_solid_with_hole", crystal_solid_wo_hole, crystal_hole_solid, 0, G4ThreeVector(0,0,-(spec.crystal.length/2.-spec.crystal.hole_length/2.)));
   G4LogicalVolume* crystal_logical = new G4LogicalVolume(crystal_solid, crystal_material, "HPGe_" + name + "_crystal_logical", 0, 0, 0);
   crystal_logical->SetVisAttributes(crystal_vis);
-  new G4PVPlacement(rm, G4ThreeVector(0, 0, -(full_length/2. - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer - spec.crystal.length/2.)), crystal_logical, "HPGe_" + name + "_crystal", detector_logical, false, 0, true);
+  new G4PVPlacement(rm, G4ThreeVector(0, 0, -(full_length/2. - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer - spec.crystal.length/2.)), crystal_logical, "HPGe_" + name + "_crystal", detector_logical, false, 0, spec.check_overlaps);
 
 
   // Germanium Volume check
@@ -108,7 +108,7 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
   G4Tubs*   cryo_solid = new G4Tubs("HPGe_" + name + "_cryo_solid", 0.*cm, spec.crystal.hole_diameter/2. - 0.5*mm, spec.crystal.hole_length/2, 0.*deg, 360.*deg);
   G4LogicalVolume* cryo_logical = new G4LogicalVolume(cryo_solid, hull_material, "HPGe_" + name + "_cryo_logical", 0, 0, 0);
   cryo_logical->SetVisAttributes(hull_vis);
-  new G4PVPlacement(0, G4ThreeVector(0,0,-(full_length/2. - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer - (spec.crystal.length-spec.crystal.hole_length) - spec.crystal.hole_length/2 )), cryo_logical, "HPGe_" + name + "_cryo", detector_logical, false, 0, true);
+  new G4PVPlacement(0, G4ThreeVector(0,0,-(full_length/2. - filter_thickness - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer - (spec.crystal.length-spec.crystal.hole_length) - spec.crystal.hole_length/2 )), cryo_logical, "HPGe_" + name + "_cryo", detector_logical, false, 0, spec.check_overlaps);
 }
 
 

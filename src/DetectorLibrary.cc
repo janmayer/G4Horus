@@ -18,6 +18,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
   specs["73954"].hull.padding   = 3.*mm;
   specs["73954"].hull.thickness = 1.*mm;
   specs["73954"].hull.length    = 16.*cm;
+  specs["73954"].check_overlaps = false;
 
 
   specs["73959"].id = "73959";
@@ -32,6 +33,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
   specs["73959"].hull.padding   = 3.*mm;
   specs["73959"].hull.thickness = 1.*mm;
   specs["73959"].hull.length    = 16.*cm;
+  specs["73959"].check_overlaps = false;
 
 
   specs["elek"].id = "elek";
@@ -46,6 +48,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
   specs["elek"].hull.padding   = 3.*mm;
   specs["elek"].hull.thickness = 1.*mm;
   specs["elek"].hull.length    = 16.*cm;
+  specs["elek"].check_overlaps = false;
 
 
   specs["609502"].id = "609502";
@@ -60,6 +63,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
   specs["609502"].hull.padding   = 3.*mm;
   specs["609502"].hull.thickness = 1.*mm;
   specs["609502"].hull.length    = 16.*cm;
+  specs["609502"].check_overlaps = false;
 
 
   specs["37N31120A"].id = "37N31120A";
@@ -74,6 +78,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
   specs["37N31120A"].hull.padding   = 5.*mm;
   specs["37N31120A"].hull.thickness = 1.*mm;
   specs["37N31120A"].hull.length    = 16.*cm;
+  specs["37N31120A"].check_overlaps = false;
 
 
   specs["25N1546B"].id = "25N1546B";
@@ -88,6 +93,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
   specs["25N1546B"].hull.padding   = 4.*mm;
   specs["25N1546B"].hull.thickness = 1.*mm;
   specs["25N1546B"].hull.length    = 16.*cm;
+  specs["25N1546B"].check_overlaps = false;
 
 
   specs["miniball_capsule"].id = "miniball_capsule";
@@ -105,6 +111,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
   specs["miniball_capsule"].hull.padding   = 3.*mm;
   specs["miniball_capsule"].hull.thickness = 1.*mm;
   specs["miniball_capsule"].hull.length    = 12.*cm;
+  specs["miniball_capsule"].check_overlaps = false;
 
 
   specs["adjusted_capsule"].id = "adjusted_capsule";
@@ -120,6 +127,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
   specs["adjusted_capsule"].hull.padding   = 3.*mm;
   specs["adjusted_capsule"].hull.thickness = 1.*mm;
   specs["adjusted_capsule"].hull.length    = 12.*cm;
+  specs["adjusted_capsule"].check_overlaps = false;
 
 
   specs["72309"] = specs["miniball_capsule"];
