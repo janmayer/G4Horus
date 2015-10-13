@@ -100,9 +100,9 @@ HPGe::Hexagonal::Hexagonal(const _spec &spec, const std::string &name, const G4d
   G4cout << "HPGe: " << name << " with Id: " << spec.id << " - crystal volume:  " << volume/cm3 << "cm3 = " << volume*crystal_material->GetDensity()/g << "g" << G4endl;
   G4cout << "HPGe: " << name << " with Id: " << spec.id << " - expected volume: " << spec.crystal.volume/cm3 << "cm3 = " << spec.crystal.volume*crystal_material->GetDensity()/g << "g" << G4endl;
   G4cout << "HPGe: " << name << " with Id: " << spec.id << " - capsule mass:  " << capsule_solid->GetCubicVolume()*hull_material->GetDensity()/g << "g" << G4endl;
-  if( fabs(volume/spec.crystal.volume - 1) > MAX_VOLUME_DIFFERENCE ){
+  /*if( fabs(volume/spec.crystal.volume - 1) > MAX_VOLUME_DIFFERENCE ){
     G4Exception("HPGe::Hexagonal::Hexagonal()", "Horus", JustWarning, ("Volume of detector " + spec.id + " does not match!").c_str() );
-  }
+  }*/
 
   //cryo finger
   G4Tubs*   cryo_solid = new G4Tubs("HPGe_" + name + "_cryo_solid", 0.*cm, spec.crystal.hole_diameter/2. - 0.5*mm, spec.crystal.hole_length/2, 0.*deg, 360.*deg);
