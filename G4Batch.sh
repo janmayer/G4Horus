@@ -24,5 +24,16 @@ cd out
 TS=$(date +%Y-%m-%dT%H-%M-%S)
 mkdir ${TS}
 cd ${TS}
+
+
+## Macro File
+if [ -n "$1" ]
+then
+    MACRO=../../$1
+else
+    MACRO=../../scripts/test.mac
+fi
+
+
 # Run executable in batch mode, niced and multithreaded
-nice -n 19 ../../build/G4Horus -t 20 -m ../../scripts/test.mac
+nice -n 19 ../../build/G4Horus -t 20 -m ${MACRO}
