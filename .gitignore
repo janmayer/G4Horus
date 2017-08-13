@@ -30,6 +30,8 @@ out/
 
 # IDEs
 .idea/
+cmake-build-debug/
 
 # Data Files
 *.dat
+!example/*.dat

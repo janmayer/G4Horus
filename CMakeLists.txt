@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.8 FATAL_ERROR)
+
+project(G4HORUS)
 
 #----------------------------------------------------------------------------
 # Give an error and terminate if the compiler does not support C++11
@@ -31,14 +33,16 @@ endif()
 # Setup include directory for this project
 #
 include(${Geant4_USE_FILE})
-include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/src
+                    ${PROJECT_SOURCE_DIR}/src/actions
+)
 
 #----------------------------------------------------------------------------
 # Locate sources and headers for this project
 # NB: headers are included so they will show up in IDEs
 #
-file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
-file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
+file(GLOB_RECURSE sources ${PROJECT_SOURCE_DIR}/src/*.cc)
+file(GLOB_RECURSE headers ${PROJECT_SOURCE_DIR}/src/*.hh)
 
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries

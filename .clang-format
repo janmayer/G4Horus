@@ -1,0 +1,11 @@
+---
+Language: Cpp
+Standard: Cpp11
+BasedOnStyle: WebKit
+
+AccessModifierOffset: -2
+AlignAfterOpenBracket: true
+Cpp11BracedListStyle: true
+DerivePointerAlignment: true
+SortIncludes: true
+...
