@@ -6,7 +6,6 @@
 class SONIC {
   public:
     SONIC(G4LogicalVolume* expHall_log);
-    ~SONIC();
 };
 
 #endif //SONIC_HH

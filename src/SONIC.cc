@@ -79,39 +79,39 @@ SONIC::SONIC(G4LogicalVolume* mother_l)
     G4VSolid* SONIC03S = new G4SubtractionSolid("SONIC03", SONIC02S, beamp_hollS);
 
     //Adding SOLID tube1; Change tubeX_fullS, tubeX_hollS, tubeX_length
-    G4UnionSolid* SONIC04S = new G4UnionSolid("SONIC04", SONIC03S, tubeM_fullS, *horus->GetTransform({theta1, phi1}, tubeM_length / 2. + tubefront));
+    G4UnionSolid* SONIC04S = new G4UnionSolid("SONIC04", SONIC03S, tubeM_fullS, horus->GetTransform({theta1, phi1}, tubeM_length / 2. + tubefront));
     //Carving SOLID tube1
-    G4SubtractionSolid* SONIC05S = new G4SubtractionSolid("SONIC05", SONIC04S, tubeM_hollS, *horus->GetTransform({theta1, phi1}, tubeM_length / 2. + tubefront));
+    G4SubtractionSolid* SONIC05S = new G4SubtractionSolid("SONIC05", SONIC04S, tubeM_hollS, horus->GetTransform({theta1, phi1}, tubeM_length / 2. + tubefront));
 
     //Adding&Carving SOLID tube2
-    G4UnionSolid* SONIC06S = new G4UnionSolid("SONIC06", SONIC05S, tubeS_fullS, *horus->GetTransform({theta2, phi2}, tubeS_length / 2. + tubefront));
-    G4SubtractionSolid* SONIC07S = new G4SubtractionSolid("SONIC07", SONIC06S, tubeS_hollS, *horus->GetTransform({theta2, phi2}, tubeS_length / 2. + tubefront));
+    G4UnionSolid* SONIC06S = new G4UnionSolid("SONIC06", SONIC05S, tubeS_fullS, horus->GetTransform({theta2, phi2}, tubeS_length / 2. + tubefront));
+    G4SubtractionSolid* SONIC07S = new G4SubtractionSolid("SONIC07", SONIC06S, tubeS_hollS, horus->GetTransform({theta2, phi2}, tubeS_length / 2. + tubefront));
 
     //Adding&Carving SOLID tube3
-    G4UnionSolid* SONIC08S = new G4UnionSolid("SONIC08", SONIC07S, tubeL_fullS, *horus->GetTransform({theta3, phi3}, tubeL_length / 2. + tubefront));
-    G4SubtractionSolid* SONIC09S = new G4SubtractionSolid("SONIC09", SONIC08S, tubeL_hollS, *horus->GetTransform({theta3, phi3}, tubeL_length / 2. + tubefront));
+    G4UnionSolid* SONIC08S = new G4UnionSolid("SONIC08", SONIC07S, tubeL_fullS, horus->GetTransform({theta3, phi3}, tubeL_length / 2. + tubefront));
+    G4SubtractionSolid* SONIC09S = new G4SubtractionSolid("SONIC09", SONIC08S, tubeL_hollS, horus->GetTransform({theta3, phi3}, tubeL_length / 2. + tubefront));
 
     //Adding&Carving SOLID tube4
-    G4UnionSolid* SONIC10S = new G4UnionSolid("SONIC10", SONIC09S, tubeL_fullS, *horus->GetTransform({theta4, phi4}, tubeL_length / 2. + tubefront));
-    G4SubtractionSolid* SONIC11S = new G4SubtractionSolid("SONIC11", SONIC10S, tubeL_hollS, *horus->GetTransform({theta4, phi4}, tubeL_length / 2. + tubefront));
+    G4UnionSolid* SONIC10S = new G4UnionSolid("SONIC10", SONIC09S, tubeL_fullS, horus->GetTransform({theta4, phi4}, tubeL_length / 2. + tubefront));
+    G4SubtractionSolid* SONIC11S = new G4SubtractionSolid("SONIC11", SONIC10S, tubeL_hollS, horus->GetTransform({theta4, phi4}, tubeL_length / 2. + tubefront));
 
     //Adding&Carving SOLID tube5 XXXX HERE; closed tubes are added XXX
-    G4UnionSolid* SONIC12S = new G4UnionSolid("SONIC12", SONIC11S, tubeC_fullS, *horus->GetTransform({theta5, phi5}, tubeC_length / 2. + tubefront));
-    G4SubtractionSolid* SONIC13S = new G4SubtractionSolid("SONIC13", SONIC12S, tubeC_hollS, *horus->GetTransform({theta5, phi5}, (tubeC_length - blind_thick) / 2. + tubefront));
+    G4UnionSolid* SONIC12S = new G4UnionSolid("SONIC12", SONIC11S, tubeC_fullS, horus->GetTransform({theta5, phi5}, tubeC_length / 2. + tubefront));
+    G4SubtractionSolid* SONIC13S = new G4SubtractionSolid("SONIC13", SONIC12S, tubeC_hollS, horus->GetTransform({theta5, phi5}, (tubeC_length - blind_thick) / 2. + tubefront));
 
     //Adding&Carving SOLID tube6 XXXX HERE; closed tubes are added XXX
-    G4UnionSolid* SONIC14S = new G4UnionSolid("SONIC14", SONIC13S, tubeC_fullS, *horus->GetTransform({theta6, phi6}, tubeC_length / 2. + tubefront));
-    G4SubtractionSolid* SONIC15S = new G4SubtractionSolid("SONIC15", SONIC14S, tubeC_hollS, *horus->GetTransform({theta6, phi6}, (tubeC_length - blind_thick) / 2. + tubefront));
+    G4UnionSolid* SONIC14S = new G4UnionSolid("SONIC14", SONIC13S, tubeC_fullS, horus->GetTransform({theta6, phi6}, tubeC_length / 2. + tubefront));
+    G4SubtractionSolid* SONIC15S = new G4SubtractionSolid("SONIC15", SONIC14S, tubeC_hollS, horus->GetTransform({theta6, phi6}, (tubeC_length - blind_thick) / 2. + tubefront));
     //This is for a "normal" tube
-    //G4UnionSolid* SONIC14S =  new G4UnionSolid("SONIC14", SONIC13S, tubeS_fullS,*horus->GetTransform({theta6, phi6, tubeS_length));
-    //G4SubtractionSolid* SONIC15S =  new G4SubtractionSolid("SONIC15", SONIC14S, tubeS_hollS, *horus->GetTransform({theta6, phi6, tubeS_length));
+    //G4UnionSolid* SONIC14S =  new G4UnionSolid("SONIC14", SONIC13S, tubeS_fullS,horus->GetTransform({theta6, phi6, tubeS_length));
+    //G4SubtractionSolid* SONIC15S =  new G4SubtractionSolid("SONIC15", SONIC14S, tubeS_hollS, horus->GetTransform({theta6, phi6, tubeS_length));
     //Adding&Carving SOLID tube7
-    G4UnionSolid* SONIC16S = new G4UnionSolid("SONIC16", SONIC15S, tubeL_fullS, *horus->GetTransform({theta7, phi7}, tubeL_length / 2. + tubefront));
-    G4SubtractionSolid* SONIC17S = new G4SubtractionSolid("SONIC17", SONIC16S, tubeL_hollS, *horus->GetTransform({theta7, phi7}, tubeL_length / 2. + tubefront));
+    G4UnionSolid* SONIC16S = new G4UnionSolid("SONIC16", SONIC15S, tubeL_fullS, horus->GetTransform({theta7, phi7}, tubeL_length / 2. + tubefront));
+    G4SubtractionSolid* SONIC17S = new G4SubtractionSolid("SONIC17", SONIC16S, tubeL_hollS, horus->GetTransform({theta7, phi7}, tubeL_length / 2. + tubefront));
 
     //Adding&Carving SOLID tube8
-    G4UnionSolid* SONIC18S = new G4UnionSolid("SONIC18", SONIC17S, tubeL_fullS, *horus->GetTransform({theta8, phi8}, tubeL_length / 2. + tubefront));
-    G4SubtractionSolid* SONIC19S = new G4SubtractionSolid("SONIC19", SONIC18S, tubeL_hollS, *horus->GetTransform({theta8, phi8}, tubeL_length / 2. + tubefront));
+    G4UnionSolid* SONIC18S = new G4UnionSolid("SONIC18", SONIC17S, tubeL_fullS, horus->GetTransform({theta8, phi8}, tubeL_length / 2. + tubefront));
+    G4SubtractionSolid* SONIC19S = new G4SubtractionSolid("SONIC19", SONIC18S, tubeL_hollS, horus->GetTransform({theta8, phi8}, tubeL_length / 2. + tubefront));
 
     G4LogicalVolume* SONIC19LV = new G4LogicalVolume(SONIC19S, SONIC_mat, "SONIC19", 0, 0, 0);
     //G4VisAttributes* check_vis = new G4VisAttributes(G4Color(1,1,1,0.9));
@@ -123,8 +123,4 @@ SONIC::SONIC(G4LogicalVolume* mother_l)
 
     //  G4double tubefront= (60.-15.)*mm; //Distance of tube front to center of sphere
     //  G4double distance = length/2. + tubefront;
-}
-
-SONIC::~SONIC()
-{
 }

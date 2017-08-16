@@ -6,7 +6,6 @@
 class PIPS {
   public:
     PIPS(const std::string& name);
-    ~PIPS();
 
     G4LogicalVolume* GetLogical()
     {

@@ -5,8 +5,7 @@
 
 namespace HPGe {
 
-enum _type { tNULL,
-             tCOAXIAL,
+enum _type { tCOAXIAL,
              tHEXAGONAL };
 
 struct _crystal {
@@ -35,9 +34,7 @@ struct _spec {
 
 class HPGe {
   public:
-    HPGe(){};
-
-    ~HPGe(){};
+    HPGe() = default;
 
     G4LogicalVolume* GetLogical()
     {

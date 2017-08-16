@@ -96,7 +96,3 @@ PIPS::PIPS(const std::string& name)
     dead_backLV->SetVisAttributes(G4VisAttributes::Invisible);
     new G4PVPlacement(0, dead_back_pos, dead_backLV, "PIPS_" + name + "_dead_back", detector_logical, false, 0, fCheckOverlaps);
 }
-
-PIPS::~PIPS()
-{
-}

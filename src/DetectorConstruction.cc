@@ -31,7 +31,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     G4LogicalVolume* worldLV = new G4LogicalVolume(worldS, worldMaterial, "World");
     worldLV->SetVisAttributes(G4VisAttributes::Invisible);
 
-    new AstroTargetkammer(worldLV);
+//    new AstroTargetkammer(worldLV);
     //  new SONIC(worldLV);
 
     auto horus = new Horus(worldLV);
@@ -79,29 +79,17 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     return worldPV;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 DetectorConstruction::DetectorConstruction()
     : G4VUserDetectorConstruction()
 {
     fCheckOverlaps = true;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-DetectorConstruction::~DetectorConstruction()
-{
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 G4VPhysicalVolume* DetectorConstruction::Construct()
 {
     DefineMaterials();
     return DefineVolumes();
 }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void DetectorConstruction::DefineMaterials()
 {
@@ -141,8 +129,6 @@ void DetectorConstruction::DefineMaterials()
     //G4cout << *(G4Material::GetMaterialTable()) << G4endl; // Print materials
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 void DetectorConstruction::ConstructSDandField()
 {
     for (auto& det : detectors) {
@@ -160,5 +146,3 @@ void DetectorConstruction::ConstructSDandField()
         G4Exception("DetectorConstruction::ConstructSDandField", "Unknown detector type", FatalException, det.c_str());
     }
 }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

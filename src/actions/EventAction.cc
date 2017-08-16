@@ -6,9 +6,9 @@
 
 extern const std::vector<std::string> detectors;
 
-G4THitsMap<G4double>* EventAction::GetHitsCollection(const G4int id, const G4Event* event) const
+inline G4THitsMap<G4double>* EventAction::GetHitsCollection(const G4int id, const G4Event* event) const
 {
-    auto hits_collection = static_cast<G4THitsMap<G4double>*>(event->GetHCofThisEvent()->GetHC(id));
+    auto hits_collection = dynamic_cast<G4THitsMap<G4double>*>(event->GetHCofThisEvent()->GetHC(id));
 
     if (hits_collection == nullptr) {
         G4ExceptionDescription msg;
@@ -27,21 +27,21 @@ inline G4double EventAction::GetSum(const G4THitsMap<G4double>* hits) const
                            });
 }
 
-void EventAction::BeginOfEventAction(const G4Event*)
+void EventAction::BeginOfEventAction(const G4Event* /*anEvent*/)
 {
 }
 
 void EventAction::EndOfEventAction(const G4Event* event)
 {
-    G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+    auto analysisManager = G4AnalysisManager::Instance();
 
-    for (auto& det : detectors) {
-        const G4int collection_id = G4SDManager::GetSDMpointer()->GetCollectionID(det + "/edep");
+    const size_t ndets = detectors.size();
+    for (size_t i = 0; i < ndets; i++) {
+        const G4int collection_id = G4SDManager::GetSDMpointer()->GetCollectionID(detectors.at(i) + "/edep");
         const G4double edep = GetSum(GetHitsCollection(collection_id, event));
-        const G4int hist_id = std::addressof(det) - std::addressof(detectors[0]);
-        analysisManager->FillH1(hist_id, edep);
+        analysisManager->FillH1(i, edep);
 #if (NTUPLE_ENABLED)
-        analysisManager->FillNtupleDColumn(id, edep);
+        analysisManager->FillNtupleDColumn(i, edep);
 #endif
     }
 

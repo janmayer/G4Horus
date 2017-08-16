@@ -5,12 +5,10 @@
 
 class BGO {
   public:
-    enum _type { tNULL,
-                 tSMALLNOSE,
+    enum _type { tSMALLNOSE,
                  tLARGENOSE };
 
     BGO(const _type type, const G4String name);
-    ~BGO();
 
     G4LogicalVolume* GetLogical()
     {

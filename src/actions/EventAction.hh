@@ -7,13 +7,12 @@
 class EventAction : public G4UserEventAction {
   public:
     EventAction() = default;
-    ~EventAction() = default;
 
     void BeginOfEventAction(const G4Event* event) override;
     void EndOfEventAction(const G4Event* event) override;
 
   private:
-    G4THitsMap<G4double>* GetHitsCollection(const G4int hcID, const G4Event* event) const;
+    inline G4THitsMap<G4double>* GetHitsCollection(const G4int hcID, const G4Event* event) const;
     inline G4double GetSum(const G4THitsMap<G4double>* hitsMap) const;
 };
 

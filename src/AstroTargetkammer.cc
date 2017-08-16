@@ -42,16 +42,16 @@ AstroTargetkammer::AstroTargetkammer(G4LogicalVolume* mother_l)
     G4VisAttributes* copper_va = new G4VisAttributes(G4Color(0.50, 0.24, 0.09, 1));
     copper_va->SetForceSolid(true);
 
-    G4RotationMatrix* rm90x = new G4RotationMatrix();
+    auto rm90x = new G4RotationMatrix();
     rm90x->rotateX(90. * deg);
-    G4RotationMatrix* rm90y = new G4RotationMatrix();
+    auto rm90y = new G4RotationMatrix();
     rm90y->rotateY(90. * deg);
-    G4RotationMatrix* rm90z = new G4RotationMatrix();
+    auto rm90z = new G4RotationMatrix();
     rm90z->rotateZ(90. * deg);
-    G4RotationMatrix* rmrbs = new G4RotationMatrix();
+    auto rmrbs = new G4RotationMatrix();
     rmrbs->rotateY(-90. * deg);
     rmrbs->rotateX(132. * deg);
-    G4RotationMatrix* rm90y180z = new G4RotationMatrix();
+    auto rm90y180z = new G4RotationMatrix();
     rm90y180z->rotateY(-90. * deg);
     rm90y180z->rotateZ(180. * deg);
 
@@ -124,7 +124,7 @@ AstroTargetkammer::AstroTargetkammer(G4LogicalVolume* mother_l)
     G4LogicalVolume* pipe_front_l = new G4LogicalVolume(pipe_front_s, aluminum, "pipe_front_l");
     pipe_front_l->SetVisAttributes(aluminum_va);
 
-    new G4PVPlacement(0, G4ThreeVector(0, 0, -pipe_front_distance), pipe_front_l, "pipe_front", mother_l, false, 0, check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -pipe_front_distance), pipe_front_l, "pipe_front", mother_l, false, 0, check_overlaps);
 
     //Beam Pipe Front Connector
     G4double pipe_front_connector_radius[2] = {22. * mm / 2., 32. * mm / 2.};
@@ -134,7 +134,7 @@ AstroTargetkammer::AstroTargetkammer(G4LogicalVolume* mother_l)
     G4LogicalVolume* pipe_front_connector_l = new G4LogicalVolume(pipe_front_connector_s, pet, "pipe_front_l");
     pipe_front_connector_l->SetVisAttributes(pet_va);
 
-    new G4PVPlacement(0, G4ThreeVector(0, 0, -(pipe_front_connector_length + chamber_corpus_radius[1])), pipe_front_connector_l, "pipe_front_connector", mother_l, false, 0, check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(pipe_front_connector_length + chamber_corpus_radius[1])), pipe_front_connector_l, "pipe_front_connector", mother_l, false, 0, check_overlaps);
 
     // beam entry shield
     G4double entry_shield_radius[3] = {32. * mm / 2., 52. * mm / 2., 59. * mm / 2.};
@@ -149,8 +149,8 @@ AstroTargetkammer::AstroTargetkammer(G4LogicalVolume* mother_l)
     G4LogicalVolume* entry_shield_brass_tubs_l = new G4LogicalVolume(entry_shield_brass_tubs_s, brass, "entry_shield_brass_tubs_l");
     entry_shield_brass_tubs_l->SetVisAttributes(brass_va);
 
-    new G4PVPlacement(0, G4ThreeVector(0, 0, -(entry_shield_distance + entry_shield_length)), entry_shield_lead_tubs_l, "entry_shield_lead_tubs", mother_l, false, 0, check_overlaps);
-    new G4PVPlacement(0, G4ThreeVector(0, 0, -(entry_shield_distance + entry_shield_length)), entry_shield_brass_tubs_l, "entry_shield_brass_tubs", mother_l, false, 0, check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(entry_shield_distance + entry_shield_length)), entry_shield_lead_tubs_l, "entry_shield_lead_tubs", mother_l, false, 0, check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(entry_shield_distance + entry_shield_length)), entry_shield_brass_tubs_l, "entry_shield_brass_tubs", mother_l, false, 0, check_overlaps);
 
     // beam exit shield
     // FIXME: Is a cone, not a tubs
@@ -167,8 +167,8 @@ AstroTargetkammer::AstroTargetkammer(G4LogicalVolume* mother_l)
     G4LogicalVolume* exit_shield_brass_tubs_l = new G4LogicalVolume(exit_shield_brass_tubs_s, brass, "exit_shield_brass_tubs_l");
     exit_shield_brass_tubs_l->SetVisAttributes(brass_va);
 
-    new G4PVPlacement(0, G4ThreeVector(0, 0, +(exit_shield_distance + exit_shield_length)), exit_shield_lead_tubs_l, "exit_shield_lead_tubs", mother_l, false, 0, check_overlaps);
-    new G4PVPlacement(0, G4ThreeVector(0, 0, +(exit_shield_distance + exit_shield_length)), exit_shield_brass_tubs_l, "exit_shield_brass_tubs", mother_l, false, 0, check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, +(exit_shield_distance + exit_shield_length)), exit_shield_lead_tubs_l, "exit_shield_lead_tubs", mother_l, false, 0, check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, +(exit_shield_distance + exit_shield_length)), exit_shield_brass_tubs_l, "exit_shield_brass_tubs", mother_l, false, 0, check_overlaps);
 
     //Target Pipe
     G4double target_pipe_radius[2] = {7. * mm, 10. * mm};

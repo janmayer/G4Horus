@@ -6,9 +6,8 @@
 extern const std::vector<std::string> detectors;
 
 RunAction::RunAction()
-    : G4UserRunAction()
 {
-    G4AnalysisManager* analysis_manager = G4AnalysisManager::Instance();
+    auto analysis_manager = G4AnalysisManager::Instance();
     analysis_manager->SetVerboseLevel(0);
 
     G4cout << "Using " << analysis_manager->GetType() << G4endl;
@@ -39,13 +38,13 @@ RunAction::~RunAction()
     delete G4AnalysisManager::Instance();
 }
 
-void RunAction::BeginOfRunAction(const G4Run*)
+void RunAction::BeginOfRunAction(const G4Run* /*aRun*/)
 {
     auto analysis_manager = G4AnalysisManager::Instance();
     analysis_manager->OpenFile();
 }
 
-void RunAction::EndOfRunAction(const G4Run*)
+void RunAction::EndOfRunAction(const G4Run* /*aRun*/)
 {
     auto analysis_manager = G4AnalysisManager::Instance();
     analysis_manager->Write();

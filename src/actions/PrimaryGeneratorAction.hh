@@ -5,17 +5,15 @@
 #include "G4ParticleGun.hh"
 #include "G4Types.hh"
 #include "G4VUserPrimaryGeneratorAction.hh"
-#include <memory>
 
 class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
   public:
     PrimaryGeneratorAction();
-    ~PrimaryGeneratorAction() = default;
-
     void GeneratePrimaries(G4Event* event) override;
 
   private:
-    std::unique_ptr<G4ParticleGun> gun;
+    G4ParticleGun gun;
+    G4ParticleMomentum mom;
 };
 
 #endif //PRIMARYGENERATORACTION_HH

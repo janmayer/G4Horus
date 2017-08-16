@@ -125,7 +125,3 @@ G4VSolid* HPGe::Hexagonal::HexShape(const std::string& name, const G4double& bas
         0,
         G4ThreeVector());
 }
-
-HPGe::Hexagonal::~Hexagonal()
-{
-}

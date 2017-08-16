@@ -87,7 +87,3 @@ HPGe::Coaxial::Coaxial(const _spec& spec, const std::string& name, const G4doubl
     cryo_logical->SetVisAttributes(filter_vis);
     new G4PVPlacement(0, G4ThreeVector(0, 0, -(full_length / 2. - filter_thickness - spec.hull.thickness - spec.hull.padding - spec.crystal.dead_layer - (spec.crystal.length - spec.crystal.hole_length) - spec.crystal.hole_length / 2)), cryo_logical, "HPGe_" + name + "_cryo", detector_logical, false, 0, spec.check_overlaps);
 }
-
-HPGe::Coaxial::~Coaxial()
-{
-}

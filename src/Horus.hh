@@ -17,17 +17,16 @@ struct coordinate {
 class Horus {
   public:
     Horus(G4LogicalVolume *theMother);
-    ~Horus();
     void PlaceHPGe(const std::string &id, const std::string &position, const G4double &distance, const G4double &filter);
     void PlaceHPGe(const std::string &id, const std::string &position, const G4double &distance, const G4double &filter, BGO *const thebgo);
-    G4Transform3D *GetTransform(const coordinate &pos, const G4double &distance);
+    G4Transform3D GetTransform(const coordinate &pos, const G4double &distance) const;
 
     static const std::map<std::string, coordinate> positions;
 
   private:
-    const coordinate CoordinateForPosition(const std::string &position);
-    G4LogicalVolume *MotherLV;
-    DetectorLibrary *detector_library;
+    const coordinate CoordinateForPosition(const std::string &position) const;
+    G4LogicalVolume *MotherLV; // non-owning
+    const DetectorLibrary detDB;
 };
 
 #endif //HORUS_HH

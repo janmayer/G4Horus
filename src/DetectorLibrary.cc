@@ -197,7 +197,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
 }
 const std::map<std::string, HPGe::_spec> DetectorLibrary::specifications = BuildSpecs();
 
-HPGe::HPGe *DetectorLibrary::GetDetector(const std::string &id, const std::string &position, const G4double filter)
+HPGe::HPGe *DetectorLibrary::GetDetector(const std::string &id, const std::string &position, const G4double filter) const
 {
     // Find spec
     auto _s = specifications.find(id);
@@ -220,12 +220,4 @@ HPGe::HPGe *DetectorLibrary::GetDetector(const std::string &id, const std::strin
     }
 
     return thedet;
-}
-
-DetectorLibrary::DetectorLibrary()
-{
-}
-
-DetectorLibrary::~DetectorLibrary()
-{
 }
