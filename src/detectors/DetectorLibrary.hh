@@ -9,7 +9,7 @@ class DetectorLibrary {
   public:
     DetectorLibrary() = default;
 
-    HPGe::HPGe *GetDetector(const std::string &id, const std::string &position, const G4double filter) const;
+    HPGe::HPGe *GetDetector(const std::string &id, const std::string &position, const std::vector<Detector::_filter> &filters) const;
 
     static const std::map<std::string, HPGe::_spec> specifications;
 };

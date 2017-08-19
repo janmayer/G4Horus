@@ -6,19 +6,20 @@
 
 #include "BGO.hh"
 #include "DetectorLibrary.hh"
+#include "HPGe.hh"
 
 #include <map>
 
-struct coordinate {
-    double theta;
-    double phi;
-};
-
 class Horus {
   public:
-    Horus(G4LogicalVolume *theMother);
-    void PlaceHPGe(const std::string &id, const std::string &position, const G4double &distance, const G4double &filter);
-    void PlaceHPGe(const std::string &id, const std::string &position, const G4double &distance, const G4double &filter, BGO *const thebgo);
+    struct coordinate {
+        double theta;
+        double phi;
+    };
+
+    explicit Horus(G4LogicalVolume *theMother);
+    void PlaceHPGe(const std::string &id, const std::string &position, const G4double &distance, const std::vector<Detector::_filter> &filters = {});
+    void PlaceHPGe(const std::string &id, const std::string &position, const G4double &distance, const std::pair<BGO::_type, G4String> &bgo, const std::vector<Detector::_filter> &filters = {});
     G4Transform3D GetTransform(const coordinate &pos, const G4double &distance) const;
 
     static const std::map<std::string, coordinate> positions;

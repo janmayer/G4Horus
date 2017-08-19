@@ -1,9 +1,8 @@
 #include "Horus.hh"
 #include "G4MultiFunctionalDetector.hh"
 #include "G4PhysicalConstants.hh"
-#include "G4SystemOfUnits.hh"
 
-const std::map<std::string, coordinate> Horus::positions = {
+const std::map<std::string, Horus::coordinate> Horus::positions = {
     {"Ge00", {90. * deg, 0}},
     {"Ge01", {90. * deg, 55. * deg}},
     {"Ge02", {90. * deg, 125. * deg}},
@@ -25,9 +24,10 @@ Horus::Horus(G4LogicalVolume *theMother)
 {
 }
 
-void Horus::PlaceHPGe(const std::string &id, const std::string &position, const G4double &distance, const G4double &filter, BGO *const thebgo)
+void Horus::PlaceHPGe(const std::string &id, const std::string &position, const G4double &distance, const std::pair<BGO::_type, G4String> &bgo, const std::vector<Detector::_filter> &filters)
 {
     // Place BGO
+    auto thebgo = new BGO(bgo.first, bgo.second, filters);
     new G4PVPlacement(GetTransform(CoordinateForPosition(position), distance + thebgo->GetLength() / 2 - thebgo->GetOverlapLength()), // position and rotation, distance is to front of detector, but to center is expected
                       thebgo->GetLogical(), // its logical volume
                       (id + "_BGO").c_str(), // its name
@@ -37,13 +37,13 @@ void Horus::PlaceHPGe(const std::string &id, const std::string &position, const 
                       true); // checking overlaps
 
     // and then continue to place detector
-    Horus::PlaceHPGe(id, position, distance, filter);
+    Horus::PlaceHPGe(id, position, distance);
 }
 
-void Horus::PlaceHPGe(const std::string &id, const std::string &position, const G4double &distance, const G4double &filter)
+void Horus::PlaceHPGe(const std::string &id, const std::string &position, const G4double &distance, const std::vector<Detector::_filter> &filters)
 {
-    // Place Detector
-    const auto thedet = detDB.GetDetector(id, position, filter);
+    // Place HPGe
+    const auto thedet = detDB.GetDetector(id, position, filters);
     new G4PVPlacement(GetTransform(CoordinateForPosition(position), distance + thedet->GetLength() / 2), // position and rotation, distance is to front of detector, but to center is expected
                       thedet->GetLogical(), // its logical volume
                       id, // its name
@@ -53,7 +53,7 @@ void Horus::PlaceHPGe(const std::string &id, const std::string &position, const 
                       true); // checking overlaps
 }
 
-const coordinate Horus::CoordinateForPosition(const std::string &position) const
+const Horus::coordinate Horus::CoordinateForPosition(const std::string &position) const
 {
     auto _pos = positions.find(position);
     if (_pos == positions.end()) {
@@ -62,7 +62,7 @@ const coordinate Horus::CoordinateForPosition(const std::string &position) const
     return _pos->second;
 }
 
-G4Transform3D Horus::GetTransform(const coordinate &pos, const G4double &distance) const
+G4Transform3D Horus::GetTransform(const Horus::coordinate &pos, const G4double &distance) const
 {
     G4ThreeVector moveto;
     moveto.setRThetaPhi(distance, pos.theta, pos.phi);

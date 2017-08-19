@@ -1,14 +1,12 @@
 #include "ActionInitialization.hh"
 #include "DetectorConstruction.hh"
 
+#include "G4HadronicProcessStore.hh"
 #include "G4MTRunManager.hh"
 #include "G4UIExecutive.hh"
 #include "G4UImanager.hh"
 #include "G4VisExecutive.hh"
-#include "QGSP_INCLXX_HP.hh"
-
-#include <algorithm>
-#include <string>
+#include "QGSP_INCLXX.hh"
 
 inline std::string GetCmdOption(char** begin, char** end,
                                 const std::string& option,
@@ -53,9 +51,13 @@ int main(int argc, char* argv[])
 
     G4Random::setTheEngine(new CLHEP::RanecuEngine);
 
+    // Silence hadronic processes summary
+    G4HadronicProcessStore::Instance()->SetVerbose(0);
+
     auto run_manager = new G4MTRunManager();
+    run_manager->SetVerboseLevel(0);
     run_manager->SetUserInitialization(new DetectorConstruction());
-    run_manager->SetUserInitialization(new QGSP_INCLXX_HP);
+    run_manager->SetUserInitialization(new QGSP_INCLXX(0));
     run_manager->SetUserInitialization(new ActionInitialization());
     run_manager->SetNumberOfThreads(threads);
     run_manager->Initialize();

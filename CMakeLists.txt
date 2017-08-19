@@ -25,7 +25,7 @@ find_package(Geant4 REQUIRED ui_all vis_all)
 #
 option(WITH_NTUPLE "Build with root ntuple / listmode enabled" OFF)
 if(WITH_NTUPLE)
-  add_definitions("-DNTUPLE_ENABLED=true")
+    add_definitions("-DNTUPLE_ENABLED=true")
 endif()
 
 #----------------------------------------------------------------------------
@@ -33,8 +33,10 @@ endif()
 # Setup include directory for this project
 #
 include(${Geant4_USE_FILE})
-include_directories(${PROJECT_SOURCE_DIR}/src
-                    ${PROJECT_SOURCE_DIR}/src/actions
+include_directories(
+    ${PROJECT_SOURCE_DIR}/src
+    ${PROJECT_SOURCE_DIR}/src/actions
+    ${PROJECT_SOURCE_DIR}/src/detectors
 )
 
 #----------------------------------------------------------------------------
@@ -57,10 +59,10 @@ target_link_libraries(G4Horus ${Geant4_LIBRARIES})
 #
 file(GLOB G4Horus_SCRIPTS ${PROJECT_SOURCE_DIR}/scripts/*.mac)
 foreach(_file ${G4Horus_SCRIPTS})
-  get_filename_component(_script ${_file} NAME)
-  configure_file(
-    ${_file}
-    ${PROJECT_BINARY_DIR}/${_script}
-    COPYONLY
-  )
+    get_filename_component(_script ${_file} NAME)
+    configure_file(
+        ${_file}
+        ${PROJECT_BINARY_DIR}/${_script}
+        COPYONLY
+    )
 endforeach()

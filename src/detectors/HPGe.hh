@@ -1,6 +1,7 @@
 #ifndef HPGE_HH
 #define HPGE_HH
 
+#include "Detector.hh"
 #include "G4LogicalVolume.hh"
 
 namespace HPGe {
@@ -32,24 +33,18 @@ struct _spec {
     bool check_overlaps;
 };
 
-class HPGe {
+class HPGe : public Detector {
   public:
-    HPGe() = default;
-
-    G4LogicalVolume* GetLogical()
-    {
-        return detector_logical;
-    }
-
-    G4double GetLength()
-    {
-        return full_length;
-    }
+    HPGe(const _spec& spec, const std::string& name, const std::vector<Detector::_filter>& filters);
 
   protected:
-    G4LogicalVolume* detector_logical;
-    G4double full_length;
+    _spec fSpec;
+    G4double fFilterLength;
+
     const G4double MAX_VOLUME_DIFFERENCE = 0.01; // relative
+
+    G4LogicalVolume* BuildHull();
+    G4LogicalVolume* BuildHullFront();
 };
 
 } //namespace HPGe
