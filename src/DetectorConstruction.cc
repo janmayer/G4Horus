@@ -11,14 +11,18 @@
 
 #include "AstroTargetkammer.hh"
 #include "BGO.hh"
+#include "CologneCloverSetup.hh"
+#include "DetectorLibrary.hh"
 #include "DummyChamber.hh"
+#include "HPGeClover.hh"
 #include "Horus.hh"
 #include "PIPS.hh"
 #include "SONIC.hh"
 
 extern const std::vector<std::string> detectors = {
-    "Ge00", "Ge01", //"Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13",
-    "BGO00", //"BGO02", "BGO03", "BGO07", "BGO08", "BGO09"
+    //"A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3"
+    "Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13",
+    "BGO00", "BGO02", "BGO03", "BGO07", "BGO08", "BGO09"
 };
 
 G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
@@ -29,27 +33,31 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     auto worldLV = new G4LogicalVolume(worldS, G4Material::GetMaterial("Galactic"), "World");
     worldLV->SetVisAttributes(G4VisAttributes::Invisible);
 
-    //new AstroTargetkammer(worldLV);
-    //new SONIC(worldLV);
-    new DummyChamber(worldLV);
+    // new AstroTargetkammer(worldLV);
+    // new SONIC(worldLV);
+    // new DummyChamber(worldLV);
 
     auto horus = new Horus(worldLV);
     // ID, Position, Distance (to endcap or filters on endcap), Filters
     // ID, Position, Distance to endcap, BGO, BGO-Filters)
-    horus->PlaceHPGe("elek", "Ge00", 17. * cm, {BGO::tLARGENOSE, "BGO00"}, {{"G4_Cu", 1. * mm}, {"G4_Pb", 1. * mm}});
-    horus->PlaceHPGe("609502", "Ge01", 7. * cm, {{"G4_Cu", 2. * mm}, {"G4_Pb", 1. * mm}});
-    horus->PlaceHPGe("73954", "Ge02", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceHPGe("adjusted_capsule", "Ge03", 17 * cm, {BGO::tLARGENOSE, "BGO03"}, {{"G4_Cu", 2. * mm}});
-    horus->PlaceHPGe("73209", "Ge04", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceHPGe("72827", "Ge05", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceHPGe("adjusted_capsule", "Ge06", 17. * cm, {BGO::tLARGENOSE, "BGO02"});
-    horus->PlaceHPGe("72811", "Ge07", 17. * cm, {BGO::tSMALLNOSE, "BGO07"}, {{"G4_Cu", 2. * mm}});
-    horus->PlaceHPGe("73002", "Ge08", 17. * cm, {BGO::tLARGENOSE, "BGO08"}, {{"G4_Cu", 2. * mm}});
-    horus->PlaceHPGe("miniball_capsule", "Ge09", 17. * cm, {BGO::tSMALLNOSE, "BGO09"}, {{"G4_Cu", 2. * mm}});
-    horus->PlaceHPGe("miniball_capsule", "Ge10", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceHPGe("72397", "Ge11", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceHPGe("72442", "Ge12", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceHPGe("72341", "Ge13", 7. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("elek", "Ge00", 17. * cm, {BGO::tSMALLNOSE, "BGO00"}, {{"G4_Cu", 1. * mm}, {"G4_Pb", 5. * mm}});
+    horus->PlaceDetector("609502", "Ge01", 7. * cm, {{"G4_Cu", 2. * mm}, {"G4_Pb", 1. * mm}});
+    horus->PlaceDetector("73954", "Ge02", 7. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("adjusted_capsule", "Ge03", 17 * cm, {BGO::tLARGENOSE, "BGO03"}, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("73209", "Ge04", 7. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("72827", "Ge05", 7. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("adjusted_capsule", "Ge06", 17. * cm, {BGO::tLARGENOSE, "BGO02"});
+    horus->PlaceDetector("72811", "Ge07", 17. * cm, {BGO::tSMALLNOSE, "BGO07"}, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("73002", "Ge08", 17. * cm, {BGO::tLARGENOSE, "BGO08"}, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("miniball_capsule", "Ge09", 17. * cm, {BGO::tSMALLNOSE, "BGO09"}, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("miniball_capsule", "Ge10", 7. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("72397", "Ge11", 7. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("72442", "Ge12", 7. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("72341", "Ge13", 7. * cm, {{"G4_Cu", 2. * mm}});
+
+    /*auto ccs = new CologneCloverSetup(worldLV);
+    ccs->PlaceDetector("CloziA", "A", 5. * mm);
+    ccs->PlaceDetector("CloziB", "B", 5. * mm);*/
 
     auto worldPV = new G4PVPlacement(nullptr, G4ThreeVector(), worldLV, "World", nullptr, false, 0, fCheckOverlaps);
     return worldPV;
@@ -110,16 +118,16 @@ void DetectorConstruction::ConstructSDandField()
         auto activeVolume = new G4MultiFunctionalDetector(det);
         activeVolume->RegisterPrimitive(new G4PSEnergyDeposit("edep"));
 
-        if (det.rfind("Ge", 0) == 0) {
-            SetSensitiveDetector("HPGe_" + det + "_crystal_logical", activeVolume);
-            continue;
-        }
         if (det.rfind("BGO", 0) == 0) {
             SetSensitiveDetector("BGO_" + det + "_bgo_lv", activeVolume);
             continue;
         }
         if (det.rfind("Si", 0) == 0) {
             SetSensitiveDetector("PIPS_" + det + "_active_logical", activeVolume);
+            continue;
+        }
+        if (det.rfind("Ge", 0) == 0 || det.rfind('A', 0) == 0 || det.rfind('B', 0) == 0) {
+            SetSensitiveDetector("HPGe_" + det + "_crystal_logical", activeVolume);
             continue;
         }
 

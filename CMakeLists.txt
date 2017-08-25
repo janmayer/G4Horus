@@ -37,6 +37,7 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/src
     ${PROJECT_SOURCE_DIR}/src/actions
     ${PROJECT_SOURCE_DIR}/src/detectors
+    ${PROJECT_SOURCE_DIR}/src/geometries
 )
 
 #----------------------------------------------------------------------------

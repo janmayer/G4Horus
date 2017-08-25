@@ -2,6 +2,7 @@
 #define DETECTORLIBRARY_HH
 
 #include "HPGe.hh"
+#include "HPGeClover.hh"
 #include "HPGeCoaxial.hh"
 #include "HPGeHexagonal.hh"
 

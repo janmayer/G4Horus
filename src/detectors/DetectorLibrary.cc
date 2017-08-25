@@ -5,7 +5,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     std::map<std::string, HPGe::_spec> specs;
 
     specs["73954"].id = "73954";
-    specs["73954"].type = HPGe::tCOAXIAL;
+    specs["73954"].type = HPGe::HPGeCoaxial;
     specs["73954"].crystal.diameter = 74. * mm;
     specs["73954"].crystal.length = (72. - 2.) * mm;
     specs["73954"].crystal.dead_layer = 2. * mm;
@@ -15,11 +15,12 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["73954"].hull.diameter = 80. * mm;
     specs["73954"].hull.padding = 3. * mm;
     specs["73954"].hull.thickness = 1. * mm;
+    specs["73954"].hull.endcap_thickness = 1. * mm;
     specs["73954"].hull.length = 16. * cm;
     specs["73954"].check_overlaps = false;
 
     specs["73959"].id = "73959";
-    specs["73959"].type = HPGe::tCOAXIAL;
+    specs["73959"].type = HPGe::HPGeCoaxial;
     specs["73959"].crystal.diameter = 74. * mm;
     specs["73959"].crystal.length = (72. - 2.) * mm;
     specs["73959"].crystal.dead_layer = 2. * mm;
@@ -29,11 +30,12 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["73959"].hull.diameter = 80. * mm;
     specs["73959"].hull.padding = 3. * mm;
     specs["73959"].hull.thickness = 1. * mm;
+    specs["73959"].hull.endcap_thickness = 1. * mm;
     specs["73959"].hull.length = 16. * cm;
     specs["73959"].check_overlaps = false;
 
     specs["elek"].id = "elek";
-    specs["elek"].type = HPGe::tCOAXIAL;
+    specs["elek"].type = HPGe::HPGeCoaxial;
     specs["elek"].crystal.diameter = 60. * mm; //guess
     specs["elek"].crystal.length = (72. - 2.) * mm; //guess
     specs["elek"].crystal.dead_layer = 2. * mm;
@@ -43,11 +45,12 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["elek"].hull.diameter = 80. * mm;
     specs["elek"].hull.padding = 3. * mm;
     specs["elek"].hull.thickness = 1. * mm;
+    specs["elek"].hull.endcap_thickness = 1. * mm;
     specs["elek"].hull.length = 16. * cm;
     specs["elek"].check_overlaps = false;
 
     specs["609502"].id = "609502";
-    specs["609502"].type = HPGe::tCOAXIAL;
+    specs["609502"].type = HPGe::HPGeCoaxial;
     specs["609502"].crystal.diameter = 75. * mm; //guess
     specs["609502"].crystal.length = (72. - 1.) * mm; //guess
     specs["609502"].crystal.dead_layer = 2. * mm;
@@ -57,11 +60,12 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["609502"].hull.diameter = 80. * mm;
     specs["609502"].hull.padding = 3. * mm;
     specs["609502"].hull.thickness = 1. * mm;
+    specs["609502"].hull.endcap_thickness = 1. * mm;
     specs["609502"].hull.length = 16. * cm;
     specs["609502"].check_overlaps = false;
 
     specs["37N31120A"].id = "37N31120A";
-    specs["37N31120A"].type = HPGe::tCOAXIAL;
+    specs["37N31120A"].type = HPGe::HPGeCoaxial;
     specs["37N31120A"].crystal.diameter = 75. * mm;
     specs["37N31120A"].crystal.length = 92. * mm - 1. * um;
     specs["37N31120A"].crystal.dead_layer = 1. * um;
@@ -71,11 +75,12 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["37N31120A"].hull.diameter = 85. * mm;
     specs["37N31120A"].hull.padding = 5. * mm;
     specs["37N31120A"].hull.thickness = 1. * mm;
+    specs["37N31120A"].hull.endcap_thickness = 1. * mm;
     specs["37N31120A"].hull.length = 16. * cm;
     specs["37N31120A"].check_overlaps = false;
 
     specs["25N1546B"].id = "25N1546B";
-    specs["25N1546B"].type = HPGe::tCOAXIAL;
+    specs["25N1546B"].type = HPGe::HPGeCoaxial;
     specs["25N1546B"].crystal.diameter = 55.9 * mm;
     specs["25N1546B"].crystal.length = 55.4 * mm - 1. * um;
     specs["25N1546B"].crystal.dead_layer = 1. * um;
@@ -85,11 +90,12 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["25N1546B"].hull.diameter = 65. * mm;
     specs["25N1546B"].hull.padding = 4. * mm;
     specs["25N1546B"].hull.thickness = 1. * mm;
+    specs["25N1546B"].hull.endcap_thickness = 1. * mm;
     specs["25N1546B"].hull.length = 16. * cm;
     specs["25N1546B"].check_overlaps = false;
 
     specs["miniball_capsule"].id = "miniball_capsule";
-    specs["miniball_capsule"].type = HPGe::tHEXAGONAL;
+    specs["miniball_capsule"].type = HPGe::HPGeHexagonal;
     specs["miniball_capsule"].crystal.diameter = 59. * mm;
     //specs["miniball_capsule"].crystal.diameter   = 55.*mm;
     specs["miniball_capsule"].crystal.length = 78. * mm;
@@ -102,11 +108,12 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["miniball_capsule"].hull.diameter = 85. * mm;
     specs["miniball_capsule"].hull.padding = 3. * mm;
     specs["miniball_capsule"].hull.thickness = 1. * mm;
+    specs["miniball_capsule"].hull.endcap_thickness = 1. * mm;
     specs["miniball_capsule"].hull.length = 12. * cm;
     specs["miniball_capsule"].check_overlaps = false;
 
     specs["adjusted_capsule"].id = "adjusted_capsule";
-    specs["adjusted_capsule"].type = HPGe::tHEXAGONAL;
+    specs["adjusted_capsule"].type = HPGe::HPGeHexagonal;
     specs["adjusted_capsule"].crystal.diameter = 55. * mm;
     specs["adjusted_capsule"].crystal.length = 65. * mm;
     specs["adjusted_capsule"].crystal.dead_layer = 2 * mm;
@@ -117,6 +124,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["adjusted_capsule"].hull.diameter = 85. * mm;
     specs["adjusted_capsule"].hull.padding = 3. * mm;
     specs["adjusted_capsule"].hull.thickness = 1. * mm;
+    specs["adjusted_capsule"].hull.endcap_thickness = 1. * mm;
     specs["adjusted_capsule"].hull.length = 12. * cm;
     specs["adjusted_capsule"].check_overlaps = false;
 
@@ -192,6 +200,22 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["73211"].crystal.volume = 1584.7 * g / (5.323 * g / cm3); // from datasheet
     specs["73211"].crystal.hole_length = specs["73211"].crystal.length - 15. * mm;
 
+    specs["CloziA"].id = "CloziA";
+    specs["CloziA"].type = HPGe::HPGeClover;
+    specs["CloziA"].check_overlaps = true;
+    specs["CloziA"].hull.diameter = 2. * 72. * mm;
+    specs["CloziA"].hull.thickness = 2.54 * mm;
+    specs["CloziA"].hull.endcap_thickness = 1.5 * mm;
+    specs["CloziA"].hull.length = 110. * mm; // not measured??
+
+    specs["CloziB"].id = "CloziB";
+    specs["CloziB"].type = HPGe::HPGeClover;
+    specs["CloziB"].check_overlaps = true;
+    specs["CloziB"].hull.diameter = 2. * 72. * mm;
+    specs["CloziB"].hull.thickness = 2.54 * mm;
+    specs["CloziB"].hull.endcap_thickness = 1.5 * mm;
+    specs["CloziB"].hull.length = 110. * mm; // not measured??
+
     return specs;
 }
 const std::map<std::string, HPGe::_spec> DetectorLibrary::specifications = std::move(BuildSpecs());
@@ -206,10 +230,12 @@ HPGe::HPGe *DetectorLibrary::GetDetector(const std::string &id, const std::strin
     const HPGe::_spec spec = _s->second;
 
     switch (spec.type) {
-    case HPGe::tCOAXIAL:
+    case HPGe::HPGeCoaxial:
         return new HPGe::Coaxial(spec, position, filters);
-    case HPGe::tHEXAGONAL:
+    case HPGe::HPGeHexagonal:
         return new HPGe::Hexagonal(spec, position, filters);
+    case HPGe::HPGeClover:
+        return new HPGe::Clover(spec, position, filters);
     default:
         G4Exception("DetectorLibrary::GetDetector", "Unknown detector type", FatalException, ("HPGe " + id + " has an unknown type.").c_str());
         return nullptr;

@@ -6,8 +6,10 @@
 
 namespace HPGe {
 
-enum _type { tCOAXIAL,
-             tHEXAGONAL };
+enum _type { HPGeCoaxial,
+             HPGeHexagonal,
+             HPGeClover
+};
 
 struct _crystal {
     G4double diameter;
@@ -21,6 +23,7 @@ struct _crystal {
 struct _hull {
     G4double diameter;
     G4double thickness;
+    G4double endcap_thickness;
     G4double padding;
     G4double length;
 };
