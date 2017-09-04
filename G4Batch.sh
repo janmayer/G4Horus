@@ -13,7 +13,7 @@ rm -rf build
 mkdir -p build
 cd build
 
-cmake -DWITH_NTUPLE=OFF ..
+cmake ..
 make -j 10
 
 
@@ -36,4 +36,4 @@ fi
 
 
 # Run executable in batch mode, niced and multithreaded
-nice -n 19 ../../build/G4Horus -t 20 -m ${MACRO}
+nice -n 19 ../../build/G4Horus -t 30 -k hist  -m ${MACRO}

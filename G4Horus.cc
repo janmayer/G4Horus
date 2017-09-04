@@ -6,7 +6,8 @@
 #include "G4UIExecutive.hh"
 #include "G4UImanager.hh"
 #include "G4VisExecutive.hh"
-#include "QGSP_INCLXX.hh"
+//#include "QGSP_INCLXX.hh"
+#include "LBE.hh"
 
 inline std::string GetCmdOption(char** begin, char** end,
                                 const std::string& option,
@@ -31,6 +32,7 @@ int main(int argc, char* argv[])
         G4cout << "G4Horus - Gamma-ray detection efficiency simulation." << G4endl;
         G4cout << "Usage: G4Horus ([-m macro] [-t threads] | [-h])" << G4endl;
         G4cout << "    -m macro    Process macro file in batch mode" << G4endl;
+        G4cout << "    -k output   (hist: Root Histograms (default) | ntuple: Root Ntuple | soco: SOCO-compatible event files)" << G4endl;
         G4cout << "    -t threads  Number of threads for event processing" << G4endl;
         G4cout << "    -h          Print this message" << G4endl;
         return 0;
@@ -57,8 +59,9 @@ int main(int argc, char* argv[])
     auto run_manager = new G4MTRunManager();
     run_manager->SetVerboseLevel(0);
     run_manager->SetUserInitialization(new DetectorConstruction());
-    run_manager->SetUserInitialization(new QGSP_INCLXX(0));
-    run_manager->SetUserInitialization(new ActionInitialization());
+    // run_manager->SetUserInitialization(new QGSP_INCLXX(0));
+    run_manager->SetUserInitialization(new LBE(0)); // LBE includes G4RadioactiveDecay
+    run_manager->SetUserInitialization(new ActionInitialization(GetCmdOption(argv, argv + argc, "-k", "hist")));
     run_manager->SetNumberOfThreads(threads);
     run_manager->Initialize();
 

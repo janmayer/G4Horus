@@ -20,15 +20,6 @@ add_definitions("-std=c++11 -O3 -Wall -Wextra")
 find_package(Geant4 REQUIRED ui_all vis_all)
 
 #----------------------------------------------------------------------------
-# Activate writing event data to root ntpules in addidtion to histograms
-# Note: Will result in large data output
-#
-option(WITH_NTUPLE "Build with root ntuple / listmode enabled" OFF)
-if(WITH_NTUPLE)
-    add_definitions("-DNTUPLE_ENABLED=true")
-endif()
-
-#----------------------------------------------------------------------------
 # Setup Geant4 include directories and compile definitions
 # Setup include directory for this project
 #
@@ -38,6 +29,7 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/src/actions
     ${PROJECT_SOURCE_DIR}/src/detectors
     ${PROJECT_SOURCE_DIR}/src/geometries
+    ${PROJECT_SOURCE_DIR}/src/soco
 )
 
 #----------------------------------------------------------------------------

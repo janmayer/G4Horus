@@ -1,50 +1,39 @@
-#include "RunAction.hh"
+#include "RunActionNtuple.hh"
 #include "G4Run.hh"
 #include "G4SystemOfUnits.hh"
 #include "g4root.hh"
 
 extern const std::vector<std::string> detectors;
 
-RunAction::RunAction()
+RunActionNtuple::RunActionNtuple()
 {
     auto analysis_manager = G4AnalysisManager::Instance();
     analysis_manager->SetVerboseLevel(0);
 
-    G4cout << "Using " << analysis_manager->GetType() << G4endl;
-#if (NTUPLE_ENABLED)
-    G4cout << "... with ntuple" << G4endl;
-#endif
+    G4cout << "Output: Using " << analysis_manager->GetType() << " with ntuple" << G4endl;
 
     analysis_manager->SetHistoDirectoryName("histograms");
-#if (NTUPLE_ENABLED)
     analysis_manager->SetNtupleDirectoryName("ntuple");
     analysis_manager->CreateNtuple("Horus", "Edep");
-#endif
-
     for (auto& det : detectors) {
         analysis_manager->CreateH1(det, "Edep in " + det, 10000, 0., 10. * MeV); // Always use 1keV/bin!
-#if (NTUPLE_ENABLED)
         analysis_manager->CreateNtupleDColumn(det);
-#endif
     }
-
-#if (NTUPLE_ENABLED)
     analysis_manager->FinishNtuple();
-#endif
 }
 
-RunAction::~RunAction()
+RunActionNtuple::~RunActionNtuple()
 {
     delete G4AnalysisManager::Instance();
 }
 
-void RunAction::BeginOfRunAction(const G4Run* /*aRun*/)
+void RunActionNtuple::BeginOfRunAction(const G4Run* /*aRun*/)
 {
     auto analysis_manager = G4AnalysisManager::Instance();
     analysis_manager->OpenFile();
 }
 
-void RunAction::EndOfRunAction(const G4Run* /*aRun*/)
+void RunActionNtuple::EndOfRunAction(const G4Run* /*aRun*/)
 {
     auto analysis_manager = G4AnalysisManager::Instance();
     analysis_manager->Write();

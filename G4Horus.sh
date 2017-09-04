@@ -18,7 +18,7 @@ rm -rf build
 mkdir -p build
 cd build
 
-cmake -DWITH_NTUPLE=OFF ..
+cmake ..
 make
 
 # Run executable

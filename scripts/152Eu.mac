@@ -1,0 +1,6 @@
+/analysis/setFileName 152Eu
+/gun/particle ion
+/gun/ion 63 152
+/gun/energy 0
+/run/printProgress 100000
+/run/beamOn 10000000

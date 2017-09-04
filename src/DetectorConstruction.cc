@@ -22,7 +22,7 @@
 extern const std::vector<std::string> detectors = {
     //"A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3"
     "Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13",
-    "BGO00", "BGO02", "BGO03", "BGO07", "BGO08", "BGO09"
+    //"BGO00", "BGO02", "BGO03", "BGO07", "BGO08", "BGO09"
 };
 
 G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
