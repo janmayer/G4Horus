@@ -1,5 +1,4 @@
-#ifndef G4HORUS_EVENTACTIONSOCO_HH
-#define G4HORUS_EVENTACTIONSOCO_HH
+#pragma once
 
 #include "Event.hh"
 #include "G4THitsMap.hh"
@@ -17,5 +16,3 @@ class EventActionSoco : public G4UserEventAction {
     inline G4THitsMap<G4double>* GetHitsCollection(const G4int hcID, const G4Event* event) const;
     inline G4double GetSum(const G4THitsMap<G4double>* hitsMap) const;
 };
-
-#endif //G4HORUS_EVENTACTIONSOCO_HH

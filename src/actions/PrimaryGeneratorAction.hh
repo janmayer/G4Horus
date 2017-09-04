@@ -1,5 +1,4 @@
-#ifndef PRIMARYGENERATORACTION_HH
-#define PRIMARYGENERATORACTION_HH
+#pragma once
 
 #include "G4Event.hh"
 #include "G4ParticleGun.hh"
@@ -15,5 +14,3 @@ class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
     G4ParticleGun gun;
     G4ParticleMomentum mom;
 };
-
-#endif //PRIMARYGENERATORACTION_HH

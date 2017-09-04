@@ -1,5 +1,4 @@
-#ifndef ACTIONINITIALIZATION_HH
-#define ACTIONINITIALIZATION_HH
+#pragma once
 
 #include "G4VUserActionInitialization.hh"
 #include <map>
@@ -19,5 +18,3 @@ class ActionInitialization : public G4VUserActionInitialization {
     RunActionCreator fRunActionCreator;
     EventActionCreator fEventActionCreator;
 };
-
-#endif //ACTIONINITIALIZATION_HH

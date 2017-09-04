@@ -1,5 +1,4 @@
-#ifndef G4HORUS_HPGECLOVER_HH
-#define G4HORUS_HPGECLOVER_HH
+#pragma once
 
 #include "HPGe.hh"
 
@@ -39,5 +38,3 @@ class Clover : public HPGe {
 };
 
 } //namespace HPGe
-
-#endif //G4HORUS_HPGECLOVER_HH

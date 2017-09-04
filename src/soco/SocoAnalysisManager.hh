@@ -1,5 +1,4 @@
-#ifndef G4HORUS_SOCOANALYSISMANAGER_HH
-#define G4HORUS_SOCOANALYSISMANAGER_HH
+#pragma once
 
 #include "Event.hh"
 #include "G4VAnalysisManager.hh"
@@ -36,5 +35,3 @@ class SocoAnalysisManager : public G4VAnalysisManager {
     static SocoAnalysisManager* fgMasterInstance;
     static G4ThreadLocal SocoAnalysisManager* fgInstance;
 };
-
-#endif //G4HORUS_SOCOANALYSISMANAGER_HH

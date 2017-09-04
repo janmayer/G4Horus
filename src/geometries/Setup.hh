@@ -1,5 +1,4 @@
-#ifndef G4HORUS_SETUP_HH
-#define G4HORUS_SETUP_HH
+#pragma once
 
 #include "BGO.hh"
 #include "DetectorLibrary.hh"
@@ -27,5 +26,3 @@ class Setup {
     G4LogicalVolume *fMotherLV; // non-owning
     const DetectorLibrary fDetDB;
 };
-
-#endif //G4HORUS_SETUP_HH

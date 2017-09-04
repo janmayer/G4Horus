@@ -1,5 +1,4 @@
-#ifndef G4HORUS_RUNACTIONSOCO_HH
-#define G4HORUS_RUNACTIONSOCO_HH
+#pragma once
 
 #include "G4UserRunAction.hh"
 
@@ -17,5 +16,3 @@ class RunActionSoco : public G4UserRunAction {
     void BeginOfRunAction(const G4Run* /*aRun*/) override;
     void EndOfRunAction(const G4Run* /*aRun*/) override;
 };
-
-#endif //G4HORUS_RUNACTIONSOCO_HH

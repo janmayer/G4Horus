@@ -1,5 +1,4 @@
-#ifndef G4HORUS_DETECTOR_HH
-#define G4HORUS_DETECTOR_HH
+#pragma once
 
 #include "G4LogicalVolume.hh"
 #include "G4SystemOfUnits.hh"
@@ -40,5 +39,3 @@ class Detector {
     G4double fLength;
     G4String fName;
 };
-
-#endif //G4HORUS_DETECTOR_HH

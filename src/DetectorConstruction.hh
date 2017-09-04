@@ -1,5 +1,4 @@
-#ifndef DETECTORCONSTRUCTION_HH
-#define DETECTORCONSTRUCTION_HH
+#pragma once
 
 #include "G4VUserDetectorConstruction.hh"
 
@@ -18,5 +17,3 @@ class DetectorConstruction : public G4VUserDetectorConstruction {
 
     G4bool fCheckOverlaps;
 };
-
-#endif //DETECTORCONSTRUCTION_HH

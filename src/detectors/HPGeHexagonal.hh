@@ -1,5 +1,4 @@
-#ifndef HPGEHEXAGONAL_HH
-#define HPGEHEXAGONAL_HH
+#pragma once
 
 #include "HPGe.hh"
 
@@ -14,5 +13,3 @@ class Hexagonal : public HPGe {
 };
 
 } //namespace HPGe
-
-#endif //HPGEHEXAGONAL_HH

@@ -1,5 +1,4 @@
-#ifndef SOCO_EVENT_HH
-#define SOCO_EVENT_HH
+#pragma once
 
 #include <cassert>
 #include <cstdint>
@@ -42,5 +41,3 @@ class Event {
 };
 
 } // namespace SOCO
-
-#endif // SOCO_EVENT_HH

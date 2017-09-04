@@ -1,5 +1,4 @@
-#ifndef HPGECOAXIAL_HH
-#define HPGECOAXIAL_HH
+#pragma once
 
 #include "HPGe.hh"
 
@@ -11,5 +10,3 @@ class Coaxial : public HPGe {
 };
 
 } //namespace HPGe
-
-#endif //HPGECOAXIAL_HH

@@ -1,5 +1,4 @@
-#ifndef G4HORUS_DUMMYCHAMBER_H
-#define G4HORUS_DUMMYCHAMBER_H
+#pragma once
 
 class G4LogicalVolume;
 
@@ -12,5 +11,3 @@ class DummyChamber {
     DummyChamber& operator=(const DummyChamber&) = delete;
     DummyChamber& operator=(DummyChamber&&) = delete;
 };
-
-#endif //G4HORUS_DUMMYCHAMBER_H

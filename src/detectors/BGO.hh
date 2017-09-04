@@ -1,5 +1,4 @@
-#ifndef BGO_HH
-#define BGO_HH
+#pragma once
 
 #include "Detector.hh"
 #include "G4LogicalVolume.hh"
@@ -19,5 +18,3 @@ class BGO : public Detector {
   private:
     G4double fOverlap;
 };
-
-#endif //BGO_HH

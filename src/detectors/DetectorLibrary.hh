@@ -1,5 +1,4 @@
-#ifndef DETECTORLIBRARY_HH
-#define DETECTORLIBRARY_HH
+#pragma once
 
 #include "HPGe.hh"
 #include "HPGeClover.hh"
@@ -14,5 +13,3 @@ class DetectorLibrary {
 
     static const std::map<std::string, HPGe::_spec> specifications;
 };
-
-#endif //DETECTORLIBRARY_HH

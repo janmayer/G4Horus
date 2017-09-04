@@ -1,5 +1,4 @@
-#ifndef HPGE_HH
-#define HPGE_HH
+#pragma once
 
 #include "Detector.hh"
 #include "G4LogicalVolume.hh"
@@ -51,5 +50,3 @@ class HPGe : public Detector {
 };
 
 } //namespace HPGe
-
-#endif //HPGE_HH

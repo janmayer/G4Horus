@@ -1,5 +1,4 @@
-#ifndef SOCO_HIT_HH
-#define SOCO_HIT_HH
+#pragma once
 
 #include <cassert>
 #include <cstdint>
@@ -30,5 +29,3 @@ class Hit {
 };
 
 } // namespace SOCO
-
-#endif // SOCO_HIT_HH
