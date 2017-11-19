@@ -26,16 +26,11 @@ HPGe::HPGe(const _spec& spec, const std::string& name, const std::vector<Detecto
         auto cur_thickness = std::accumulate(ifilter, filters.end(), G4double(0.), [](const G4double sum, const Detector::_filter& f) { return sum + f.thickness; });
         new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - cur_thickness + (*ifilter).thickness / 2.)), BuildFilter(*ifilter, fSpec.hull.diameter), "HPGe_" + name + "_filter" + (*ifilter).material, fDetectorLV, false, 0, fSpec.check_overlaps);
     }
-
-    // hull front (endcap)
-    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fFilterLength - fSpec.hull.endcap_thickness / 2)), BuildHullFront(), "HPGe_" + name + "_hull_front", fDetectorLV, false, 0, fSpec.check_overlaps);
-
-    // hull
-    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fFilterLength - fSpec.hull.length / 2)), BuildHull(), "HPGe_" + name + "_hull", fDetectorLV, false, 0, fSpec.check_overlaps);
 }
 
 G4LogicalVolume* HPGe::BuildHull()
 {
+    std::cout << "-----------------------------OLD" << std::endl;
     auto sV = new G4Tubs("HPGe_" + fName + "_hull_solid", fSpec.hull.diameter / 2. - fSpec.hull.thickness, fSpec.hull.diameter / 2., fSpec.hull.length / 2., 0. * deg, 360. * deg);
     auto lV = new G4LogicalVolume(sV, G4Material::GetMaterial("G4_Al"), "HPGe_" + fName + "_hull_logical");
 

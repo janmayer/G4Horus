@@ -45,8 +45,8 @@ class HPGe : public Detector {
 
     const G4double MAX_VOLUME_DIFFERENCE = 0.01; // relative
 
-    G4LogicalVolume* BuildHull();
-    G4LogicalVolume* BuildHullFront();
+    virtual G4LogicalVolume* BuildHull();
+    virtual G4LogicalVolume* BuildHullFront();
 };
 
 } //namespace HPGe

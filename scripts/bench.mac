@@ -1,0 +1,5 @@
+/gun/particle gamma
+/run/printProgress 1000000
+/analysis/setFileName gamma2000
+/gun/energy 2000 keV
+/run/beamOn 10000000

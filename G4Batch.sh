@@ -12,13 +12,16 @@ echo "Using Geant4 Version `geant4-config --version` in `dirname $(dirname $(gea
 rm -rf build
 mkdir -p build
 cd build
-
 cmake ..
 make -j 10
+cd ..
+
+
+## Set CAD Directory
+export G4HORUS_CAD_DIR=`pwd`/cad
 
 
 ## Create output dir and run full simulation
-cd ..
 mkdir -p out
 cd out
 TS=$(date +%Y-%m-%dT%H-%M-%S)
@@ -36,4 +39,4 @@ fi
 
 
 # Run executable in batch mode, niced and multithreaded
-nice -n 19 ../../build/G4Horus -t 30 -k hist  -m ${MACRO}
+nice -n 19 ../../build/G4Horus -t 30 -k hist -m ${MACRO}

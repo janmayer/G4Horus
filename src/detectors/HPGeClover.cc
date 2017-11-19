@@ -1,4 +1,8 @@
+// clang-format off
+#include "CADMesh.hh" // Include this first to avoid warnings about shadowed variables
+// clang-format on
 #include "HPGeClover.hh"
+#include "CADHelper.hh"
 #include "G4Box.hh"
 #include "G4Colour.hh"
 #include "G4Material.hh"
@@ -13,6 +17,11 @@
 HPGe::Clover::Clover(const _spec& spec, const std::string& name, const std::vector<Detector::_filter>& filters)
     : HPGe(spec, name, filters)
 {
+    // hull
+    //auto rot = new G4RotationMatrix();
+    //rot->rotateX(-90. * deg);
+    new G4PVPlacement(nullptr, G4ThreeVector(), this->BuildHull(), "HPGe_" + name + "_hull", fDetectorLV, false, 0, fSpec.check_overlaps);
+
     // TODO: Move that out. Maybe some Variant / Union stuff? Or derived data storage classes
 
     fCloverSpec.teflonThickness = 0.19 * mm;
@@ -115,7 +124,7 @@ HPGe::Clover::Clover(const _spec& spec, const std::string& name, const std::vect
 
     // Teflon Insulator
     {
-        auto box = new G4Box("", (fSpec.hull.diameter * .9 / 2.), fCloverSpec.teflonThickness, fCloverSpec.teflonLength / 2.);
+        auto box = new G4Box("", 2 * fCloverSpec.crystals.at(0).crystalRadius, fCloverSpec.teflonThickness, fCloverSpec.teflonLength / 2.);
 
         auto rm90 = new G4RotationMatrix();
         rm90->rotateZ(90. * deg);
@@ -126,12 +135,12 @@ HPGe::Clover::Clover(const _spec& spec, const std::string& name, const std::vect
         insulatorVA->SetForceSolid(true);
         insulatorLV->SetVisAttributes(insulatorVA);
 
-        G4ThreeVector insulatorPO(0., 0., 0.);
+        G4ThreeVector insulatorPO(0., 0., -(fLength / 2. - 3 * fCloverSpec.crystals.at(0).distanceToEndcap));
         new G4PVPlacement(nullptr, insulatorPO, insulatorLV, fSpec.id + "_insulatorPV", fDetectorLV, false, 0, fSpec.check_overlaps);
     }
 
     // Teflon endcap
-    {
+    /*{
         const G4double outerRadius_Te_Cap = fSpec.hull.diameter / 2. - fSpec.hull.thickness;
         const G4double height_Te_Cap = fCloverSpec.teflonEndcapThickness / 2.;
         auto teEndcapSV = new G4Tubs(fSpec.id + "_teEndcapSV", 0., outerRadius_Te_Cap, height_Te_Cap, 0. * deg, 360. * deg);
@@ -143,7 +152,7 @@ HPGe::Clover::Clover(const _spec& spec, const std::string& name, const std::vect
 
         G4ThreeVector teEndcapPO(0., 0., fLength / 2. - fCloverSpec.teflonEndcapThickness / 2.);
         new G4PVPlacement(nullptr, teEndcapPO, teEndcapLV, fSpec.id + "_teEndcapPV", fDetectorLV, false, 0, fSpec.check_overlaps);
-    }
+    }*/
 }
 
 void HPGe::Clover::Leaf(const G4double mx, const G4double my, const G4double rotz, const _cloverLeaf& leaf, const bool checkOverlap) const
@@ -318,4 +327,23 @@ void HPGe::Clover::Leaf(const G4double mx, const G4double my, const G4double rot
             -(fLength / 2. - leaf.distanceToEndcap - leaf.allayerThickness - leaf.deadlayerThickness - (leaf.crystalLength - leaf.alCupLength) - leaf.alCupLength / 2.));
         new G4PVPlacement(G4Transform3D(rm, alTubePO), alTubeLV, leaf.name + "_alTubePV", fDetectorLV, false, 0, checkOverlap);
     }
+}
+
+G4LogicalVolume* HPGe::Clover::BuildHull()
+{
+    auto mesh = CADMesh((char*)GetCadFile("Clover-hull.stl").c_str());
+    mesh.SetScale(mm);
+
+    auto lV = new G4LogicalVolume(mesh.TessellatedMesh(), G4Material::GetMaterial("G4_Al"), "Clover_hull_lV");
+
+    auto va = G4VisAttributes(G4Color(0.5, 0.5, 0.5));
+    va.SetForceSolid(true);
+    lV->SetVisAttributes(va);
+
+    return lV;
+}
+
+G4LogicalVolume* HPGe::Clover::BuildHullFront()
+{
+    return nullptr;
 }

@@ -20,16 +20,21 @@ add_definitions("-std=c++11 -O3 -Wall -Wextra")
 find_package(Geant4 REQUIRED ui_all vis_all)
 
 #----------------------------------------------------------------------------
+# Include CADMesh for importing stl geometries
+find_package(cadmesh REQUIRED)
+
+#----------------------------------------------------------------------------
 # Setup Geant4 include directories and compile definitions
 # Setup include directory for this project
 #
 include(${Geant4_USE_FILE})
 include_directories(
-    ${PROJECT_SOURCE_DIR}/src
-    ${PROJECT_SOURCE_DIR}/src/actions
-    ${PROJECT_SOURCE_DIR}/src/detectors
-    ${PROJECT_SOURCE_DIR}/src/geometries
-    ${PROJECT_SOURCE_DIR}/src/soco
+        ${CADMESH_INCLUDE_DIRS}
+        ${PROJECT_SOURCE_DIR}/src
+        ${PROJECT_SOURCE_DIR}/src/actions
+        ${PROJECT_SOURCE_DIR}/src/detectors
+        ${PROJECT_SOURCE_DIR}/src/geometries
+        ${PROJECT_SOURCE_DIR}/src/soco
 )
 
 #----------------------------------------------------------------------------
@@ -43,7 +48,7 @@ file(GLOB_RECURSE headers ${PROJECT_SOURCE_DIR}/src/*.hh)
 # Add the executable, and link it to the Geant4 libraries
 #
 add_executable(G4Horus G4Horus.cc ${sources} ${headers})
-target_link_libraries(G4Horus ${Geant4_LIBRARIES})
+target_link_libraries(G4Horus ${Geant4_LIBRARIES} ${cadmesh_LIBRARIES})
 
 #----------------------------------------------------------------------------
 # Copy all scripts to the build directory, i.e. the directory in which we

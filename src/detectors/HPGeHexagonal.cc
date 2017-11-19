@@ -12,6 +12,12 @@
 HPGe::Hexagonal::Hexagonal(const _spec& spec, const std::string& name, const std::vector<Detector::_filter>& filters)
     : HPGe(spec, name, filters)
 {
+    // hull front (endcap)
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fFilterLength - fSpec.hull.endcap_thickness / 2)), this->BuildHullFront(), "HPGe_" + name + "_hull_front", fDetectorLV, false, 0, fSpec.check_overlaps);
+
+    // hull
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fFilterLength - fSpec.hull.length / 2)), this->BuildHull(), "HPGe_" + name + "_hull", fDetectorLV, false, 0, fSpec.check_overlaps);
+
     auto hull_material = G4Material::GetMaterial("G4_Al");
     auto crystal_material = G4Material::GetMaterial("G4_Ge");
 
