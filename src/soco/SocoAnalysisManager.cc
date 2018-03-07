@@ -23,7 +23,7 @@ SocoAnalysisManager::SocoAnalysisManager(G4bool isMaster)
 
     // A File Manager is needed, we (ab)use the Root one
     // It is basically a glorified file name storage
-    SetFileManager(new G4RootFileManager(fState));
+    SetFileManager(std::make_shared<G4RootFileManager>(fState));
 }
 
 SocoAnalysisManager::~SocoAnalysisManager()
@@ -83,5 +83,19 @@ G4bool SocoAnalysisManager::WriteImpl()
 G4bool SocoAnalysisManager::CloseFileImpl()
 {
     fFile.close();
+    return true;
+}
+
+G4bool SocoAnalysisManager::IsOpenFileImpl() const {
+    return fFile.is_open();
+}
+
+G4bool SocoAnalysisManager::PlotImpl() {
+    throw std::runtime_error("SocoAnalysisManager::PlotImpl: Not implemented");
+    return true;
+}
+
+G4bool SocoAnalysisManager::MergeImpl(tools::histo::hmpi *) {
+    throw std::runtime_error("SocoAnalysisManager::MergeImpl: Not implemented");
     return true;
 }

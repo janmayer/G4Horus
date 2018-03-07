@@ -26,6 +26,9 @@ class SocoAnalysisManager : public G4VAnalysisManager {
     G4bool OpenFileImpl(const G4String& fileName) override;
     G4bool WriteImpl() override;
     G4bool CloseFileImpl() override;
+    G4bool PlotImpl() override;
+    G4bool MergeImpl(tools::histo::hmpi*) override;
+    G4bool IsOpenFileImpl() const override;
 
   private:
     std::mutex fLockEvents;
