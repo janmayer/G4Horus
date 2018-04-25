@@ -203,14 +203,22 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["CloziA"].id = "CloziA";
     specs["CloziA"].type = HPGe::HPGeClover;
     specs["CloziA"].check_overlaps = true;
-    specs["CloziA"].hull.diameter = 223. * mm; // from cad hull
-    specs["CloziA"].hull.length = 1015. * mm; // from cad hull
+    specs["CloziA"].hull.diameter = 2. * 72. * mm;
+    specs["CloziA"].hull.thickness = 2.54 * mm;
+    specs["CloziA"].hull.endcap_thickness = 1.5 * mm;
+    specs["CloziA"].hull.length = 110. * mm; // not measured??
+    // specs["CloziA"].hull.diameter = 223. * mm; // from cad hull
+    // specs["CloziA"].hull.length = 1015. * mm; // from cad hull
 
     specs["CloziB"].id = "CloziB";
     specs["CloziB"].type = HPGe::HPGeClover;
     specs["CloziB"].check_overlaps = true;
-    specs["CloziB"].hull.diameter = 223. * mm; // from cad hull
-    specs["CloziB"].hull.length = 1015. * mm; // from cad hull
+    specs["CloziB"].hull.diameter = 2. * 72. * mm;
+    specs["CloziB"].hull.thickness = 2.54 * mm;
+    specs["CloziB"].hull.endcap_thickness = 1.5 * mm;
+    specs["CloziB"].hull.length = 110. * mm; // not measured??
+    // specs["CloziB"].hull.diameter = 223. * mm; // from cad hull #CADMESH
+    // specs["CloziB"].hull.length = 1015. * mm;  // from cad hull #CADMESH
 
     return specs;
 }

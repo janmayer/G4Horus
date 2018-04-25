@@ -21,9 +21,9 @@
 #include "SonicV3.hh"
 
 extern const std::vector<std::string> detectors = {
+    "Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13",
+    "BGO00", "BGO02", "BGO03", "BGO07", "BGO08", "BGO09"
     //"A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3"
-    "Ge00", //"Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13",
-    //"BGO00", "BGO02", "BGO03", "BGO07", "BGO08", "BGO09"
 };
 
 G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
@@ -34,11 +34,9 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     auto worldLV = new G4LogicalVolume(worldS, G4Material::GetMaterial("Galactic"), "World");
     worldLV->SetVisAttributes(G4VisAttributes::Invisible);
 
-    // new AstroTargetkammer(worldLV);
-    // new SONIC(worldLV);
-    //auto sonic =
-    new SonicV3(worldLV);
-    /*sonic->PlaceDetector("PIPS", "Si00", 45.25 * mm);
+    /*
+    auto sonic = new SonicV3(worldLV);
+    sonic->PlaceDetector("PIPS", "Si00", 45.25 * mm);
     sonic->PlaceDetector("PIPS", "Si01", 45.25 * mm);
     sonic->PlaceDetector("PIPS", "Si02", 45.25 * mm);
     sonic->PlaceDetector("PIPS", "Si03", 45.25 * mm);
@@ -49,16 +47,17 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     sonic->PlaceDetector("PIPS", "Si08", 45.50 * mm);
     sonic->PlaceDetector("PIPS", "Si09", 45.50 * mm);
     sonic->PlaceDetector("PIPS", "Si10", 45.50 * mm);
-    sonic->PlaceDetector("PIPS", "Si11", 45.50 * mm); */
+    sonic->PlaceDetector("PIPS", "Si11", 45.50 * mm);
+    */
 
+    // new AstroTargetkammer(worldLV);
     // new DummyChamber(worldLV);
 
     auto horus = new Horus(worldLV);
     // ID, Position, Distance (to endcap or filters on endcap), Filters
     // ID, Position, Distance to endcap, BGO, BGO-Filters)
-    horus->PlaceDetector("elek", "Ge00", 7. * cm);
-    //horus->PlaceDetector("elek", "Ge00", 17. * cm, {BGO::tSMALLNOSE, "BGO00"}, {{"G4_Cu", 1. * mm}, {"G4_Pb", 5. * mm}});
-    /*horus->PlaceDetector("609502", "Ge01", 7. * cm, {{"G4_Cu", 2. * mm}, {"G4_Pb", 1. * mm}});
+    horus->PlaceDetector("elek", "Ge00", 17. * cm, {BGO::tSMALLNOSE, "BGO00"}, {{"G4_Cu", 1. * mm}, {"G4_Pb", 5. * mm}});
+    horus->PlaceDetector("609502", "Ge01", 7. * cm, {{"G4_Cu", 2. * mm}, {"G4_Pb", 1. * mm}});
     horus->PlaceDetector("73954", "Ge02", 7. * cm, {{"G4_Cu", 2. * mm}});
     horus->PlaceDetector("adjusted_capsule", "Ge03", 17 * cm, {BGO::tLARGENOSE, "BGO03"}, {{"G4_Cu", 2. * mm}});
     horus->PlaceDetector("73209", "Ge04", 7. * cm, {{"G4_Cu", 2. * mm}});
@@ -70,11 +69,13 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     horus->PlaceDetector("miniball_capsule", "Ge10", 7. * cm, {{"G4_Cu", 2. * mm}});
     horus->PlaceDetector("72397", "Ge11", 7. * cm, {{"G4_Cu", 2. * mm}});
     horus->PlaceDetector("72442", "Ge12", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceDetector("72341", "Ge13", 7. * cm, {{"G4_Cu", 2. * mm}});*/
+    horus->PlaceDetector("72341", "Ge13", 7. * cm, {{"G4_Cu", 2. * mm}});
 
-    /*auto ccs = new CologneCloverSetup(worldLV);
+    /*
+    auto ccs = new CologneCloverSetup(worldLV);
     ccs->PlaceDetector("CloziA", "A", 5. * mm);
-    ccs->PlaceDetector("CloziB", "B", 5. * mm);*/
+    ccs->PlaceDetector("CloziB", "B", 5. * mm);
+    */
 
     auto worldPV = new G4PVPlacement(nullptr, G4ThreeVector(), worldLV, "World", nullptr, false, 0, fCheckOverlaps);
     return worldPV;
@@ -125,14 +126,13 @@ void DetectorConstruction::DefineMaterials()
 
     new G4Material("Galactic", 1, 1.01 * g / mole, universe_mean_density, kStateGas, 2.73 * kelvin, 3.e-18 * pascal);
     new G4Material("Nothing", 1, 0, universe_mean_density, kStateUndefined, 0, 0);
-
-    //G4cout << *(G4Material::GetMaterialTable()) << G4endl; // Print materials
 }
 
 void DetectorConstruction::ConstructSDandField()
 {
     for (const auto& det : detectors) {
         auto activeVolume = new G4MultiFunctionalDetector(det);
+        G4SDManager::GetSDMpointer()->AddNewDetector(activeVolume);
         activeVolume->RegisterPrimitive(new G4PSEnergyDeposit("edep"));
 
         if (det.rfind("BGO", 0) == 0) {

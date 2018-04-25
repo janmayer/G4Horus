@@ -1,8 +1,8 @@
 // clang-format off
-#include "CADMesh.hh" // Include this first to avoid warnings about shadowed variables
+//#include "CADMesh.hh" // Include this first to avoid warnings about shadowed variables
 // clang-format on
 #include "HPGeClover.hh"
-#include "CADHelper.hh"
+//#include "CADHelper.hh"
 #include "G4Box.hh"
 #include "G4Colour.hh"
 #include "G4Material.hh"
@@ -329,6 +329,7 @@ void HPGe::Clover::Leaf(const G4double mx, const G4double my, const G4double rot
     }
 }
 
+/* // #CADMESH
 G4LogicalVolume* HPGe::Clover::BuildHull()
 {
     auto mesh = CADMesh((char*)GetCadFile("Clover-hull.stl").c_str());
@@ -347,3 +348,4 @@ G4LogicalVolume* HPGe::Clover::BuildHullFront()
 {
     return nullptr;
 }
+*/

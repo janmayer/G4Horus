@@ -9,8 +9,8 @@ class Clover : public HPGe {
     Clover(const _spec& spec, const std::string& name, const std::vector<Detector::_filter>& filters);
 
   protected:
-    G4LogicalVolume* BuildHull() override;
-    G4LogicalVolume* BuildHullFront() override;
+    // G4LogicalVolume* BuildHull() override;
+    // G4LogicalVolume* BuildHullFront() override;
 
   private:
     struct _cloverLeaf {

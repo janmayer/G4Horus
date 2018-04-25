@@ -86,16 +86,19 @@ G4bool SocoAnalysisManager::CloseFileImpl()
     return true;
 }
 
-G4bool SocoAnalysisManager::IsOpenFileImpl() const {
+G4bool SocoAnalysisManager::IsOpenFileImpl() const
+{
     return fFile.is_open();
 }
 
-G4bool SocoAnalysisManager::PlotImpl() {
+G4bool SocoAnalysisManager::PlotImpl()
+{
     throw std::runtime_error("SocoAnalysisManager::PlotImpl: Not implemented");
     return true;
 }
 
-G4bool SocoAnalysisManager::MergeImpl(tools::histo::hmpi *) {
+G4bool SocoAnalysisManager::MergeImpl(tools::histo::hmpi*)
+{
     throw std::runtime_error("SocoAnalysisManager::MergeImpl: Not implemented");
     return true;
 }
