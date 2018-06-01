@@ -16,7 +16,7 @@ RunActionNtuple::RunActionNtuple()
     analysis_manager->SetNtupleDirectoryName("ntuple");
     analysis_manager->CreateNtuple("Horus", "Edep");
     for (auto& det : detectors) {
-        analysis_manager->CreateH1(det, "Edep in " + det, 10000, 0., 10. * MeV); // Always use 1keV/bin!
+        analysis_manager->CreateH1(det, "Edep in " + det, 20000, 0., 20. * MeV); // Always use 1keV/bin!
         analysis_manager->CreateNtupleDColumn(det);
     }
     analysis_manager->FinishNtuple();

@@ -6,7 +6,7 @@
 #include "G4UIExecutive.hh"
 #include "G4UImanager.hh"
 #include "G4VisExecutive.hh"
-#include "LBE.hh"
+#include "Shielding.hh"
 // #include "QGSP_INCLXX.hh"
 
 inline std::string GetCmdOption(char** begin, char** end,
@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
     run_manager->SetVerboseLevel(0);
     run_manager->SetUserInitialization(new DetectorConstruction());
     // run_manager->SetUserInitialization(new QGSP_INCLXX(0));
-    run_manager->SetUserInitialization(new LBE(0)); // LBE includes G4RadioactiveDecay
+    run_manager->SetUserInitialization(new Shielding(0)); // includes G4RadioactiveDecay
     run_manager->SetUserInitialization(new ActionInitialization(GetCmdOption(argv, argv + argc, "-k", "hist")));
     run_manager->SetNumberOfThreads(threads);
     run_manager->Initialize();

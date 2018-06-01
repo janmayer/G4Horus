@@ -3,6 +3,7 @@
 #include "EventActionNtuple.hh"
 #include "EventActionSoco.hh"
 #include "PrimaryGeneratorAction.hh"
+#include "PrimaryGeneratorActionScattering.hh"
 #include "RunActionHistogram.hh"
 #include "RunActionNtuple.hh"
 #include "RunActionSoco.hh"
@@ -39,6 +40,7 @@ void ActionInitialization::BuildForMaster() const
 void ActionInitialization::Build() const
 {
     SetUserAction(new PrimaryGeneratorAction);
+    // SetUserAction(new PrimaryGeneratorActionScattering);
     SetUserAction(fRunActionCreator());
     SetUserAction(fEventActionCreator());
 }

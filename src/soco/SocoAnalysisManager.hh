@@ -1,40 +1,41 @@
 #pragma once
 
 #include "Event.hh"
-#include "G4VAnalysisManager.hh"
-#include "Hit.hh"
+#include "G4String.hh"
+#include "G4Types.hh"
+#include "SocoFileMessenger.hh"
 #include <fstream>
-#include <iostream>
 #include <mutex>
 
-class SocoAnalysisManager : public G4VAnalysisManager {
+class SocoAnalysisManager {
   public:
-    // Similar to G4RootAnalysisManager.
-    // It looks a bit like a singleton, but the constructor is public for no(?) reason
-    explicit SocoAnalysisManager(G4bool isMaster = true);
-    ~SocoAnalysisManager() override;
-
+    SocoAnalysisManager(const SocoAnalysisManager&) = delete;
+    SocoAnalysisManager(SocoAnalysisManager&&) = delete;
+    SocoAnalysisManager& operator=(const SocoAnalysisManager&) = delete;
+    SocoAnalysisManager& operator=(SocoAnalysisManager&&) = delete;
     static SocoAnalysisManager* Instance();
 
     inline void AddEvent(const SOCO::Event& event)
     {
-        std::lock_guard<std::mutex> lock(fLockEvents);
+        std::lock_guard<std::mutex> lock{fLockEvents};
         fEvents.push_back(event);
     };
 
-  protected:
-    G4bool OpenFileImpl(const G4String& fileName) override;
-    G4bool WriteImpl() override;
-    G4bool CloseFileImpl() override;
-    G4bool PlotImpl() override;
-    G4bool MergeImpl(tools::histo::hmpi*) override;
-    G4bool IsOpenFileImpl() const override;
+    inline void SetFileName(const G4String& fileName)
+    {
+        fFileName = fileName;
+    }
+
+    G4bool Write();
+    void Destroy();
 
   private:
+    SocoAnalysisManager();
+    ~SocoAnalysisManager() = default;
+
     std::mutex fLockEvents;
     std::vector<SOCO::Event> fEvents;
-    std::ofstream fFile;
-
-    static SocoAnalysisManager* fgMasterInstance;
-    static G4ThreadLocal SocoAnalysisManager* fgInstance;
+    G4String fFileName;
+    SocoFileMessenger fFileMessenger;
+    static SocoAnalysisManager* gInstance;
 };

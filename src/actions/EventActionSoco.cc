@@ -5,8 +5,6 @@
 #include <iostream>
 #include <numeric>
 
-using G4AnalysisManager = SocoAnalysisManager;
-
 extern const std::vector<std::string> detectors;
 
 inline G4THitsMap<G4double>* EventActionSoco::GetHitsCollection(const G4int id, const G4Event* event) const
@@ -50,7 +48,6 @@ void EventActionSoco::EndOfEventAction(const G4Event* event)
     if (!fEvent.hits.empty()) {
         fEvent.trigger_id = fEvent.hits.at(0).id;
         fEvent.timestamp = 0;
-        auto analysisManager = G4AnalysisManager::Instance();
-        analysisManager->AddEvent(fEvent);
+        SocoAnalysisManager::Instance()->AddEvent(fEvent);
     }
 }

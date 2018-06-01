@@ -95,7 +95,7 @@ std::vector<TH1D> VetoedSpectraFromTChain(const TString &directory, const TStrin
     if (t->GetNbranches() > 0) {
         for (const TString &leaf : GeBGOPairNumbers(LeavesInTChain(t))) {
             TString name = "V" + leaf;
-            TH1D *h = new TH1D(name, name, 10000, 0, 10000);
+            TH1D *h = new TH1D(name, name, 20000, 0, 20000);
             // Project TChain Data to spectrum with name name, leaf GeXX with energy in keV, if the corresponding BGO has no deposited energy
             t->Project(name, "Ge" + leaf + "*1000.", "BGO" + leaf + "==0");
             spectra.push_back(*h);

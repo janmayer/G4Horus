@@ -1,4 +1,6 @@
 #!/bin/sh
+## Stop on error
+set -e
 
 ## Geant 4 Version
 # If a specific Geant4 version should be used, adapt and uncomment these lines.
@@ -36,6 +38,9 @@ else
     MACRO=../../scripts/test.mac
 fi
 
+# Copy main settings over for later reference
+cp ../../src/DetectorConstruction.cc .
+cp $MACRO .
 
 # Run executable in batch mode, niced and multithreaded
 nice -n 19 ../../build/G4Horus -t 32 -k hist -m ${MACRO}
