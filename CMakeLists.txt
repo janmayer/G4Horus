@@ -1,53 +1,34 @@
-cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
-project(G4HORUS)
+project(G4Horus)
 
-# Find Geant4 package, activating all available UI and Vis drivers by default
-find_package(Geant4 10.4 REQUIRED ui_all vis_all multithreaded)
+# Find Geant4 package, require all available UI and Vis drivers by default
+find_package(Geant4 10.5 REQUIRED ui_all vis_all multithreaded)
+# Unfortunately, Geant4 uses cmake ineptly and forces its settings upon us ...
 include(${Geant4_USE_FILE})
-message(STATUS "Geant4 Version: ${Geant4_VERSION}")
-message(STATUS "Geant4 Include Dir: ${Geant4_INCLUDE_DIRS}")
+message(STATUS "Geant4 Version:          ${Geant4_VERSION}")
+message(STATUS "Geant4 Include Dir:      ${Geant4_INCLUDE_DIRS}")
+message(STATUS "Geant4 Definitions:      ${Geant4_DEFINITIONS}")
+message(STATUS "Geant4 Build Type:       ${Geant4_BUILD_TYPE}")
+# ... so we add our flags to that
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
+message(STATUS "CXX_FLAGS                ${CMAKE_CXX_FLAGS}")
+message(STATUS "CXX_FLAGS_DEBUG          ${CMAKE_CXX_FLAGS_DEBUG}")
+message(STATUS "CXX_FLAGS_MINSIZEREL     ${CMAKE_CXX_FLAGS_MINSIZEREL}")
+message(STATUS "CXX_FLAGS_RELEASE        ${CMAKE_CXX_FLAGS_RELEASE}")
+message(STATUS "CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
 
 # Include CADMesh for importing stl geometries
 find_package(cadmesh REQUIRED)
 
-# Setup include directory for this project
-include_directories(
-        ${CADMESH_INCLUDE_DIRS}
-        ${PROJECT_SOURCE_DIR}/src
-        ${PROJECT_SOURCE_DIR}/src/actions
-        ${PROJECT_SOURCE_DIR}/src/detectors
-        ${PROJECT_SOURCE_DIR}/src/geometries
-        ${PROJECT_SOURCE_DIR}/src/soco
-)
-
-# Locate sources and headers for this project
-# NB: headers are included so they will show up in IDEs
-file(GLOB_RECURSE sources ${PROJECT_SOURCE_DIR}/src/*.cc)
-file(GLOB_RECURSE headers ${PROJECT_SOURCE_DIR}/src/*.hh)
+add_subdirectory(src)
 
 # Add the executable, and link it to the Geant4 libraries
-add_executable(G4Horus G4Horus.cc ${sources})
-target_link_libraries(G4Horus ${Geant4_LIBRARIES} ${cadmesh_LIBRARIES})
-
-# Enable C++11 standard and optimization
-# Give an error and terminate if the compiler does not support C++11
-set_property(TARGET G4Horus PROPERTY CXX_STANDARD 11)
-set_property(TARGET G4Horus PROPERTY CXX_STANDARD_REQUIRED ON)
-
-# By default, we want an optimized build. Add debug info for conveience
-if (NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL "")
-    set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "" FORCE)
-endif()
-
-include(CheckCXXCompilerFlag)
-# Use -Wextra if available
-CHECK_CXX_COMPILER_FLAG("" COMPILER_SUPPORTS_WEXTRA)
-if(COMPILER_SUPPORTS_WEXTRA)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
-endif()
-# Use march=native if available
-CHECK_CXX_COMPILER_FLAG("-march=native" COMPILER_SUPPORTS_MARCH_NATIVE)
-if(COMPILER_SUPPORTS_MARCH_NATIVE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
-endif()
+add_executable(${PROJECT_NAME} G4Horus.cc)
+target_link_libraries(${PROJECT_NAME}
+                      G4Horus::construction
+                      G4Horus::actions
+                      ${Geant4_LIBRARIES}
+                      ${cadmesh_LIBRARIES})
+set_target_properties(${PROJECT_NAME}
+                      PROPERTIES INTERPROCEDURAL_OPTIMIZATION True)
