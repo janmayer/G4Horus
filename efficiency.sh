@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source /data/jmayer/software/root-6.00.02/bin/thisroot.sh
+#source /data/jmayer/software/root-6.00.02/bin/thisroot.sh
 
 if [ -n "$1" ]
 then

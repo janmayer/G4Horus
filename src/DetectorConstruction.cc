@@ -10,6 +10,7 @@
 #include "G4VisAttributes.hh"
 
 #include "AstroTargetkammer.hh"
+#include "AstroTargetkammerV2.hh"
 #include "BGO.hh"
 #include "CologneCloverSetup.hh"
 #include "DetectorLibrary.hh"
@@ -21,9 +22,10 @@
 #include "SonicV3.hh"
 
 extern const std::vector<std::string> detectors = {
-    "Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13",
-    "BGO00", "BGO02", "BGO03", "BGO07", "BGO08", "BGO09"
-    //"A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3"
+    //    "Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13",
+    //    "Si00", "Si01", "Si02", "Si03", "Si04", "Si05", "Si06", "Si07", "Si08", "Si09", "Si10", "Si11",
+    //    "BGO00", "BGO02", "BGO03", "BGO07", "BGO08", "BGO09"
+    //    "A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3"
 };
 
 G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
@@ -51,6 +53,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     */
 
     // new AstroTargetkammer(worldLV);
+    // new AstroTargetkammerV2(worldLV);
     // new DummyChamber(worldLV);
 
     auto horus = new Horus(worldLV);
@@ -101,6 +104,7 @@ void DetectorConstruction::DefineMaterials()
     nistManager->FindOrBuildMaterial("G4_Ge");
     nistManager->FindOrBuildMaterial("G4_Ta");
     nistManager->FindOrBuildMaterial("G4_Si");
+    nistManager->FindOrBuildMaterial("G4_POLYCARBONATE");
 
     G4Element* O = nistManager->FindOrBuildElement("O");
     G4Element* Bi = nistManager->FindOrBuildElement("Bi");

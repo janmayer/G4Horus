@@ -39,10 +39,6 @@ HPGe::Coaxial::Coaxial(const _spec& spec, const std::string& name, const std::ve
     G4cout << "Id: " << spec.id << " - crystal volume: " << crystal_solid_with_hole->GetCubicVolume() / cm3 + crystal_dead_layer_solid->GetCubicVolume() / cm3 << "cm3" << G4endl;
     G4cout << "Id: " << spec.id << " - expected volume: " << spec.crystal.volume / cm3 << "cm3" << G4endl;
 
-    /*if (fabs((crystal_solid_with_hole->GetCubicVolume() / cm3 + crystal_dead_layer_solid->GetCubicVolume() / cm3) / spec.crystal.volume - 1) > MAX_VOLUME_DIFFERENCE) {
-        G4Exception("HPGe::Coaxial::Coaxial()", "Horus", JustWarning, ("Volume of detector " + spec.id + " does not match!").c_str());
-    }*/
-
     // cryo finger?
     auto cryo_solid = new G4Tubs("HPGe_" + name + "_cryo_solid", 0. * cm, spec.crystal.hole_diameter / 2. - 0.5 * mm, spec.crystal.hole_length / 2, 0. * deg, 360. * deg);
     auto cryo_logical = new G4LogicalVolume(cryo_solid, G4Material::GetMaterial("G4_Al"), "HPGe_" + name + "_cryo_logical");

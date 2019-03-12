@@ -30,7 +30,6 @@ HPGe::HPGe(const _spec& spec, const std::string& name, const std::vector<Detecto
 
 G4LogicalVolume* HPGe::BuildHull()
 {
-    std::cout << "-----------------------------OLD" << std::endl;
     auto sV = new G4Tubs("HPGe_" + fName + "_hull_solid", fSpec.hull.diameter / 2. - fSpec.hull.thickness, fSpec.hull.diameter / 2., fSpec.hull.length / 2., 0. * deg, 360. * deg);
     auto lV = new G4LogicalVolume(sV, G4Material::GetMaterial("G4_Al"), "HPGe_" + fName + "_hull_logical");
 

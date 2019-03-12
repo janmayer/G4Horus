@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 ## 3D performance
 # On some systems, using the following option can improve
 # the 3D performance of the detector visualization.

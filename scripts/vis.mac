@@ -34,6 +34,7 @@
 /vis/drawVolume
 #
 # Specify view angle:
+/vis/viewer/set/upVector 0 -1 0
 /vis/viewer/set/viewpointThetaPhi 90. 0.
 #
 # Specify zoom value:

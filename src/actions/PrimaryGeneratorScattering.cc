@@ -41,7 +41,7 @@ void PrimaryGeneratorScattering::GeneratePrimaryVertex(G4Event* event)
 
 void PrimaryGeneratorScattering::ProcessDecays(const std::vector<PrimaryGeneratorScattering::Decay>& decays, G4Event* event)
 {
-    Decay decay{};
+    Decay decay {};
     if (decays.empty()) {
         return;
     } else if (decays.size() == 1) {

@@ -2,6 +2,8 @@ project(G4HorusGeometries)
 
 add_library(${PROJECT_NAME}
             AstroTargetkammer.cc
+            AstroTargetkammerV2.cc
+            CADElement.cc
             CologneCloverSetup.cc
             DummyChamber.cc
             Horus.cc
