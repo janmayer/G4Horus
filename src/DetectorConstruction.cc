@@ -20,6 +20,7 @@
 #include "PIPS.hh"
 #include "SONIC.hh"
 #include "SonicV3.hh"
+#include "SonicV3dEE.hh"
 
 extern const std::vector<std::string> detectors = {
     //    "Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13",
@@ -36,21 +37,20 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     auto worldLV = new G4LogicalVolume(worldS, G4Material::GetMaterial("Galactic"), "World");
     worldLV->SetVisAttributes(G4VisAttributes::Invisible);
 
-    /*
-    auto sonic = new SonicV3(worldLV);
-    sonic->PlaceDetector("PIPS", "Si00", 45.25 * mm);
-    sonic->PlaceDetector("PIPS", "Si01", 45.25 * mm);
-    sonic->PlaceDetector("PIPS", "Si02", 45.25 * mm);
-    sonic->PlaceDetector("PIPS", "Si03", 45.25 * mm);
-    sonic->PlaceDetector("PIPS", "Si04", 45.50 * mm);
-    sonic->PlaceDetector("PIPS", "Si05", 45.50 * mm);
-    sonic->PlaceDetector("PIPS", "Si06", 45.50 * mm);
-    sonic->PlaceDetector("PIPS", "Si07", 45.50 * mm);
-    sonic->PlaceDetector("PIPS", "Si08", 45.50 * mm);
-    sonic->PlaceDetector("PIPS", "Si09", 45.50 * mm);
-    sonic->PlaceDetector("PIPS", "Si10", 45.50 * mm);
-    sonic->PlaceDetector("PIPS", "Si11", 45.50 * mm);
-    */
+    // auto sonic = new SonicV3(worldLV);
+    // auto sonic = new SonicV3dEE(worldLV);
+    // sonic->PlaceDetector("PIPS", "Si00", 45.25 * mm);
+    // sonic->PlaceDetector("PIPS", "Si01", 45.25 * mm);
+    // sonic->PlaceDetector("PIPS", "Si02", 45.25 * mm);
+    // sonic->PlaceDetector("PIPS", "Si03", 45.25 * mm);
+    // sonic->PlaceDetector("PIPS", "Si04", 45.50 * mm);
+    // sonic->PlaceDetector("PIPS", "Si05", 45.50 * mm);
+    // sonic->PlaceDetector("PIPS", "Si06", 45.50 * mm);
+    // sonic->PlaceDetector("PIPS", "Si07", 45.50 * mm);
+    // sonic->PlaceDetector("PIPS", "Si08", 45.50 * mm);
+    // sonic->PlaceDetector("PIPS", "Si09", 45.50 * mm);
+    // sonic->PlaceDetector("PIPS", "Si10", 45.50 * mm);
+    // sonic->PlaceDetector("PIPS", "Si11", 45.50 * mm);
 
     // new AstroTargetkammer(worldLV);
     // new AstroTargetkammerV2(worldLV);
