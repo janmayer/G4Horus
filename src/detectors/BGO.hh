@@ -8,13 +8,19 @@ class BGO : public Detector {
     enum _type { tSMALLNOSE,
                  tLARGENOSE };
 
-    BGO(const _type& type, const G4String& name, const std::vector<Detector::_filter>& filters = {});
+    BGO(const _type& type, std::string name);
 
     G4double GetOverlapLength() const
     {
         return fOverlap;
     }
 
+    G4double GetOffset() const override
+    {
+        return fOffset;
+    }
+
   private:
     G4double fOverlap;
+    G4double fOffset;
 };

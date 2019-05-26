@@ -9,14 +9,14 @@
 #include "G4VisAttributes.hh"
 #include <numeric>
 
-HPGe::Hexagonal::Hexagonal(const _spec& spec, const std::string& name, const std::vector<Detector::_filter>& filters)
-    : HPGe(spec, name, filters)
+HPGe::Hexagonal::Hexagonal(const _spec& spec, const std::string& name)
+    : HPGe(spec, name)
 {
     // hull front (endcap)
-    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fFilterLength - fSpec.hull.endcap_thickness / 2)), this->BuildHullFront(), "HPGe_" + name + "_hull_front", fDetectorLV, false, 0, fSpec.check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fSpec.hull.endcap_thickness / 2)), this->BuildHullFront(), "HPGe_" + name + "_hull_front", fDetectorLV, false, 0, fSpec.check_overlaps);
 
     // hull
-    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fFilterLength - fSpec.hull.length / 2)), this->BuildHull(), "HPGe_" + name + "_hull", fDetectorLV, false, 0, fSpec.check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fSpec.hull.length / 2)), this->BuildHull(), "HPGe_" + name + "_hull", fDetectorLV, false, 0, fSpec.check_overlaps);
 
     auto hull_material = G4Material::GetMaterial("G4_Al");
     auto crystal_material = G4Material::GetMaterial("G4_Ge");
@@ -36,7 +36,7 @@ HPGe::Hexagonal::Hexagonal(const _spec& spec, const std::string& name, const std
     capsule_logical->SetVisAttributes(hull_vis);
     auto rm = new G4RotationMatrix;
     rm->rotateX(180. * deg);
-    new G4PVPlacement(rm, G4ThreeVector(0, 0, -(fLength / 2. - fFilterLength - spec.hull.thickness - spec.hull.padding - capsule_length / 2.)), capsule_logical, "HPGe_" + name + "_capsule", fDetectorLV, false, 0, spec.check_overlaps);
+    new G4PVPlacement(rm, G4ThreeVector(0, 0, -(fLength / 2. - spec.hull.thickness - spec.hull.padding - capsule_length / 2.)), capsule_logical, "HPGe_" + name + "_capsule", fDetectorLV, false, 0, spec.check_overlaps);
 
     // Germanium Dead layer
     G4double gdl_l[2] = {spec.crystal.dead_layer / 2., -spec.crystal.dead_layer / 2.};
@@ -47,7 +47,7 @@ HPGe::Hexagonal::Hexagonal(const _spec& spec, const std::string& name, const std
     auto crystal_dead_layer_vis = G4VisAttributes(G4Color(1, 0.5, 1, 0.7));
     crystal_dead_layer_vis.SetForceSolid(true);
     crystal_dead_layer_logical->SetVisAttributes(crystal_dead_layer_vis);
-    new G4PVPlacement(rm, G4ThreeVector(0, 0, -(fLength / 2. - fFilterLength - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer / 2.)), crystal_dead_layer_logical, "HPGe_" + name + "_crystal_dead_layer", fDetectorLV, false, 0, spec.check_overlaps);
+    new G4PVPlacement(rm, G4ThreeVector(0, 0, -(fLength / 2. - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer / 2.)), crystal_dead_layer_logical, "HPGe_" + name + "_crystal_dead_layer", fDetectorLV, false, 0, spec.check_overlaps);
 
     // Germanium crystal
     auto crystal_solid_wo_hole = HexShape("HPGe_" + name + "_crystal", spec.crystal.diameter / 2., spec.crystal.length / 2.);
@@ -57,7 +57,7 @@ HPGe::Hexagonal::Hexagonal(const _spec& spec, const std::string& name, const std
     auto crystal_vis = G4VisAttributes(G4Color(0, 0.5, 1, 0.7));
     crystal_vis.SetForceSolid(true);
     crystal_logical->SetVisAttributes(crystal_vis);
-    new G4PVPlacement(rm, G4ThreeVector(0, 0, -(fLength / 2. - fFilterLength - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer - spec.crystal.length / 2.)), crystal_logical, "HPGe_" + name + "_crystal", fDetectorLV, false, 0, spec.check_overlaps);
+    new G4PVPlacement(rm, G4ThreeVector(0, 0, -(fLength / 2. - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer - spec.crystal.length / 2.)), crystal_logical, "HPGe_" + name + "_crystal", fDetectorLV, false, 0, spec.check_overlaps);
 
     // Germanium Volume check
     G4double volume = crystal_solid->GetCubicVolume() + crystal_dead_layer_solid->GetCubicVolume();
@@ -72,7 +72,7 @@ HPGe::Hexagonal::Hexagonal(const _spec& spec, const std::string& name, const std
     auto cryo_solid = new G4Tubs("HPGe_" + name + "_cryo_solid", 0. * cm, spec.crystal.hole_diameter / 2. - 0.5 * mm, spec.crystal.hole_length / 2, 0. * deg, 360. * deg);
     auto cryo_logical = new G4LogicalVolume(cryo_solid, hull_material, "HPGe_" + name + "_cryo_logical");
     cryo_logical->SetVisAttributes(hull_vis);
-    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2. - fFilterLength - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer - (spec.crystal.length - spec.crystal.hole_length) - spec.crystal.hole_length / 2)), cryo_logical, "HPGe_" + name + "_cryo", fDetectorLV, false, 0, spec.check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2. - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer - (spec.crystal.length - spec.crystal.hole_length) - spec.crystal.hole_length / 2)), cryo_logical, "HPGe_" + name + "_cryo", fDetectorLV, false, 0, spec.check_overlaps);
 }
 
 G4VSolid* HPGe::Hexagonal::HexShape(const std::string& name, const G4double& base_radius, const G4double& half_length)

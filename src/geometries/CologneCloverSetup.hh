@@ -4,5 +4,5 @@
 
 class CologneCloverSetup : public Setup {
   public:
-    explicit CologneCloverSetup(G4LogicalVolume *theMother);
+    explicit CologneCloverSetup(G4LogicalVolume* theMother);
 };

@@ -4,5 +4,5 @@
 
 class Horus : public Setup {
   public:
-    explicit Horus(G4LogicalVolume *theMother);
+    explicit Horus(G4LogicalVolume* theMother);
 };

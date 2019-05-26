@@ -7,7 +7,10 @@ class CADElement {
   public:
     CADElement(std::string filename, const std::string& material, const G4Color& color);
     void Place(G4LogicalVolume* worldLV, G4RotationMatrix* rot = nullptr, const G4ThreeVector& trans = {0, 0, 0}, const bool checkOverlaps = false) const;
-    G4LogicalVolume* GetLV() const { return fLV; };
+    G4LogicalVolume* GetLV() const
+    {
+        return fLV;
+    };
 
   private:
     char* GetCadFile(const std::string& filename) const;

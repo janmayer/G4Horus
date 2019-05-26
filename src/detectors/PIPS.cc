@@ -4,8 +4,9 @@
 #include "G4SubtractionSolid.hh"
 #include "G4Tubs.hh"
 #include "G4VisAttributes.hh"
+#include <utility>
 
-PIPS::PIPS(const G4String& name)
+PIPS::PIPS(const std::string& name)
     : Detector(name)
 {
     G4Material* vacuum_material = G4Material::GetMaterial("Galactic");
@@ -23,6 +24,7 @@ PIPS::PIPS(const G4String& name)
     G4double front_thick = 1. * mm;
     G4double front_inner = 6.9 * mm;
     G4double front_outer = 13.1 * mm;
+    fWidth = front_outer;
 
     G4double side_thick = 9. * mm - front_thick * 2.;
     G4double side_inner = front_outer - 3. * mm;

@@ -14,8 +14,8 @@
 #include "G4UnionSolid.hh"
 #include "G4VisAttributes.hh"
 
-HPGe::Clover::Clover(const _spec& spec, const std::string& name, const std::vector<Detector::_filter>& filters)
-    : HPGe(spec, name, filters)
+HPGe::Clover::Clover(const _spec& spec, const std::string& name)
+    : HPGe(spec, name)
 {
     // hull
     //auto rot = new G4RotationMatrix();

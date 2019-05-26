@@ -4,5 +4,5 @@
 
 class PIPS : public Detector {
   public:
-    explicit PIPS(const G4String& name);
+    explicit PIPS(const std::string& name);
 };

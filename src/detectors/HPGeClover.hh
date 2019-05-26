@@ -6,7 +6,7 @@ namespace HPGe {
 
 class Clover : public HPGe {
   public:
-    Clover(const _spec& spec, const std::string& name, const std::vector<Detector::_filter>& filters);
+    Clover(const _spec& spec, const std::string& name);
 
   protected:
     // G4LogicalVolume* BuildHull() override;
@@ -14,7 +14,7 @@ class Clover : public HPGe {
 
   private:
     struct _cloverLeaf {
-        G4String name;
+        std::string name;
         G4double alCupThickness;
         G4double alCupLength;
         G4double allayerThickness;

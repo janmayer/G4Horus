@@ -4,6 +4,7 @@ add_library(${PROJECT_NAME}
             BGO.cc
             Detector.cc
             DetectorLibrary.cc
+            Filter.cc
             HPGe.cc
             HPGeClover.cc
             HPGeCoaxial.cc

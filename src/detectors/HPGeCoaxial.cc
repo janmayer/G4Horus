@@ -8,14 +8,14 @@
 #include "Randomize.hh"
 #include <numeric>
 
-HPGe::Coaxial::Coaxial(const _spec& spec, const std::string& name, const std::vector<_filter>& filters)
-    : HPGe(spec, name, filters)
+HPGe::Coaxial::Coaxial(const _spec& spec, const std::string& name)
+    : HPGe(spec, name)
 {
     // hull front (endcap)
-    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fFilterLength - fSpec.hull.endcap_thickness / 2)), this->BuildHullFront(), "HPGe_" + name + "_hull_front", fDetectorLV, false, 0, fSpec.check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fSpec.hull.endcap_thickness / 2)), this->BuildHullFront(), "HPGe_" + name + "_hull_front", fDetectorLV, false, 0, fSpec.check_overlaps);
 
     // hull
-    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fFilterLength - fSpec.hull.length / 2)), this->BuildHull(), "HPGe_" + name + "_hull", fDetectorLV, false, 0, fSpec.check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fSpec.hull.length / 2)), this->BuildHull(), "HPGe_" + name + "_hull", fDetectorLV, false, 0, fSpec.check_overlaps);
 
     // Germanium Dead layer
     auto crystal_dead_layer_solid = new G4Tubs("HPGe_" + name + "_crystal_dead_layer_solid", 0. * cm, spec.crystal.diameter / 2., spec.crystal.dead_layer / 2, 0. * deg, 360. * deg);
@@ -23,7 +23,7 @@ HPGe::Coaxial::Coaxial(const _spec& spec, const std::string& name, const std::ve
     auto crystal_dead_layer_vis = G4VisAttributes(G4Color(1, 0.5, 1));
     crystal_dead_layer_vis.SetForceSolid(true);
     crystal_dead_layer_logical->SetVisAttributes(crystal_dead_layer_vis);
-    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fFilterLength - spec.hull.thickness - spec.hull.padding - spec.crystal.dead_layer / 2)), crystal_dead_layer_logical, "HPGe_" + name + "_crystal_dead_layer", fDetectorLV, false, 0, spec.check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - spec.hull.thickness - spec.hull.padding - spec.crystal.dead_layer / 2)), crystal_dead_layer_logical, "HPGe_" + name + "_crystal_dead_layer", fDetectorLV, false, 0, spec.check_overlaps);
 
     // Germanium crystal and hole
     auto coax_hole_solid = new G4Tubs("HPGe_" + name + "_crystal_hole_solid", 0. * cm, spec.crystal.hole_diameter / 2., spec.crystal.hole_length / 2., 0. * deg, 360. * deg);
@@ -34,7 +34,7 @@ HPGe::Coaxial::Coaxial(const _spec& spec, const std::string& name, const std::ve
     auto crystal_vis = G4VisAttributes(G4Color(0, 0.5, 1));
     crystal_vis.SetForceSolid(true);
     crystal_logical->SetVisAttributes(crystal_vis);
-    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - fFilterLength - spec.hull.thickness - spec.hull.padding - spec.crystal.dead_layer - spec.crystal.length / 2)), crystal_logical, "HPGe_" + name + "_crystal", fDetectorLV, false, 0, spec.check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2 - spec.hull.thickness - spec.hull.padding - spec.crystal.dead_layer - spec.crystal.length / 2)), crystal_logical, "HPGe_" + name + "_crystal", fDetectorLV, false, 0, spec.check_overlaps);
 
     G4cout << "Id: " << spec.id << " - crystal volume: " << crystal_solid_with_hole->GetCubicVolume() / cm3 + crystal_dead_layer_solid->GetCubicVolume() / cm3 << "cm3" << G4endl;
     G4cout << "Id: " << spec.id << " - expected volume: " << spec.crystal.volume / cm3 << "cm3" << G4endl;
@@ -45,5 +45,5 @@ HPGe::Coaxial::Coaxial(const _spec& spec, const std::string& name, const std::ve
     auto cryo_vis = G4VisAttributes(G4Color(1., 0.5, 0));
     cryo_vis.SetForceSolid(true);
     cryo_logical->SetVisAttributes(cryo_vis);
-    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2. - fFilterLength - spec.hull.thickness - spec.hull.padding - spec.crystal.dead_layer - (spec.crystal.length - spec.crystal.hole_length) - spec.crystal.hole_length / 2)), cryo_logical, "HPGe_" + name + "_cryo", fDetectorLV, false, 0, spec.check_overlaps);
+    new G4PVPlacement(nullptr, G4ThreeVector(0, 0, -(fLength / 2. - spec.hull.thickness - spec.hull.padding - spec.crystal.dead_layer - (spec.crystal.length - spec.crystal.hole_length) - spec.crystal.hole_length / 2)), cryo_logical, "HPGe_" + name + "_cryo", fDetectorLV, false, 0, spec.check_overlaps);
 }

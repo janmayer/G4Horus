@@ -224,7 +224,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
 }
 const std::map<std::string, HPGe::_spec> DetectorLibrary::specifications = std::move(BuildSpecs());
 
-Detector *DetectorLibrary::GetDetector(const std::string &id, const std::string &position, const std::vector<Detector::_filter> &filters) const
+Detector *DetectorLibrary::GetDetector(const std::string &id, const std::string &position) const
 {
     if (id == "PIPS") {
         return new PIPS(position);
@@ -239,11 +239,11 @@ Detector *DetectorLibrary::GetDetector(const std::string &id, const std::string 
 
     switch (spec.type) {
     case HPGe::HPGeCoaxial:
-        return new HPGe::Coaxial(spec, position, filters);
+        return new HPGe::Coaxial(spec, position);
     case HPGe::HPGeHexagonal:
-        return new HPGe::Hexagonal(spec, position, filters);
+        return new HPGe::Hexagonal(spec, position);
     case HPGe::HPGeClover:
-        return new HPGe::Clover(spec, position, filters);
+        return new HPGe::Clover(spec, position);
     default:
         G4Exception("DetectorLibrary::GetDetector", "Unknown detector type", FatalException, ("HPGe " + id + " has an unknown type.").c_str());
         return nullptr;

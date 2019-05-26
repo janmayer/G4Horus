@@ -23,9 +23,9 @@
 #include "SonicV3dEE.hh"
 
 extern const std::vector<std::string> detectors = {
-    //    "Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13",
+    "Ge00", "Ge01", "Ge02", "Ge03", "Ge04", "Ge05", "Ge06", "Ge07", "Ge08", "Ge09", "Ge10", "Ge11", "Ge12", "Ge13",
     //    "Si00", "Si01", "Si02", "Si03", "Si04", "Si05", "Si06", "Si07", "Si08", "Si09", "Si10", "Si11",
-    //    "BGO00", "BGO02", "BGO03", "BGO07", "BGO08", "BGO09"
+    "BGO00", "BGO03", "BGO06", "BGO07", "BGO08", "BGO09"
     //    "A0", "A1", "A2", "A3", "B0", "B1", "B2", "B3"
 };
 
@@ -37,20 +37,20 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     auto worldLV = new G4LogicalVolume(worldS, G4Material::GetMaterial("Galactic"), "World");
     worldLV->SetVisAttributes(G4VisAttributes::Invisible);
 
-    // auto sonic = new SonicV3(worldLV);
+    auto sonic = new SonicV3(worldLV);
     // auto sonic = new SonicV3dEE(worldLV);
-    // sonic->PlaceDetector("PIPS", "Si00", 45.25 * mm);
-    // sonic->PlaceDetector("PIPS", "Si01", 45.25 * mm);
-    // sonic->PlaceDetector("PIPS", "Si02", 45.25 * mm);
-    // sonic->PlaceDetector("PIPS", "Si03", 45.25 * mm);
-    // sonic->PlaceDetector("PIPS", "Si04", 45.50 * mm);
-    // sonic->PlaceDetector("PIPS", "Si05", 45.50 * mm);
-    // sonic->PlaceDetector("PIPS", "Si06", 45.50 * mm);
-    // sonic->PlaceDetector("PIPS", "Si07", 45.50 * mm);
-    // sonic->PlaceDetector("PIPS", "Si08", 45.50 * mm);
-    // sonic->PlaceDetector("PIPS", "Si09", 45.50 * mm);
-    // sonic->PlaceDetector("PIPS", "Si10", 45.50 * mm);
-    // sonic->PlaceDetector("PIPS", "Si11", 45.50 * mm);
+    sonic->PlaceDetector("PIPS", "Si00", 45.25 * mm);
+    sonic->PlaceDetector("PIPS", "Si01", 45.25 * mm);
+    sonic->PlaceDetector("PIPS", "Si02", 45.25 * mm);
+    sonic->PlaceDetector("PIPS", "Si03", 45.25 * mm);
+    sonic->PlaceDetector("PIPS", "Si04", 45.25 * mm);
+    sonic->PlaceDetector("PIPS", "Si05", 45.25 * mm);
+    sonic->PlaceDetector("PIPS", "Si06", 45.25 * mm);
+    sonic->PlaceDetector("PIPS", "Si07", 45.25 * mm);
+    sonic->PlaceDetector("PIPS", "Si08", 45.25 * mm);
+    sonic->PlaceDetector("PIPS", "Si09", 45.25 * mm);
+    sonic->PlaceDetector("PIPS", "Si10", 45.25 * mm);
+    sonic->PlaceDetector("PIPS", "Si11", 45.25 * mm);
 
     // new AstroTargetkammer(worldLV);
     // new AstroTargetkammerV2(worldLV);
@@ -58,21 +58,27 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
 
     auto horus = new Horus(worldLV);
     // ID, Position, Distance (to endcap or filters on endcap), Filters
-    // ID, Position, Distance to endcap, BGO, BGO-Filters)
-    horus->PlaceDetector("elek", "Ge00", 17. * cm, {BGO::tSMALLNOSE, "BGO00"}, {{"G4_Cu", 1. * mm}, {"G4_Pb", 5. * mm}});
-    horus->PlaceDetector("609502", "Ge01", 7. * cm, {{"G4_Cu", 2. * mm}, {"G4_Pb", 1. * mm}});
-    horus->PlaceDetector("73954", "Ge02", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceDetector("adjusted_capsule", "Ge03", 17 * cm, {BGO::tLARGENOSE, "BGO03"}, {{"G4_Cu", 2. * mm}});
-    horus->PlaceDetector("73209", "Ge04", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceDetector("72827", "Ge05", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceDetector("adjusted_capsule", "Ge06", 17. * cm, {BGO::tLARGENOSE, "BGO02"});
-    horus->PlaceDetector("72811", "Ge07", 17. * cm, {BGO::tSMALLNOSE, "BGO07"}, {{"G4_Cu", 2. * mm}});
-    horus->PlaceDetector("73002", "Ge08", 17. * cm, {BGO::tLARGENOSE, "BGO08"}, {{"G4_Cu", 2. * mm}});
-    horus->PlaceDetector("miniball_capsule", "Ge09", 17. * cm, {BGO::tSMALLNOSE, "BGO09"}, {{"G4_Cu", 2. * mm}});
-    horus->PlaceDetector("miniball_capsule", "Ge10", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceDetector("72397", "Ge11", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceDetector("72442", "Ge12", 7. * cm, {{"G4_Cu", 2. * mm}});
-    horus->PlaceDetector("72341", "Ge13", 7. * cm, {{"G4_Cu", 2. * mm}});
+    // BGO Type, Position, Distance (to BGO or filters on bgo), BGO-Filters
+    horus->PlaceDetector("elek", "Ge00", 20. * cm);
+    horus->PlaceDetector(BGO::tSMALLNOSE, "BGO00", 10. * cm);
+    horus->PlaceDetector("609502", "Ge01", 20. * cm, {{"G4_Cu", 2. * mm}, {"G4_Pb", 1. * mm}});
+    horus->PlaceDetector("73954", "Ge02", 20. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("adjusted_capsule", "Ge03", 20. * cm);
+    horus->PlaceDetector(BGO::tSMALLNOSE, "BGO03", 10. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("73209", "Ge04", 20. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("72827", "Ge05", 20. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("adjusted_capsule", "Ge06", 20. * cm);
+    horus->PlaceDetector(BGO::tLARGENOSE, "BGO06", 10. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("72811", "Ge07", 20. * cm);
+    horus->PlaceDetector(BGO::tLARGENOSE, "BGO07", 10. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("73002", "Ge08", 20. * cm);
+    horus->PlaceDetector(BGO::tLARGENOSE, "BGO08", 10. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("miniball_capsule", "Ge09", 20. * cm);
+    horus->PlaceDetector(BGO::tLARGENOSE, "BGO09", 10. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("miniball_capsule", "Ge10", 20. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("72397", "Ge11", 20. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("72442", "Ge12", 20. * cm, {{"G4_Cu", 2. * mm}});
+    horus->PlaceDetector("72341", "Ge13", 20. * cm, {{"G4_Cu", 2. * mm}});
 
     /*
     auto ccs = new CologneCloverSetup(worldLV);

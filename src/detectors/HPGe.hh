@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Detector.hh"
-#include "G4LogicalVolume.hh"
 
 namespace HPGe {
 
@@ -37,11 +36,10 @@ struct _spec {
 
 class HPGe : public Detector {
   public:
-    HPGe(const _spec& spec, const std::string& name, const std::vector<Detector::_filter>& filters);
+    HPGe(_spec spec, std::string name);
 
   protected:
     _spec fSpec;
-    G4double fFilterLength;
 
     const G4double MAX_VOLUME_DIFFERENCE = 0.01; // relative
 
