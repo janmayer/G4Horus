@@ -1,0 +1,8 @@
+/control/macroPath ../scripts/
+/control/execute vis.mac
+/control/execute gui.mac
+#/control/execute horus-coordinates.mac
+
+/analysis/setFileName tmp
+/gun/energy 1 MeV
+/gun/particle gamma

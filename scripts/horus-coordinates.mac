@@ -1,0 +1,52 @@
+# This needs to be saved with "Windows 1252" encoding ;-(
+/vis/viewer/set/autoRefresh false
+/vis/set/colour 0 0 0 1
+/vis/set/textColour 0 0 0 1
+/vis/viewer/set/hiddenMarker true
+
+/vis/viewer/set/upVector 0 -1 0
+/vis/viewer/set/viewpointThetaPhi 45 -45
+
+/vis/scene/add/text 40.0 0.0 0.0 cm 16 0 0 Ge00 #(90°, 0°)
+/vis/scene/add/line 40.0 0.0 0.0 20.0 0.0 0.0 cm
+
+/vis/scene/add/text 22.9 32.8 0.0 cm 16 0 0 Ge01 #(90°, 55°)
+/vis/scene/add/line 22.9 32.8 0.0 11.5 16.4 0.0 cm
+
+/vis/scene/add/text -22.9 32.8 0.0 cm 16 0 0 Ge02 #(90°, 125°)
+/vis/scene/add/line -22.9 32.8 0.0 -11.5 16.4 0.0 cm
+
+/vis/scene/add/text -40.0 0.0 0.0 cm 16 0 0 Ge03 #(90°, 180°)
+/vis/scene/add/line -40.0 0.0 0.0 -20.0 0.0 0.0 cm
+
+/vis/scene/add/text -17.2 -24.6 0.0 cm 16 0 0 Ge04 #(90°, 235°)
+/vis/scene/add/line -17.2 -24.6 0.0 -11.5 -16.4 0.0 cm
+
+/vis/scene/add/text 22.9 -32.8 0.0 cm 16 0 0 Ge05 #(90°, 305°)
+/vis/scene/add/line 22.9 -32.8 0.0 11.5 -16.4 0.0 cm
+
+/vis/scene/add/text 0.0 -28.3 -28.3 cm 16 0 0 Ge06 #(135°, 270°)
+/vis/scene/add/line 0.0 -28.3 -28.3 0.0 -14.1 -14.1 cm
+
+/vis/scene/add/text 0.0 -28.3 28.3 cm 16 0 0 Ge07 #(45°, 270°)
+/vis/scene/add/line 0.0 -28.3 28.3 0.0 -14.1 14.1 cm
+
+/vis/scene/add/text 0.0 28.3 28.3 cm 16 0 0 Ge08 #(45°, 90°)
+/vis/scene/add/line 0.0 28.3 28.3 0.0 14.1 14.1 cm
+
+/vis/scene/add/text 0.0 28.3 -28.3 cm 16 0 0 Ge09 #(135°, 90°)
+/vis/scene/add/line 0.0 28.3 -28.3 0.0 14.1 -14.1 cm
+
+/vis/scene/add/text 22.9 0.0 -32.8 cm 16 0 0 Ge10 #(145°, 0°)
+/vis/scene/add/line 22.9 0.0 -32.8 11.5 0.0 -16.4 cm
+
+/vis/scene/add/text -22.9 0.0 -32.8 cm 16 0 0 Ge11 #(145°, 180°)
+/vis/scene/add/line -22.9 0.0 -32.8 -11.5 0.0 -16.4 cm
+
+/vis/scene/add/text -22.9 0.0 32.8 cm 16 0 0 Ge12 #(35°, 180°)
+/vis/scene/add/line -22.9 0.0 32.8 -11.5 0.0 16.4 cm
+
+/vis/scene/add/text 22.9 0.0 32.8 cm 16 0 0 Ge13 #(35°, 0°)
+/vis/scene/add/line 22.9 0.0 32.8 11.5 0.0 16.4 cm
+
+/vis/viewer/set/autoRefresh true

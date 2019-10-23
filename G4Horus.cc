@@ -75,8 +75,7 @@ int main(int argc, char* argv[])
         vis_manager->Initialize();
 
         auto ui = new G4UIExecutive(argc, argv, G4String());
-        ui_manager->ApplyCommand("/control/execute ../scripts/vis.mac");
-        ui_manager->ApplyCommand("/control/execute ../scripts/gui.mac");
+        ui_manager->ApplyCommand("/control/execute ../scripts/G4Horus.mac");
         ui->SessionStart();
         delete ui;
 
