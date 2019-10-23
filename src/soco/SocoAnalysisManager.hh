@@ -17,17 +17,20 @@ class SocoAnalysisManager {
 
     inline void AddEvent(const SOCO::Event& event)
     {
-        std::lock_guard<std::mutex> lock{fLockEvents};
-        fEvents.push_back(event);
+        {
+            std::lock_guard<std::mutex> lock {fLockEvents};
+            fEvents.push_back(event);
+        }
+        if (fEvents.size() > MAXEVENTSINBUFFER) {
+            Write();
+        }
     };
 
-    inline void SetFileName(const G4String& fileName)
-    {
-        fFileName = fileName;
-    }
-
+    void SetFileName(const G4String& fileName);
     G4bool Write();
     void Destroy();
+
+    static constexpr size_t MAXEVENTSINBUFFER = 1000000;
 
   private:
     SocoAnalysisManager();
@@ -35,7 +38,8 @@ class SocoAnalysisManager {
 
     std::mutex fLockEvents;
     std::vector<SOCO::Event> fEvents;
-    G4String fFileName;
+    std::mutex fLockFile; // not sure if needed
+    std::ofstream fFile;
     SocoFileMessenger fFileMessenger;
     static SocoAnalysisManager* gInstance;
 };
