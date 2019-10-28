@@ -52,6 +52,12 @@ void SocoAnalysisManager::SetFileName(const G4String& fileName)
         return;
     }
 
+    if (fFile.is_open())
+    {
+        Write();
+        fFile.close();
+    }
+
     {
         std::lock_guard<std::mutex> lF {fLockFile};
         fFile.open(fileName + ".evt");
