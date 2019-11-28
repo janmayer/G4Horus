@@ -6,8 +6,11 @@
 #include "G4SubtractionSolid.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4Tubs.hh"
+#include "G4UnionSolid.hh"
 #include "G4VisAttributes.hh"
 #include <numeric>
+#include <sstream>
+#include <string>
 
 HPGe::Hexagonal::Hexagonal(const _spec& spec, const std::string& name)
     : HPGe(spec, name)
@@ -49,10 +52,44 @@ HPGe::Hexagonal::Hexagonal(const _spec& spec, const std::string& name)
     crystal_dead_layer_logical->SetVisAttributes(crystal_dead_layer_vis);
     new G4PVPlacement(rm, G4ThreeVector(0, 0, -(fLength / 2. - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer / 2.)), crystal_dead_layer_logical, "HPGe_" + name + "_crystal_dead_layer", fDetectorLV, false, 0, spec.check_overlaps);
 
+    // Germanium Inactive Region around cryo finger
+    G4double inactiveRadius = 0.0;
+    G4double inactiveExtraLength = 0.0;
+    std::stringstream ending;
+    //assignment of inactive Region can be done in two different ways: directly assigning the length and radius or giving the detector an efficiency-value to be reduced to symetrically. This is to differentiate between the two methods.
+    if (spec.crystal.inactive_radius == 0.0 && spec.crystal.inactive_length == 0.0) {
+        inactiveRadius = sqrt(-spec.efficiency * (pow(spec.crystal.diameter / 2., 2) - pow(spec.crystal.hole_diameter / 2., 2)) + pow(spec.crystal.diameter / 2., 2));
+        //inactiveExtraLength= -spec.efficiency*(spec.crystal.length-spec.crystal.hole_length)+spec.crystal.length-spec.crystal.hole_length;//extra length on top of the cooling finger.
+        inactiveExtraLength = (spec.crystal.length - spec.crystal.hole_length) * pow(spec.crystal.diameter / 2., 2) * (1 - spec.efficiency) / pow(spec.crystal.hole_diameter / 2. + inactiveRadius, 2); // new and hopefully correct formula
+        ending << " for " << (1 - spec.efficiency) * 100 << "% of efficiency reduction.";
+    } else {
+        inactiveRadius = spec.crystal.inactive_radius;
+        inactiveExtraLength = spec.crystal.inactive_length;
+        ending << ". (directly assigned)";
+    }
+    std::string flavourtext = ending.str();
+    if (inactiveRadius != 0.0 && inactiveExtraLength != 0.0) {
+        G4cout << "HPGe detector " << name << " with inactive layer has " << inactiveRadius << " mm of inactive material around and " << inactiveExtraLength << "mm in front of cryo-finger" << flavourtext << G4endl;
+
+        auto crystal_inactive_solid_cylinder = new G4Tubs("HPGe_" + name + "_inactive_crystal_solid_with_hole", spec.crystal.hole_diameter / 2., /*spec.crystal.hole_diameter / 2. +*/ inactiveRadius, spec.crystal.hole_length / 2., 0. * deg, 360. * deg);
+        auto crystal_inactive_solid_top = new G4Tubs("HPGe_" + name + "_inactive_crystal_solid_top", 0., /*spec.crystal.hole_diameter / 2. +*/ inactiveRadius, inactiveExtraLength / 2., 0. * deg, 360. * deg);
+        auto crystal_inactive_solid = new G4UnionSolid("HPGe_" + name + "_inactive_crystal_complete", crystal_inactive_solid_cylinder, crystal_inactive_solid_top, 0, G4ThreeVector(0, 0, (spec.crystal.hole_length / 2. + inactiveExtraLength / 2.)));
+        auto crystal_inactive_logical = new G4LogicalVolume(crystal_inactive_solid, crystal_material, "HPGe_" + name + "_crystal_inactive_logical");
+        auto crystal_inactive_vis = G4VisAttributes(G4Color(1, 0.5, 0, 0.7)); // maybe change color to see geometry
+        crystal_inactive_vis.SetForceSolid(true);
+        crystal_inactive_logical->SetVisAttributes(crystal_inactive_vis);
+        new G4PVPlacement(rm, G4ThreeVector(0, 0, -(fLength / 2. - spec.hull.thickness - spec.hull.padding - capsule_thickness - capsule_padding - spec.crystal.dead_layer - (spec.crystal.length - spec.crystal.hole_length) - spec.crystal.hole_length / 2)), crystal_inactive_logical, "HPGe_" + name + "_inactive_crystal", fDetectorLV, false, 0, spec.check_overlaps);
+    } else {
+        G4cout << "HPGe detector " << name << " without inactive layer was set up. " << G4endl;
+        G4cout << "No inactive region was assigned due to efficiency being set to 100% or invalid parameters being given. " << G4endl;
+    }
+    auto crystal_inactive_solid_wo_hole = new G4Tubs("HPGe_" + name + "_crystal", 0., /*(spec.crystal.hole_diameter / 2.) +*/ inactiveRadius, (spec.crystal.hole_length / 2.) + inactiveExtraLength / 2., 0. * deg, 360. * deg);
+    auto crystal_inactive_solid_total = new G4UnionSolid("HPGe_" + name + "_crystal_total_inactive_region", crystal_inactive_solid_wo_hole, crystal_dead_layer_solid); //translation for dead region not specified
+
     // Germanium crystal
     auto crystal_solid_wo_hole = HexShape("HPGe_" + name + "_crystal", spec.crystal.diameter / 2., spec.crystal.length / 2.);
-    auto crystal_hole_solid = new G4Tubs("HPGe_" + name + "_crystal_hole_solid", 0. * cm, spec.crystal.hole_diameter / 2., spec.crystal.hole_length / 2., 0. * deg, 360. * deg);
-    auto crystal_solid = new G4SubtractionSolid("HPGe_" + name + "_crystal_solid_with_hole", crystal_solid_wo_hole, crystal_hole_solid, nullptr, G4ThreeVector(0, 0, -(spec.crystal.length / 2. - spec.crystal.hole_length / 2.)));
+    // auto crystal_hole_solid = new G4Tubs("HPGe_" + name + "_crystal_hole_solid", 0. * cm, spec.crystal.hole_diameter / 2., spec.crystal.hole_length / 2., 0. * deg, 360. * deg);
+    auto crystal_solid = new G4SubtractionSolid("HPGe_" + name + "_crystal_solid_with_hole", crystal_solid_wo_hole, crystal_inactive_solid_total, nullptr, G4ThreeVector(0, 0, -(spec.crystal.length / 2. - spec.crystal.hole_length / 2. - inactiveExtraLength / 2.)));
     auto crystal_logical = new G4LogicalVolume(crystal_solid, crystal_material, "HPGe_" + name + "_crystal_logical");
     auto crystal_vis = G4VisAttributes(G4Color(0, 0.5, 1, 0.7));
     crystal_vis.SetForceSolid(true);
@@ -65,7 +102,7 @@ HPGe::Hexagonal::Hexagonal(const _spec& spec, const std::string& name)
     G4cout << "HPGe: " << name << " with Id: " << spec.id << " - expected volume: " << spec.crystal.volume / cm3 << "cm3 = " << spec.crystal.volume * crystal_material->GetDensity() / g << "g" << G4endl;
     G4cout << "HPGe: " << name << " with Id: " << spec.id << " - capsule mass:  " << capsule_solid->GetCubicVolume() * hull_material->GetDensity() / g << "g" << G4endl;
     /*if( fabs(volume/spec.crystal.volume - 1) > MAX_VOLUME_DIFFERENCE ){
-        G4Exception("HPGe::Hexagonal::Hexagonal()", "Horus", JustWarning, ("Volume of detector " + spec.id + " does not match!").c_str() );
+        G4Exception("HPGe::Hexagonal::Hexagonal())", "Horus", JustWarning, ("Volume of detector " + spec.id + " does not match!").c_str() );
     }*/
 
     //cryo finger

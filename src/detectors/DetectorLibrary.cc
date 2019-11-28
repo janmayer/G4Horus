@@ -111,6 +111,7 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["miniball_capsule"].hull.endcap_thickness = 1. * mm;
     specs["miniball_capsule"].hull.length = 12. * cm;
     specs["miniball_capsule"].check_overlaps = false;
+    specs["miniball_capsule"].efficiency = 1.00;
 
     specs["adjusted_capsule"].id = "adjusted_capsule";
     specs["adjusted_capsule"].type = HPGe::HPGeHexagonal;
@@ -127,12 +128,6 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["adjusted_capsule"].hull.endcap_thickness = 1. * mm;
     specs["adjusted_capsule"].hull.length = 12. * cm;
     specs["adjusted_capsule"].check_overlaps = false;
-
-    specs["72309"] = specs["miniball_capsule"];
-    specs["72309"].id = "72309";
-    specs["72309"].crystal.length = 76.5 * mm; // from datasheet
-    specs["72309"].crystal.volume = 1578. * g / (5.323 * g / cm3); // from datasheet
-    specs["72309"].crystal.hole_length = specs["72309"].crystal.length - 15. * mm;
 
     specs["72341"] = specs["miniball_capsule"];
     specs["72341"].id = "72341";
@@ -158,12 +153,6 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["72802"].crystal.volume = 1585. * g / (5.323 * g / cm3); // from datasheet
     specs["72802"].crystal.hole_length = specs["72802"].crystal.length - 15. * mm;
 
-    specs["72811"] = specs["miniball_capsule"];
-    specs["72811"].id = "72811";
-    specs["72811"].crystal.length = 78. * mm; // from datasheet
-    specs["72811"].crystal.volume = 1590. * g / (5.323 * g / cm3); // from datasheet
-    specs["72811"].crystal.hole_length = specs["72811"].crystal.length - 15. * mm;
-
     specs["72812"] = specs["miniball_capsule"];
     specs["72812"].id = "72812";
     specs["72812"].crystal.length = 78. * mm; // from datasheet
@@ -175,24 +164,6 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["72827"].crystal.length = 78. * mm; // from datasheet
     specs["72827"].crystal.volume = 1596.7 * g / (5.323 * g / cm3); // from datasheet
     specs["72827"].crystal.hole_length = specs["72827"].crystal.length - 15. * mm;
-
-    specs["72890"] = specs["miniball_capsule"];
-    specs["72890"].id = "72890";
-    specs["72890"].crystal.length = 77.9 * mm; // from datasheet
-    specs["72890"].crystal.volume = 1521. * g / (5.323 * g / cm3); // from datasheet
-    specs["72890"].crystal.hole_length = specs["72890"].crystal.length - 15. * mm;
-
-    specs["73002"] = specs["miniball_capsule"];
-    specs["73002"].id = "73002";
-    specs["73002"].crystal.length = 78.2 * mm; // from datasheet
-    specs["73002"].crystal.volume = 1531. * g / (5.323 * g / cm3); // from datasheet
-    specs["73002"].crystal.hole_length = specs["73002"].crystal.length - 15. * mm;
-
-    specs["73209"] = specs["miniball_capsule"];
-    specs["73209"].id = "73209";
-    specs["73209"].crystal.length = 77. * mm; // from datasheet
-    specs["73209"].crystal.volume = 1594. * g / (5.323 * g / cm3); // from datasheet
-    specs["73209"].crystal.hole_length = specs["73209"].crystal.length - 15. * mm;
 
     specs["73211"] = specs["miniball_capsule"];
     specs["73211"].id = "73211";
@@ -219,6 +190,41 @@ std::map<std::string, HPGe::_spec> BuildSpecs()
     specs["CloziB"].hull.length = 110. * mm; // not measured??
     // specs["CloziB"].hull.diameter = 223. * mm; // from cad hull #CADMESH
     // specs["CloziB"].hull.length = 1015. * mm;  // from cad hull #CADMESH
+
+    specs["72890"] = specs["miniball_capsule"];
+    specs["72890"].id = "72890";
+    specs["72890"].crystal.length = 77.9 * mm; // from datasheet
+    specs["72890"].crystal.volume = 1521. * g / (5.323 * g / cm3); // from datasheet
+    specs["72890"].crystal.hole_length = specs["72890"].crystal.length - 15. * mm;
+    specs["72890"].efficiency = 0.8868;
+
+    specs["72309"] = specs["miniball_capsule"];
+    specs["72309"].id = "72309";
+    specs["72309"].crystal.length = 76.5 * mm; // from datasheet
+    specs["72309"].crystal.volume = 1578. * g / (5.323 * g / cm3); // from datasheet
+    specs["72309"].crystal.hole_length = specs["72309"].crystal.length - 15. * mm;
+    specs["72309"].efficiency = 0.9132;
+
+    specs["73209"] = specs["miniball_capsule"];
+    specs["73209"].id = "73209";
+    specs["73209"].crystal.length = 77. * mm; // from datasheet
+    specs["73209"].crystal.volume = 1594. * g / (5.323 * g / cm3); // from datasheet
+    specs["73209"].crystal.hole_length = specs["73209"].crystal.length - 15. * mm;
+    specs["73209"].efficiency = 0.9545;
+
+    specs["72811"] = specs["miniball_capsule"];
+    specs["72811"].id = "72811";
+    specs["72811"].crystal.length = 78. * mm; // from datasheet
+    specs["72811"].crystal.volume = 1590. * g / (5.323 * g / cm3); // from datasheet
+    specs["72811"].crystal.hole_length = specs["72811"].crystal.length - 15. * mm;
+    specs["72811"].efficiency = 0.8943;
+
+    specs["73002"] = specs["miniball_capsule"];
+    specs["73002"].id = "73002";
+    specs["73002"].crystal.length = 78.2 * mm; // from datasheet
+    specs["73002"].crystal.volume = 1531. * g / (5.323 * g / cm3); // from datasheet
+    specs["73002"].crystal.hole_length = specs["73002"].crystal.length - 15. * mm;
+    specs["73002"].efficiency = 0.8941;
 
     return specs;
 }

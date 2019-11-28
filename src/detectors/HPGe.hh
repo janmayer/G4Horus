@@ -16,6 +16,8 @@ struct _crystal {
     G4double hole_diameter;
     G4double hole_length;
     G4double dead_layer;
+    G4double inactive_length = 0.0; // added this for directly assigning the inactive Regions
+    G4double inactive_radius = 0.0; // added this for directly assigning the inactive Regions
 };
 
 struct _hull {
@@ -32,6 +34,7 @@ struct _spec {
     struct _crystal crystal;
     struct _hull hull;
     bool check_overlaps;
+    double efficiency = 1.00; // added this for variable assignment of efficiency value per Detector
 };
 
 class HPGe : public Detector {
