@@ -13,7 +13,7 @@ class CADElement {
     };
 
   private:
-    char* GetCadFile(const std::string& filename) const;
+    std::string GetCadFile(const std::string& filename) const;
 
     const std::string fFilename;
     G4LogicalVolume* fLV;
