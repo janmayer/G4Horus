@@ -19,8 +19,11 @@ cd ..
 
 
 ## Set CAD Directory
-export G4HORUS_CAD_DIR=`pwd`/cad
-
+if [ -z "${G4HORUS_CAD_DIR}" ]
+then
+	export G4HORUS_CAD_DIR=`pwd`/cad
+fi
+echo "CAD Dir: ${G4HORUS_CAD_DIR}"
 
 ## Create output dir and run full simulation
 mkdir -p out

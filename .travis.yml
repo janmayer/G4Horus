@@ -1,0 +1,45 @@
+language: cpp
+os: linux
+dist: bionic
+sudo: required
+
+addons:
+  apt:
+    sources:
+      - sourceline: "ppa:ubuntu-toolchain-r/test"
+    update: true
+    packages:
+      - libxerces-c3.2
+      - libxerces-c-dev
+      - expat
+      - libexpat1-dev
+      - assimp-utils
+      - libassimp-dev
+      - libassimp-doc
+      - libassimp4
+      - libtet1.5
+      - libtet1.5-dev
+      - tetgen
+      - gcc-9
+      - g++-9
+      #- geant4
+
+before_install:
+  - CC=gcc-9 && CXX=g++-9
+
+install:
+  - cd ${TRAVIS_BUILD_DIR}/..
+  - wget https://www.ikp.uni-koeln.de/~jmayer/github/geant4_10.5.1_amd64.deb
+  - sudo dpkg -i geant4_10.5.1_amd64.deb
+  - source /usr/bin/geant4.sh
+  - git clone -b v1.1 https://github.com/christopherpoole/CADMesh.git ${TRAVIS_BUILD_DIR}/../CADMesh-src
+  - cd ${TRAVIS_BUILD_DIR}/../CADMesh-src
+  - mkdir build && cd build
+  - cmake .. -DWITH_SYS_ASSIMP=ON -DWITH_SYS_TETGEN=ON
+  - make -j8
+  - sudo make install
+  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
+
+script:
+  - cd $TRAVIS_BUILD_DIR
+  - ./G4Batch.sh
