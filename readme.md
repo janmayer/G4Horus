@@ -1,5 +1,6 @@
 # G4Horus
 
+[![DOI](https://zenodo.org/badge/130987160.svg)](https://zenodo.org/badge/latestdoi/130987160)
 [![Build Status](https://travis-ci.org/janmayer/G4Horus.svg?branch=master)](https://travis-ci.org/janmayer/G4Horus)
 
 An implementation of the HORUS High-Purity Germanium (HPGe) γ-ray spectrometer and associated equipment in Geant4.
