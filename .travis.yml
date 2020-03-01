@@ -3,6 +3,11 @@ os: linux
 dist: bionic
 sudo: required
 
+jobs:
+  include:
+  - env: G4VER=10.5.1
+  - env: G4VER=10.6.1
+
 addons:
   apt:
     sources:
@@ -22,15 +27,14 @@ addons:
       - tetgen
       - gcc-9
       - g++-9
-      #- geant4
 
 before_install:
   - CC=gcc-9 && CXX=g++-9
 
 install:
   - cd ${TRAVIS_BUILD_DIR}/..
-  - wget https://www.ikp.uni-koeln.de/~jmayer/github/geant4_10.5.1_amd64.deb
-  - sudo dpkg -i geant4_10.5.1_amd64.deb
+  - wget https://www.ikp.uni-koeln.de/~jmayer/github/geant4_${G4VER}_amd64.deb
+  - sudo dpkg -i geant4_${G4VER}_amd64.deb
   - source /usr/bin/geant4.sh
   - git clone -b v1.1 https://github.com/christopherpoole/CADMesh.git ${TRAVIS_BUILD_DIR}/../CADMesh-src
   - cd ${TRAVIS_BUILD_DIR}/../CADMesh-src
