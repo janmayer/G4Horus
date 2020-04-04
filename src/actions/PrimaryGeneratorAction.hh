@@ -12,5 +12,4 @@ class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
 
   private:
     G4ParticleGun gun;
-    G4ParticleMomentum mom;
 };
