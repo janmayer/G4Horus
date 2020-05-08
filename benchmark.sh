@@ -29,15 +29,15 @@ time build > /dev/null
 
 
 ## Set CAD Directory
-export G4HORUS_CAD_DIR=`pwd`/cad
+export G4HORUS_CAD_DIR=$(pwd)/cad
 
 
 ## Create output dir and run full simulation
 mkdir -p out
 cd out
 TS=$(date +%Y-%m-%dT%H-%M-%S)
-mkdir ${TS}
-cd ${TS}
+mkdir "${TS}"
+cd "${TS}"
 
 
 echo "Time for startup:"

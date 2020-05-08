@@ -11,7 +11,7 @@ export LIBGL_ALWAYS_INDIRECT=y
 ## Geant 4 Version
 # If a specific Geant4 version should be used, adapt and uncomment these lines.
 # source /data/jmayer/software/geant4.10.05/bin/geant4.sh
-echo "Using Geant4 Version `geant4-config --version` in `dirname $(dirname $(geant4-config --prefix))`"
+echo "Using Geant4 Version $(geant4-config --version) in $(dirname $(dirname $(geant4-config --prefix)))"
 
 ## Build Project
 # Remove previous build directory if it exists and recreate it

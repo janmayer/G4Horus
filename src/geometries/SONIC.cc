@@ -31,7 +31,7 @@ SONIC::SONIC(G4LogicalVolume* mother_l)
     //Defining Spheres
     G4double sph_thick = 4. * mm; //2
     G4double sph_outer = 60. * mm, sph_inner = sph_outer - sph_thick; //TODO CHECK OUTER DIAMETER
-    G4ThreeVector sph_pos = G4ThreeVector();
+    //G4ThreeVector sph_pos = G4ThreeVector();
     G4Sphere* sph_fullS = new G4Sphere("sphere_full", 0, sph_outer, 0. * deg, 360. * deg, 0. * deg, 360. * deg);
     G4Sphere* sph_hollS = new G4Sphere("sphere_holl", 0, sph_inner, 0. * deg, 360. * deg, 0. * deg, 360. * deg);
     //G4LogicalVolume* sph_fullLV = new G4LogicalVolume(sph_fullS, SONIC_mat, "Sphere_full",0,0,0);

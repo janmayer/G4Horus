@@ -2,11 +2,11 @@
 
 [![DOI](https://zenodo.org/badge/130987160.svg)](https://zenodo.org/badge/latestdoi/130987160)
 [![Build Status](https://travis-ci.org/janmayer/G4Horus.svg?branch=master)](https://travis-ci.org/janmayer/G4Horus)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/63623e8d5afb46b3a83014f7281af38c)](https://www.codacy.com/manual/janmayer/G4Horus)
 
 An implementation of the HORUS High-Purity Germanium (HPGe) γ-ray spectrometer and associated equipment in Geant4.
 
 ![G4Horus Default Geometry](doc/g4horus.png)
-
 
 ## Overview
 
@@ -15,49 +15,48 @@ The main goal of this project is to provide an accurate, easy-to-use efficiency 
 Components:
 
 - Geometries
-	- Target Chambers
-		- Astro Target Chamber
-		- Astro Target Chamber V2
-		- SONIC
-		- SONIC V3
-		- SONIC V3 ΔEE
-	- Setups (HPGe Arrays with positions for HPGe Detectors)
-		- HORUS (14)
-		- Cologne Clover Counting Setup (2)
-	- Detectors
-		- High-Purity Germanium (HPGe)*
-			- Coaxial (default)
-			- Clover
-			- Encapsulated Hexagonal
-		- Bismuth Germanate (BGO) anti-Compton shields
-		- [WIP] Passivated Implanted Planar Silicon (PIPS)
-	- Auxiliary equipment
-		- γ-Filter-Disks
-		- [NYI] Passive γ-Supershields
+    - Target Chambers
+        - Astro Target Chamber
+        - Astro Target Chamber V2
+        - SONIC
+        - SONIC V3
+        - SONIC V3 ΔEE
+    - Setups (HPGe Arrays with positions for HPGe Detectors)
+        - HORUS (14)
+        - Cologne Clover Counting Setup (2)
+    - Detectors
+        - High-Purity Germanium (HPGe)*
+            - Coaxial (default)
+            - Clover
+            - Encapsulated Hexagonal
+        - Bismuth Germanate (BGO) anti-Compton shields
+        - (WIP) Passivated Implanted Planar Silicon (PIPS)
+    - Auxiliary equipment
+        - γ-Filter-Disks
+        - (NYI) Passive γ-Supershields
 - Actions
-	- Event Generators
-		- Particle Gun
-		- [WIP] Scattering Gun
-		- [NYI] Coincidence Gun
-	- Output Formats
-		- ROOT Histograms
-		- ROOT Ntuples (not recommended)
-		- SOCOv2 Events
-	- Evaluation
-		- Visualization Mode
-		- Batch processing Mode
-		- Automated efficiency evaluation
+    - Event Generators
+        - Particle Gun
+        - (WIP) Scattering Gun
+        - (NYI) Coincidence Gun
+    - Output Formats
+        - ROOT Histograms
+        - ROOT Ntuples (not recommended)
+        - SOCOv2 Events
+    - Evaluation
+        - Visualization Mode
+        - Batch processing Mode
+        - Automated efficiency evaluation
 
 \*) Note that each HPGe detector has unique properties, stored in the `DetectorLibrary`, and is referenced by its manufactured ID.
-
 
 ## Getting Started
 
 ### Dependencies
+
 - A not horribly outdated C++ build environment (`cmake` >= 3.11, `gcc` with C++11 support)
-- [Geant4](https://github.com/Geant4/geant4) >= 10.5
-  (make sure the proper environment variables are set, see example in `G4Horus.sh`
-- [CadMesh](https://github.com/christopherpoole/CADMesh/tree/v1.1) V1.1 (exactly!) and its dependencies
+- [Geant4](https://github.com/Geant4/geant4) >= 10.5 (make sure the proper environment variables are set, see example in `G4Horus.sh`)
+- [CadMesh](https://github.com/christopherpoole/CADMesh/tree/v1.1) V1.1 (exactly!) and its dependencies (WIP)
 
 ### Installation
 
@@ -74,7 +73,6 @@ The project should compile and open a visual interface with a default view shoul
 - Run `./G4Batch.sh scripts/doit.mac` or other macro files to run the actual simulation.
 - Use `./efficiency.sh` to automatically extract efficiencies from the simulated data.
 
-
 ## Constructing the Setup
 
 The experimental setup is assembled in `src/DetectorConstruction.cc`. Change the target chamber, detectors, and sensitive volumes here.
@@ -90,7 +88,7 @@ horus->PlaceDetector("73954", "Ge00", 20. * cm);
 horus->PlaceDetector(BGO::tSMALLNOSE, "BGO00", 10. * cm, {{"G4_Cu", 2. * mm}});
 ```
 
-and the sensitive volumes [WIP]:
+and the sensitive volumes (WIP):
 
 ```C++
 extern const std::vector<std::string> detectors = {"Ge00", "BGO00"};
