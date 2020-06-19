@@ -1,8 +1,4 @@
-// clang-format off
-//#include "CADMesh.hh" // Include this first to avoid warnings about shadowed variables
-// clang-format on
 #include "HPGeClover.hh"
-//#include "CADHelper.hh"
 #include "G4Box.hh"
 #include "G4Colour.hh"
 #include "G4Material.hh"
@@ -328,24 +324,3 @@ void HPGe::Clover::Leaf(const G4double mx, const G4double my, const G4double rot
         new G4PVPlacement(G4Transform3D(rm, alTubePO), alTubeLV, leaf.name + "_alTubePV", fDetectorLV, false, 0, checkOverlap);
     }
 }
-
-/* // #CADMESH
-G4LogicalVolume* HPGe::Clover::BuildHull()
-{
-    auto mesh = CADMesh((char*)GetCadFile("Clover-hull.stl").c_str());
-    mesh.SetScale(mm);
-
-    auto lV = new G4LogicalVolume(mesh.TessellatedMesh(), G4Material::GetMaterial("G4_Al"), "Clover_hull_lV");
-
-    auto va = G4VisAttributes(G4Color(0.5, 0.5, 0.5));
-    va.SetForceSolid(true);
-    lV->SetVisAttributes(va);
-
-    return lV;
-}
-
-G4LogicalVolume* HPGe::Clover::BuildHullFront()
-{
-    return nullptr;
-}
-*/

@@ -17,8 +17,8 @@ message(STATUS "CXX_FLAGS_DEBUG          ${CMAKE_CXX_FLAGS_DEBUG}")
 message(STATUS "CXX_FLAGS_RELEASE        ${CMAKE_CXX_FLAGS_RELEASE}")
 message(STATUS "CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
 
-# Include CADMesh for importing stl geometries
-find_package(cadmesh REQUIRED)
+# Imclude assimp for binary stl files
+find_package(assimp REQUIRED)
 
 add_subdirectory(src)
 
@@ -28,6 +28,6 @@ target_link_libraries(${PROJECT_NAME}
                       G4Horus::construction
                       G4Horus::actions
                       ${Geant4_LIBRARIES}
-                      ${cadmesh_LIBRARIES})
+                      assimp)
 set_target_properties(${PROJECT_NAME}
                       PROPERTIES INTERPROCEDURAL_OPTIMIZATION True)

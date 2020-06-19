@@ -1,4 +1,6 @@
 #include "CADElement.hh"
+#define USE_CADMESH_ASSIMP_READER
+#define CADMESH_DEFAULT_READER ASSIMP
 #include "CADMesh.hh"
 #include "G4VisAttributes.hh"
 
@@ -8,10 +10,8 @@ CADElement::CADElement(std::string filename, const std::string& material, const 
 {
     const auto file = GetCadFile(fFilename);
     std::cout << "CADElement: Meshing " << fFilename << "(" << file << ") ..." << std::endl;
-    // This Version of Cadmesh wants and non-const char ...
-    auto mesh = CADMesh(const_cast<char*>(file.c_str()));
-    mesh.SetScale(mm);
-    fLV = new G4LogicalVolume(mesh.TessellatedMesh(), G4Material::GetMaterial(material), fFilename + "_lV");
+    auto mesh = CADMesh::TessellatedMesh::From(file);
+    fLV = new G4LogicalVolume(mesh->GetSolid(), G4Material::GetMaterial(material), fFilename + "_lV");
     auto va = G4VisAttributes(color);
     va.SetForceSolid(true);
     fLV->SetVisAttributes(va);

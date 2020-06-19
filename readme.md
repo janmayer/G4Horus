@@ -56,7 +56,7 @@ Components:
 
 - A not horribly outdated C++ build environment (`cmake` >= 3.11, `gcc` with C++11 support)
 - [Geant4](https://github.com/Geant4/geant4) >= 10.5 (make sure the proper environment variables are set, see example in `G4Horus.sh`)
-- [CadMesh](https://github.com/christopherpoole/CADMesh/tree/v1.1) V1.1 (exactly!) and its dependencies (WIP)
+- [Assimp](https://www.assimp.org/) to load binary stl files. Should be available in your package manager. Note: CADMesh is bundled and does not need to be installed separately anymore.
 
 ### Installation
 
