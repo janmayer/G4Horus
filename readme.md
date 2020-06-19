@@ -1,6 +1,6 @@
 # G4Horus
 
-[![DOI](https://zenodo.org/badge/130987160.svg)](https://zenodo.org/badge/latestdoi/130987160)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3692474.svg)](https://doi.org/10.5281/zenodo.3692474)
 [![Build Status](https://travis-ci.org/janmayer/G4Horus.svg?branch=master)](https://travis-ci.org/janmayer/G4Horus)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/63623e8d5afb46b3a83014f7281af38c)](https://www.codacy.com/manual/janmayer/G4Horus)
 
