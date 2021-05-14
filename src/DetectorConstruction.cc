@@ -127,7 +127,7 @@ void DetectorConstruction::DefineMaterials()
 
     G4Material* PET = new G4Material("PET", 1.4 * g / cm3, 3);
     PET->AddElement(C, 10);
-    PET->AddElement(O, 3);
+    PET->AddElement(O, 4);
     PET->AddElement(H, 8);
 
     G4Material* Brass = new G4Material("Brass", 8.5 * g / cm3, 2);

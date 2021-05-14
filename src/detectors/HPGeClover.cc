@@ -187,7 +187,7 @@ void HPGe::Clover::Leaf(const G4double mx, const G4double my, const G4double rot
         new G4PVPlacement(G4Transform3D(rm, crystalPO), crystalLV, leaf.name + "_crystalPV", fDetectorLV, false, 0, checkOverlap);
     }
 
-    // Todschicht Kristall
+    // Totschicht Kristall
     {
         auto inactiveSV_Step1 = new G4Tubs("", 0., leaf.crystalRadius, leaf.deadlayerThickness / 2., 0. * deg, 360. * deg);
         auto inactiveSV_Step2 = new G4SubtractionSolid("", inactiveSV_Step1, cutbox, nullptr, G4ThreeVector(0, -(leaf.crystalOffset + cutbox_size), 0));
@@ -212,7 +212,7 @@ void HPGe::Clover::Leaf(const G4double mx, const G4double my, const G4double rot
         auto alabsSV_Step2 = new G4SubtractionSolid("", alabsSV_Step1, cutbox, nullptr, G4ThreeVector(0, -(leaf.crystalOffset + cutbox_size), 0));
         auto alabsSV = new G4SubtractionSolid(leaf.name + "_alAbsSV", alabsSV_Step2, cutbox, nullptr, G4ThreeVector((leaf.crystalOffset + cutbox_size), 0, 0));
 
-        auto alabsLV = new G4LogicalVolume(alabsSV, Ge, leaf.name + "_alAbsLV");
+        auto alabsLV = new G4LogicalVolume(alabsSV, Al, leaf.name + "_alAbsLV");
         auto alabsVA = new G4VisAttributes(G4Colour(1.0, .0, .0));
         alabsVA->SetForceSolid(true);
         alabsLV->SetVisAttributes(alabsVA);
