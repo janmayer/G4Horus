@@ -1,12 +1,13 @@
 language: cpp
 os: linux
-dist: bionic
+dist: focal
 sudo: required
 
 jobs:
   include:
   - env: G4VER=10.5.1
-  - env: G4VER=10.6.1
+  - env: G4VER=10.6.3
+  - env: G4VER=10.7.1
 
 addons:
   apt:
@@ -14,25 +15,23 @@ addons:
       - sourceline: "ppa:ubuntu-toolchain-r/test"
     update: true
     packages:
-      - libxerces-c3.2
       - libxerces-c-dev
-      - expat
-      - libexpat1-dev
+      - libexpat-dev
       - assimp-utils
       - libassimp-dev
       - libassimp-doc
-      - libassimp4
+      - libassimp5
       #- libtet1.5
       #- libtet1.5-dev
       #- tetgen
-      - gcc-9
-      - g++-9
+      - gcc-10
+      - g++-10
 
 before_install:
-  - CC=gcc-9 && CXX=g++-9
+  - CC=gcc-10 && CXX=g++-10
 
 install:
-  - wget https://www.ikp.uni-koeln.de/~jmayer/github/geant4_${G4VER}_amd64.deb
+  - wget https://www.ikp.uni-koeln.de/~jmayer/public/geant4/geant4_${G4VER}_amd64.deb
   - sudo dpkg -i geant4_${G4VER}_amd64.deb
   - source /usr/bin/geant4.sh
 
