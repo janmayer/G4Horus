@@ -52,8 +52,12 @@ BGO::BGO(const _type& type, std::string name)
 
     // Logical Mother Volume
     auto mother_zyl_s = new G4Tubs("BGO_" + fName + "_mother_zyl_solid", zyl_inner_diameter / 2., zyl_outer_diameter / 2., zyl_length / 2., 0. * deg, 360. * deg);
-    auto mother_cons_s = new G4Cons("BGO_" + fName + "_mother_cons_solid", nose_front_inner_diameter / 2., nose_front_outer_diameter / 2., cone_back_inner_diameter / 2., cone_back_outer_diameter / 2., (nose_length + cone_length) / 2., 0. * deg, 360. * deg);
-    auto mother_s = new G4UnionSolid("BGO_" + fName + "_mother_solid", mother_zyl_s, mother_cons_s, nullptr, G4ThreeVector(0., 0., -fLength / 2.));
+    auto mother_cons_s = new G4Cons("BGO_" + fName + "_mother_cons_solid", cone_front_inner_diameter / 2., cone_front_outer_diameter / 2., cone_back_inner_diameter / 2., cone_back_outer_diameter / 2., cone_length / 2., 0. * deg, 360. * deg);
+    auto mother_s1 = new G4UnionSolid("BGO_" + fName + "_mother1_solid", mother_zyl_s, mother_cons_s, nullptr, G4ThreeVector(0., 0., -(zyl_length + cone_length) / 2.));
+
+    auto mother_nose_s = new G4Cons("BGO_" + fName + "_mother_nose_solid", nose_front_inner_diameter / 2., nose_front_outer_diameter / 2., nose_back_inner_diameter / 2., nose_back_outer_diameter / 2., nose_length / 2, 0. * deg, 360. * deg);
+    auto mother_s = new G4UnionSolid("BGO_" + fName + "_mother_solid", mother_s1, mother_nose_s, nullptr, G4ThreeVector(0., 0., -(zyl_length + cone_length) / 2. - nose_length));
+
     auto mother_mat = G4Material::GetMaterial("Galactic");
 
     fDetectorLV = new G4LogicalVolume(mother_s, mother_mat, "BGO_" + fName + "_mother_lv");
